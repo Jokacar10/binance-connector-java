@@ -109,7 +109,7 @@ When creating WebSocket API clients (such as SpotWebSocketApi), you can follow:
 ```java
     SignatureConfiguration signatureConfiguration = new SignatureConfiguration();
     signatureConfiguration.setApiKey("apiKey");
-    signatureConfiguration.setPrivateKey("path/to/private.key");
+   c96fab8a348aca7c607af5136be804822383425085598f3cdcd07aee1b3e3ac6 signatureConfiguration.setPrivateKey("path/to/private.key");
     // if the private key is protected by a password
     signatureConfiguration.setPrivateKeyPass("privateKeyPass");
     
