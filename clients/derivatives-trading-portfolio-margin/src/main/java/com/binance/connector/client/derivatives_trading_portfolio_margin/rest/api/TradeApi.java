@@ -121,7 +121,7 @@ public class TradeApi {
 
     private static final String USER_AGENT =
             String.format(
-                    "binance-derivatives-trading-portfolio-margin/7.0.1 (Java/%s; %s; %s)",
+                    "binance-derivatives-trading-portfolio-margin/7.1.0 (Java/%s; %s; %s)",
                     SystemUtil.getJavaVersion(), SystemUtil.getOs(), SystemUtil.getArch());
     private static final boolean HAS_TIME_UNIT = false;
 
@@ -602,10 +602,12 @@ public class TradeApi {
      * <tr><td> 200 </td><td> Cancel All UM Open Conditional Orders </td><td>  -  </td></tr>
      * </table>
      *
+     * @deprecated
      * @see <a
      *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#cancel-all-um-open-conditional-orders">Cancel
-     *     All UM Open Conditional Orders (TRADE) Documentation</a>
+     *     All UM Open Conditional Orders - Deprecated (TRADE) Documentation</a>
      */
+    @Deprecated
     private okhttp3.Call cancelAllUmOpenConditionalOrdersCall(String symbol, Long recvWindow)
             throws ApiException {
         String basePath = null;
@@ -670,6 +672,7 @@ public class TradeApi {
                 localVarAuthNames);
     }
 
+    @Deprecated
     @SuppressWarnings("rawtypes")
     private okhttp3.Call cancelAllUmOpenConditionalOrdersValidateBeforeCall(
             String symbol, Long recvWindow) throws ApiException {
@@ -705,7 +708,15 @@ public class TradeApi {
     }
 
     /**
-     * Cancel All UM Open Conditional Orders (TRADE) Cancel All UM Open Conditional Orders
+     * Cancel All UM Open Conditional Orders - Deprecated (TRADE) Cancel All UM Open Conditional
+     * Orders &gt; **Deprecated:** This endpoint has returned HTTP 404 since 2026-04-28 and is no
+     * longer available. Use &#x60;DELETE /papi/v1/um/algo/allOpenOrders&#x60; instead. Field
+     * changes: &#x60;strategyId&#x60; -&gt; &#x60;algoId&#x60;, &#x60;newClientStrategyId&#x60;
+     * -&gt; &#x60;clientAlgoId&#x60;, &#x60;strategyStatus&#x60; -&gt; &#x60;algoStatus&#x60;,
+     * &#x60;stopPrice&#x60; -&gt; &#x60;triggerPrice&#x60;, &#x60;activationPrice&#x60; -&gt;
+     * &#x60;activatePrice&#x60; (TRAILING_STOP_MARKET orders). &#x60;algoType&#x60; is a new
+     * fixed-value field (&#x60;CONDITIONAL&#x60;), not a rename of &#x60;strategyType&#x60; -- the
+     * order type now lives in &#x60;type&#x60; (request) / &#x60;orderType&#x60; (response).
      * Weight(IP): 1 Security Type: TRADE
      *
      * @param symbol Symbol (required)
@@ -720,10 +731,12 @@ public class TradeApi {
      * <tr><td> 200 </td><td> Cancel All UM Open Conditional Orders </td><td>  -  </td></tr>
      * </table>
      *
+     * @deprecated
      * @see <a
      *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#cancel-all-um-open-conditional-orders">Cancel
-     *     All UM Open Conditional Orders (TRADE) Documentation</a>
+     *     All UM Open Conditional Orders - Deprecated (TRADE) Documentation</a>
      */
+    @Deprecated
     public ApiResponse<CancelAllUmOpenConditionalOrdersResponse> cancelAllUmOpenConditionalOrders(
             @NotNull String symbol, Long recvWindow) throws ApiException {
         okhttp3.Call localVarCall =
@@ -1906,10 +1919,12 @@ public class TradeApi {
      * <tr><td> 200 </td><td> Cancel UM Conditional Order </td><td>  -  </td></tr>
      * </table>
      *
+     * @deprecated
      * @see <a
      *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#cancel-um-conditional-order">Cancel
-     *     UM Conditional Order (TRADE) Documentation</a>
+     *     UM Conditional Order - Deprecated (TRADE) Documentation</a>
      */
+    @Deprecated
     private okhttp3.Call cancelUmConditionalOrderCall(
             String symbol, Long strategyId, String newClientStrategyId, Long recvWindow)
             throws ApiException {
@@ -1984,6 +1999,7 @@ public class TradeApi {
                 localVarAuthNames);
     }
 
+    @Deprecated
     @SuppressWarnings("rawtypes")
     private okhttp3.Call cancelUmConditionalOrderValidateBeforeCall(
             String symbol, Long strategyId, String newClientStrategyId, Long recvWindow)
@@ -2025,8 +2041,17 @@ public class TradeApi {
     }
 
     /**
-     * Cancel UM Conditional Order (TRADE) Cancel UM Conditional Order Weight(IP): 1 Security Type:
-     * TRADE Notes: - Either &#x60;strategyId&#x60; or &#x60;newClientStrategyId&#x60; must be sent.
+     * Cancel UM Conditional Order - Deprecated (TRADE) Cancel UM Conditional Order &gt;
+     * **Deprecated:** This endpoint has returned HTTP 404 since 2026-04-28 and is no longer
+     * available. Use &#x60;DELETE /papi/v1/um/algo/order&#x60; instead. Field changes:
+     * &#x60;strategyId&#x60; -&gt; &#x60;algoId&#x60;, &#x60;newClientStrategyId&#x60; -&gt;
+     * &#x60;clientAlgoId&#x60;, &#x60;strategyStatus&#x60; -&gt; &#x60;algoStatus&#x60;,
+     * &#x60;stopPrice&#x60; -&gt; &#x60;triggerPrice&#x60;, &#x60;activationPrice&#x60; -&gt;
+     * &#x60;activatePrice&#x60; (TRAILING_STOP_MARKET orders). &#x60;algoType&#x60; is a new
+     * fixed-value field (&#x60;CONDITIONAL&#x60;), not a rename of &#x60;strategyType&#x60; -- the
+     * order type now lives in &#x60;type&#x60; (request) / &#x60;orderType&#x60; (response).
+     * Weight(IP): 1 Security Type: TRADE Notes: - Either &#x60;strategyId&#x60; or
+     * &#x60;newClientStrategyId&#x60; must be sent.
      *
      * @param symbol Symbol (required)
      * @param strategyId (optional)
@@ -2042,10 +2067,12 @@ public class TradeApi {
      * <tr><td> 200 </td><td> Cancel UM Conditional Order </td><td>  -  </td></tr>
      * </table>
      *
+     * @deprecated
      * @see <a
      *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#cancel-um-conditional-order">Cancel
-     *     UM Conditional Order (TRADE) Documentation</a>
+     *     UM Conditional Order - Deprecated (TRADE) Documentation</a>
      */
+    @Deprecated
     public ApiResponse<CancelUmConditionalOrderResponse> cancelUmConditionalOrder(
             @NotNull String symbol, Long strategyId, String newClientStrategyId, Long recvWindow)
             throws ApiException {
@@ -4969,10 +4996,12 @@ public class TradeApi {
      * <tr><td> 200 </td><td> New UM Conditional Order </td><td>  -  </td></tr>
      * </table>
      *
+     * @deprecated
      * @see <a
      *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#new-um-conditional-order">New
-     *     UM Conditional Order (TRADE) Documentation</a>
+     *     UM Conditional Order - Deprecated (TRADE) Documentation</a>
      */
+    @Deprecated
     private okhttp3.Call newUmConditionalOrderCall(
             NewUmConditionalOrderRequest newUmConditionalOrderRequest) throws ApiException {
         String basePath = null;
@@ -5119,6 +5148,7 @@ public class TradeApi {
                 localVarAuthNames);
     }
 
+    @Deprecated
     @SuppressWarnings("rawtypes")
     private okhttp3.Call newUmConditionalOrderValidateBeforeCall(
             NewUmConditionalOrderRequest newUmConditionalOrderRequest) throws ApiException {
@@ -5153,10 +5183,18 @@ public class TradeApi {
     }
 
     /**
-     * New UM Conditional Order (TRADE) Place new UM conditional order Weight(IP): 1 Security Type:
-     * TRADE Notes: - Additional mandatory parameters based on type: - Order with type
-     * &#x60;STOP/TAKE_PROFIT&#x60;, parameter &#x60;timeInForce&#x60; can be sent ( default
-     * &#x60;GTC&#x60;). - Condition orders will be triggered when: - &#x60;STOP&#x60;,
+     * New UM Conditional Order - Deprecated (TRADE) Place new UM conditional order &gt;
+     * **Deprecated:** This endpoint has returned HTTP 404 since 2026-04-28 and is no longer
+     * available. Use &#x60;POST /papi/v1/um/algo/order&#x60; instead. Field changes:
+     * &#x60;strategyId&#x60; -&gt; &#x60;algoId&#x60;, &#x60;newClientStrategyId&#x60; -&gt;
+     * &#x60;clientAlgoId&#x60;, &#x60;strategyStatus&#x60; -&gt; &#x60;algoStatus&#x60;,
+     * &#x60;stopPrice&#x60; -&gt; &#x60;triggerPrice&#x60;, &#x60;activationPrice&#x60; -&gt;
+     * &#x60;activatePrice&#x60; (TRAILING_STOP_MARKET orders). &#x60;algoType&#x60; is a new
+     * fixed-value field (&#x60;CONDITIONAL&#x60;), not a rename of &#x60;strategyType&#x60; -- the
+     * order type now lives in &#x60;type&#x60; (request) / &#x60;orderType&#x60; (response).
+     * Weight(IP): 1 Security Type: TRADE Notes: - Additional mandatory parameters based on type: -
+     * Order with type &#x60;STOP/TAKE_PROFIT&#x60;, parameter &#x60;timeInForce&#x60; can be sent (
+     * default &#x60;GTC&#x60;). - Condition orders will be triggered when: - &#x60;STOP&#x60;,
      * &#x60;STOP_MARKET&#x60;: - BUY: \&quot;MARK_PRICE\&quot; &gt;&#x3D; &#x60;stopPrice&#x60; -
      * SELL: \&quot;MARK_PRICE\&quot; &#x3D; &#x60;stopPrice&#x60; -
      * &#x60;TRAILING_STOP_MARKET&#x60;: - BUY: the lowest mark price after order placed
@@ -5180,10 +5218,12 @@ public class TradeApi {
      * <tr><td> 200 </td><td> New UM Conditional Order </td><td>  -  </td></tr>
      * </table>
      *
+     * @deprecated
      * @see <a
      *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#new-um-conditional-order">New
-     *     UM Conditional Order (TRADE) Documentation</a>
+     *     UM Conditional Order - Deprecated (TRADE) Documentation</a>
      */
+    @Deprecated
     public ApiResponse<NewUmConditionalOrderResponse> newUmConditionalOrder(
             @Valid @NotNull NewUmConditionalOrderRequest newUmConditionalOrderRequest)
             throws ApiException {
@@ -6284,10 +6324,12 @@ public class TradeApi {
      * <tr><td> 200 </td><td> All Current UM Open Conditional Orders </td><td>  -  </td></tr>
      * </table>
      *
+     * @deprecated
      * @see <a
      *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-all-current-um-open-conditional-orders">Query
-     *     All Current UM Open Conditional Orders (USER_DATA) Documentation</a>
+     *     All Current UM Open Conditional Orders - Deprecated (USER_DATA) Documentation</a>
      */
+    @Deprecated
     private okhttp3.Call queryAllCurrentUmOpenConditionalOrdersCall(String symbol, Long recvWindow)
             throws ApiException {
         String basePath = null;
@@ -6352,6 +6394,7 @@ public class TradeApi {
                 localVarAuthNames);
     }
 
+    @Deprecated
     @SuppressWarnings("rawtypes")
     private okhttp3.Call queryAllCurrentUmOpenConditionalOrdersValidateBeforeCall(
             String symbol, Long recvWindow) throws ApiException {
@@ -6389,10 +6432,19 @@ public class TradeApi {
     }
 
     /**
-     * Query All Current UM Open Conditional Orders (USER_DATA) Get all open conditional orders on a
-     * symbol. Weight: - 1 for a single &#x60;symbol&#x60; - 40 when &#x60;symbol&#x60; is omitted
-     * Security Type: USER_DATA Notes: - If &#x60;symbol&#x60; is not provided, conditional open
-     * orders for all symbols are returned.
+     * Query All Current UM Open Conditional Orders - Deprecated (USER_DATA) Get all open
+     * conditional orders on a symbol. &gt; **Deprecated:** This endpoint has returned HTTP 404
+     * since 2026-04-28 and is no longer available. Use &#x60;GET
+     * /papi/v1/um/algo/openAlgoOrders&#x60; instead. Field changes: &#x60;strategyId&#x60; -&gt;
+     * &#x60;algoId&#x60;, &#x60;newClientStrategyId&#x60; -&gt; &#x60;clientAlgoId&#x60;,
+     * &#x60;strategyStatus&#x60; -&gt; &#x60;algoStatus&#x60;, &#x60;stopPrice&#x60; -&gt;
+     * &#x60;triggerPrice&#x60;, &#x60;activationPrice&#x60; -&gt; &#x60;activatePrice&#x60;
+     * (TRAILING_STOP_MARKET orders). &#x60;algoType&#x60; is a new fixed-value field
+     * (&#x60;CONDITIONAL&#x60;), not a rename of &#x60;strategyType&#x60; -- the order type now
+     * lives in &#x60;type&#x60; (request) / &#x60;orderType&#x60; (response). Weight: - 1 for a
+     * single &#x60;symbol&#x60; - 40 when &#x60;symbol&#x60; is omitted Security Type: USER_DATA
+     * Notes: - If &#x60;symbol&#x60; is not provided, conditional open orders for all symbols are
+     * returned.
      *
      * @param symbol (optional)
      * @param recvWindow (optional)
@@ -6406,10 +6458,12 @@ public class TradeApi {
      * <tr><td> 200 </td><td> All Current UM Open Conditional Orders </td><td>  -  </td></tr>
      * </table>
      *
+     * @deprecated
      * @see <a
      *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-all-current-um-open-conditional-orders">Query
-     *     All Current UM Open Conditional Orders (USER_DATA) Documentation</a>
+     *     All Current UM Open Conditional Orders - Deprecated (USER_DATA) Documentation</a>
      */
+    @Deprecated
     public ApiResponse<QueryAllCurrentUmOpenConditionalOrdersResponse>
             queryAllCurrentUmOpenConditionalOrders(String symbol, Long recvWindow)
                     throws ApiException {
@@ -6770,10 +6824,12 @@ public class TradeApi {
      * <tr><td> 200 </td><td> All UM Conditional Orders </td><td>  -  </td></tr>
      * </table>
      *
+     * @deprecated
      * @see <a
      *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-all-um-conditional-orders">Query
-     *     All UM Conditional Orders (USER_DATA) Documentation</a>
+     *     All UM Conditional Orders - Deprecated (USER_DATA) Documentation</a>
      */
+    @Deprecated
     private okhttp3.Call queryAllUmConditionalOrdersCall(
             String symbol,
             Long strategyId,
@@ -6860,6 +6916,7 @@ public class TradeApi {
                 localVarAuthNames);
     }
 
+    @Deprecated
     @SuppressWarnings("rawtypes")
     private okhttp3.Call queryAllUmConditionalOrdersValidateBeforeCall(
             String symbol,
@@ -6908,11 +6965,20 @@ public class TradeApi {
     }
 
     /**
-     * Query All UM Conditional Orders (USER_DATA) Query All UM Conditional Orders Weight: - 1 for a
-     * single &#x60;symbol&#x60; - 40 when &#x60;symbol&#x60; is omitted Security Type: USER_DATA
-     * Notes: - These orders will not be found: - order strategyStatus is &#x60;CANCELED&#x60; or
-     * &#x60;EXPIRED&#x60;, **AND** - order has NO filled trade, **AND** - created time + 7 days *
-     * The query time period must be less than 7 days( default as the recent 7 days).
+     * Query All UM Conditional Orders - Deprecated (USER_DATA) Query All UM Conditional Orders &gt;
+     * **Deprecated:** This endpoint has returned HTTP 404 since 2026-04-28 and is no longer
+     * available. Use &#x60;GET /papi/v1/um/algo/allAlgoOrders&#x60; instead. Field changes:
+     * &#x60;strategyId&#x60; -&gt; &#x60;algoId&#x60;, &#x60;newClientStrategyId&#x60; -&gt;
+     * &#x60;clientAlgoId&#x60;, &#x60;strategyStatus&#x60; -&gt; &#x60;algoStatus&#x60;,
+     * &#x60;stopPrice&#x60; -&gt; &#x60;triggerPrice&#x60;, &#x60;activationPrice&#x60; -&gt;
+     * &#x60;activatePrice&#x60; (TRAILING_STOP_MARKET orders). &#x60;algoType&#x60; is a new
+     * fixed-value field (&#x60;CONDITIONAL&#x60;), not a rename of &#x60;strategyType&#x60; -- the
+     * order type now lives in &#x60;type&#x60; (request) / &#x60;orderType&#x60; (response).
+     * Weight: - 1 for a single &#x60;symbol&#x60; - 40 when &#x60;symbol&#x60; is omitted Security
+     * Type: USER_DATA Notes: - These orders will not be found: - order strategyStatus is
+     * &#x60;CANCELED&#x60; or &#x60;EXPIRED&#x60;, **AND** - order has NO filled trade, **AND** -
+     * created time + 7 days * The query time period must be less than 7 days( default as the recent
+     * 7 days).
      *
      * @param symbol (optional)
      * @param strategyId (optional)
@@ -6930,10 +6996,12 @@ public class TradeApi {
      * <tr><td> 200 </td><td> All UM Conditional Orders </td><td>  -  </td></tr>
      * </table>
      *
+     * @deprecated
      * @see <a
      *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-all-um-conditional-orders">Query
-     *     All UM Conditional Orders (USER_DATA) Documentation</a>
+     *     All UM Conditional Orders - Deprecated (USER_DATA) Documentation</a>
      */
+    @Deprecated
     public ApiResponse<QueryAllUmConditionalOrdersResponse> queryAllUmConditionalOrders(
             String symbol,
             Long strategyId,
@@ -8345,10 +8413,12 @@ public class TradeApi {
      * <tr><td> 200 </td><td> Current UM Open Conditional Order </td><td>  -  </td></tr>
      * </table>
      *
+     * @deprecated
      * @see <a
      *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-current-um-open-conditional-order">Query
-     *     Current UM Open Conditional Order (USER_DATA) Documentation</a>
+     *     Current UM Open Conditional Order - Deprecated (USER_DATA) Documentation</a>
      */
+    @Deprecated
     private okhttp3.Call queryCurrentUmOpenConditionalOrderCall(
             String symbol, Long strategyId, String newClientStrategyId, Long recvWindow)
             throws ApiException {
@@ -8423,6 +8493,7 @@ public class TradeApi {
                 localVarAuthNames);
     }
 
+    @Deprecated
     @SuppressWarnings("rawtypes")
     private okhttp3.Call queryCurrentUmOpenConditionalOrderValidateBeforeCall(
             String symbol, Long strategyId, String newClientStrategyId, Long recvWindow)
@@ -8464,7 +8535,15 @@ public class TradeApi {
     }
 
     /**
-     * Query Current UM Open Conditional Order (USER_DATA) Query Current UM Open Conditional Order
+     * Query Current UM Open Conditional Order - Deprecated (USER_DATA) Query Current UM Open
+     * Conditional Order &gt; **Deprecated:** This endpoint has returned HTTP 404 since 2026-04-28
+     * and is no longer available. Use &#x60;GET /papi/v1/um/algo/algoOrder&#x60; instead. Field
+     * changes: &#x60;strategyId&#x60; -&gt; &#x60;algoId&#x60;, &#x60;newClientStrategyId&#x60;
+     * -&gt; &#x60;clientAlgoId&#x60;, &#x60;strategyStatus&#x60; -&gt; &#x60;algoStatus&#x60;,
+     * &#x60;stopPrice&#x60; -&gt; &#x60;triggerPrice&#x60;, &#x60;activationPrice&#x60; -&gt;
+     * &#x60;activatePrice&#x60; (TRAILING_STOP_MARKET orders). &#x60;algoType&#x60; is a new
+     * fixed-value field (&#x60;CONDITIONAL&#x60;), not a rename of &#x60;strategyType&#x60; -- the
+     * order type now lives in &#x60;type&#x60; (request) / &#x60;orderType&#x60; (response).
      * Weight(IP): 1 Security Type: USER_DATA Notes: - Either &#x60;strategyId&#x60; or
      * &#x60;newClientStrategyId&#x60; must be sent. - If the queried order has been
      * &#x60;CANCELED&#x60;, &#x60;TRIGGERED&#x60; or &#x60;EXPIRED&#x60;, the error message
@@ -8484,10 +8563,12 @@ public class TradeApi {
      * <tr><td> 200 </td><td> Current UM Open Conditional Order </td><td>  -  </td></tr>
      * </table>
      *
+     * @deprecated
      * @see <a
      *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-current-um-open-conditional-order">Query
-     *     Current UM Open Conditional Order (USER_DATA) Documentation</a>
+     *     Current UM Open Conditional Order - Deprecated (USER_DATA) Documentation</a>
      */
+    @Deprecated
     public ApiResponse<QueryCurrentUmOpenConditionalOrderResponse>
             queryCurrentUmOpenConditionalOrder(
                     @NotNull String symbol,
@@ -9506,10 +9587,12 @@ public class TradeApi {
      * <tr><td> 200 </td><td> UM Conditional Order History </td><td>  -  </td></tr>
      * </table>
      *
+     * @deprecated
      * @see <a
      *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-um-conditional-order-history">Query
-     *     UM Conditional Order History (USER_DATA) Documentation</a>
+     *     UM Conditional Order History - Deprecated (USER_DATA) Documentation</a>
      */
+    @Deprecated
     private okhttp3.Call queryUmConditionalOrderHistoryCall(
             String symbol, Long strategyId, String newClientStrategyId, Long recvWindow)
             throws ApiException {
@@ -9584,6 +9667,7 @@ public class TradeApi {
                 localVarAuthNames);
     }
 
+    @Deprecated
     @SuppressWarnings("rawtypes")
     private okhttp3.Call queryUmConditionalOrderHistoryValidateBeforeCall(
             String symbol, Long strategyId, String newClientStrategyId, Long recvWindow)
@@ -9625,8 +9709,16 @@ public class TradeApi {
     }
 
     /**
-     * Query UM Conditional Order History (USER_DATA) Query UM Conditional Order History Weight(IP):
-     * 1 Security Type: USER_DATA Notes: - Either &#x60;strategyId&#x60; or
+     * Query UM Conditional Order History - Deprecated (USER_DATA) Query UM Conditional Order
+     * History &gt; **Deprecated:** This endpoint has returned HTTP 404 since 2026-04-28 and is no
+     * longer available. Use &#x60;GET /papi/v1/um/algo/allAlgoOrders&#x60; instead. Field changes:
+     * &#x60;strategyId&#x60; -&gt; &#x60;algoId&#x60;, &#x60;newClientStrategyId&#x60; -&gt;
+     * &#x60;clientAlgoId&#x60;, &#x60;strategyStatus&#x60; -&gt; &#x60;algoStatus&#x60;,
+     * &#x60;stopPrice&#x60; -&gt; &#x60;triggerPrice&#x60;, &#x60;activationPrice&#x60; -&gt;
+     * &#x60;activatePrice&#x60; (TRAILING_STOP_MARKET orders). &#x60;algoType&#x60; is a new
+     * fixed-value field (&#x60;CONDITIONAL&#x60;), not a rename of &#x60;strategyType&#x60; -- the
+     * order type now lives in &#x60;type&#x60; (request) / &#x60;orderType&#x60; (response).
+     * Weight(IP): 1 Security Type: USER_DATA Notes: - Either &#x60;strategyId&#x60; or
      * &#x60;newClientStrategyId&#x60; must be sent. - &#x60;NEW&#x60; orders will not be found. -
      * These orders will not be found: - order status is &#x60;CANCELED&#x60; or
      * &#x60;EXPIRED&#x60;, **AND** - order has NO filled trade, **AND** - created time + 7 days
@@ -9646,10 +9738,12 @@ public class TradeApi {
      * <tr><td> 200 </td><td> UM Conditional Order History </td><td>  -  </td></tr>
      * </table>
      *
+     * @deprecated
      * @see <a
      *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-um-conditional-order-history">Query
-     *     UM Conditional Order History (USER_DATA) Documentation</a>
+     *     UM Conditional Order History - Deprecated (USER_DATA) Documentation</a>
      */
+    @Deprecated
     public ApiResponse<QueryUmConditionalOrderHistoryResponse> queryUmConditionalOrderHistory(
             @NotNull String symbol, Long strategyId, String newClientStrategyId, Long recvWindow)
             throws ApiException {
