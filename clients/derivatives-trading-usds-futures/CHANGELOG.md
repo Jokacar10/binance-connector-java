@@ -1,5 +1,16 @@
 # Changelog
 
+## 12.0.3 - 2026-08-27
+
+### Changed (1)
+
+#### REST API
+
+- Modified parameter `symbol`:
+  - required: `true` → `false`
+  - affected methods:
+    - `allOrders()` (`GET /fapi/v1/allOrders`)
+
 ## 12.0.2 - 2026-08-25
 
 ### Changed (9)

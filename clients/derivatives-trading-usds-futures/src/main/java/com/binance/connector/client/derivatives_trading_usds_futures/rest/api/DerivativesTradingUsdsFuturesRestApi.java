@@ -1786,7 +1786,7 @@ public class DerivativesTradingUsdsFuturesRestApi {
      * not sent, then the last 7 days&#39; data will be returned. - The time between
      * &#x60;startTime&#x60; and &#x60;endTime&#x60; cannot be longer than 7 days. - The parameter
      * &#x60;fromId&#x60; cannot be sent with &#x60;startTime&#x60; or &#x60;endTime&#x60;. - Only
-     * support querying trade in the past 6 months
+     * support querying trade in the past 3 months
      *
      * @param symbol (required)
      * @param orderId Must be used together with parameter &#x60;symbol&#x60;. (optional)
@@ -1831,7 +1831,7 @@ public class DerivativesTradingUsdsFuturesRestApi {
      * most recent orders are returned. - The query time period must be less then 7 days( default as
      * the recent 7 days).
      *
-     * @param symbol (required)
+     * @param symbol (optional)
      * @param orderId (optional)
      * @param startTime Start time (optional)
      * @param endTime End time (optional)
