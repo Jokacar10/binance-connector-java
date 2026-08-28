@@ -144,7 +144,7 @@
 
 [POST /papi/v1/margin/order](https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#new-margin-order) - newMarginOrder - [NewMarginOrderExample.java:39](/examples/derivatives-trading-portfolio-margin/src/main/java/com/binance/connector/client/derivatives_trading_portfolio_margin/rest/trade/NewMarginOrderExample.java#L39)
 
-[POST /papi/v1/um/algo/order](https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#new-um-algo-order) - newUmAlgoOrder - [NewUmAlgoOrderExample.java:53](/examples/derivatives-trading-portfolio-margin/src/main/java/com/binance/connector/client/derivatives_trading_portfolio_margin/rest/trade/NewUmAlgoOrderExample.java#L53)
+[POST /papi/v1/um/algo/order](https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#new-um-algo-order) - newUmAlgoOrder - [NewUmAlgoOrderExample.java:60](/examples/derivatives-trading-portfolio-margin/src/main/java/com/binance/connector/client/derivatives_trading_portfolio_margin/rest/trade/NewUmAlgoOrderExample.java#L60)
 
 [POST /papi/v1/um/conditional/order](https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#new-um-conditional-order) - newUmConditionalOrder - [NewUmConditionalOrderExample.java:60](/examples/derivatives-trading-portfolio-margin/src/main/java/com/binance/connector/client/derivatives_trading_portfolio_margin/rest/trade/NewUmConditionalOrderExample.java#L60)
 
