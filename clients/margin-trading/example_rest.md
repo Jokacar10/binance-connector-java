@@ -28,7 +28,7 @@
 
 [GET /sapi/v1/margin/interestHistory](https://developers.binance.com/en/docs/catalog/core-trading-margin-trading/api/rest-api/borrow-repay#get-interest-history) - getInterestHistory - [GetInterestHistoryExample.java:47](/examples/margin-trading/src/main/java/com/binance/connector/client/margin_trading/rest/borrowrepay/GetInterestHistoryExample.java#L47)
 
-[POST /sapi/v1/margin/borrow-repay](https://developers.binance.com/en/docs/catalog/core-trading-margin-trading/api/rest-api/borrow-repay#margin-account-borrow-repay) - marginAccountBorrowRepay - [MarginAccountBorrowRepayExample.java:39](/examples/margin-trading/src/main/java/com/binance/connector/client/margin_trading/rest/borrowrepay/MarginAccountBorrowRepayExample.java#L39)
+[POST /sapi/v1/margin/borrow-repay](https://developers.binance.com/en/docs/catalog/core-trading-margin-trading/api/rest-api/borrow-repay#margin-account-borrow-repay) - marginAccountBorrowRepay - [MarginAccountBorrowRepayExample.java:54](/examples/margin-trading/src/main/java/com/binance/connector/client/margin_trading/rest/borrowrepay/MarginAccountBorrowRepayExample.java#L54)
 
 [GET /sapi/v1/margin/borrow-repay](https://developers.binance.com/en/docs/catalog/core-trading-margin-trading/api/rest-api/borrow-repay#query-borrow-repay-records-in-margin-account) - queryBorrowRepayRecordsInMarginAccount - [QueryBorrowRepayRecordsInMarginAccountExample.java:43](/examples/margin-trading/src/main/java/com/binance/connector/client/margin_trading/rest/borrowrepay/QueryBorrowRepayRecordsInMarginAccountExample.java#L43)
 
