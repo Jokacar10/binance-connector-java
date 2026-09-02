@@ -92,7 +92,7 @@
 
 [POST /sapi/v1/margin/order](https://developers.binance.com/en/docs/catalog/core-trading-margin-trading/api/rest-api/trade#margin-account-new-order) - marginAccountNewOrder - [MarginAccountNewOrderExample.java:42](/examples/margin-trading/src/main/java/com/binance/connector/client/margin_trading/rest/trade/MarginAccountNewOrderExample.java#L42)
 
-[POST /sapi/v1/margin/order/oto](https://developers.binance.com/en/docs/catalog/core-trading-margin-trading/api/rest-api/trade#margin-account-new-oto) - marginAccountNewOto - [MarginAccountNewOtoExample.java:69](/examples/margin-trading/src/main/java/com/binance/connector/client/margin_trading/rest/trade/MarginAccountNewOtoExample.java#L69)
+[POST /sapi/v1/margin/order/oto](https://developers.binance.com/en/docs/catalog/core-trading-margin-trading/api/rest-api/trade#margin-account-new-oto) - marginAccountNewOto - [MarginAccountNewOtoExample.java:67](/examples/margin-trading/src/main/java/com/binance/connector/client/margin_trading/rest/trade/MarginAccountNewOtoExample.java#L67)
 
 [POST /sapi/v1/margin/order/otoco](https://developers.binance.com/en/docs/catalog/core-trading-margin-trading/api/rest-api/trade#margin-account-new-otoco) - marginAccountNewOtoco - [MarginAccountNewOtocoExample.java:72](/examples/margin-trading/src/main/java/com/binance/connector/client/margin_trading/rest/trade/MarginAccountNewOtocoExample.java#L72)
 
