@@ -1,6 +1,6 @@
 /*
- * Binance Crypto Loan REST API
- * OpenAPI Specification for the Binance Crypto Loan REST API
+ * Crypto Loan REST API
+ * Access Binance Crypto Loans to query assets, subscribe to loans, and manage loan positions.
  *
  * The version of the OpenAPI document: 1.0.0
  *
@@ -29,15 +29,13 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 import org.hibernate.validator.constraints.*;
 
 /** FlexibleLoanRepayRequest */
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
-        comments = "Generator version: 7.12.0")
+        comments = "Generator version: 7.22.0")
 public class FlexibleLoanRepayRequest {
     public static final String SERIALIZED_NAME_LOAN_COIN = "loanCoin";
 
@@ -61,19 +59,19 @@ public class FlexibleLoanRepayRequest {
 
     @SerializedName(SERIALIZED_NAME_COLLATERAL_RETURN)
     @jakarta.annotation.Nullable
-    private Boolean collateralReturn;
+    private Boolean collateralReturn = true;
 
     public static final String SERIALIZED_NAME_FULL_REPAYMENT = "fullRepayment";
 
     @SerializedName(SERIALIZED_NAME_FULL_REPAYMENT)
     @jakarta.annotation.Nullable
-    private Boolean fullRepayment;
+    private Boolean fullRepayment = false;
 
     public static final String SERIALIZED_NAME_REPAYMENT_TYPE = "repaymentType";
 
     @SerializedName(SERIALIZED_NAME_REPAYMENT_TYPE)
     @jakarta.annotation.Nullable
-    private Long repaymentType;
+    private RepaymentType repaymentType = RepaymentType.REPAYMENT_TYPE_1;
 
     public static final String SERIALIZED_NAME_RECV_WINDOW = "recvWindow";
 
@@ -152,7 +150,8 @@ public class FlexibleLoanRepayRequest {
     }
 
     /**
-     * Get collateralReturn
+     * TRUE: Return extra collateral to spot account; FALSE: Keep extra collateral in the order and
+     * lower LTV.
      *
      * @return collateralReturn
      */
@@ -172,7 +171,7 @@ public class FlexibleLoanRepayRequest {
     }
 
     /**
-     * Get fullRepayment
+     * TRUE: Full repayment; FALSE: Partial repayment based on loan amount
      *
      * @return fullRepayment
      */
@@ -185,7 +184,8 @@ public class FlexibleLoanRepayRequest {
         this.fullRepayment = fullRepayment;
     }
 
-    public FlexibleLoanRepayRequest repaymentType(@jakarta.annotation.Nullable Long repaymentType) {
+    public FlexibleLoanRepayRequest repaymentType(
+            @jakarta.annotation.Nullable RepaymentType repaymentType) {
         this.repaymentType = repaymentType;
         return this;
     }
@@ -196,11 +196,12 @@ public class FlexibleLoanRepayRequest {
      * @return repaymentType
      */
     @jakarta.annotation.Nullable
-    public Long getRepaymentType() {
+    @Valid
+    public RepaymentType getRepaymentType() {
         return repaymentType;
     }
 
-    public void setRepaymentType(@jakarta.annotation.Nullable Long repaymentType) {
+    public void setRepaymentType(@jakarta.annotation.Nullable RepaymentType repaymentType) {
         this.repaymentType = repaymentType;
     }
 
@@ -210,11 +211,12 @@ public class FlexibleLoanRepayRequest {
     }
 
     /**
-     * Get recvWindow
+     * Request validity window in milliseconds maximum: 60000
      *
      * @return recvWindow
      */
     @jakarta.annotation.Nullable
+    @Max(60000L)
     public Long getRecvWindow() {
         return recvWindow;
     }
@@ -360,18 +362,6 @@ public class FlexibleLoanRepayRequest {
             }
         }
 
-        Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
-        // check to see if the JSON string contains additional fields
-        for (Map.Entry<String, JsonElement> entry : entries) {
-            if (!FlexibleLoanRepayRequest.openapiFields.contains(entry.getKey())) {
-                throw new IllegalArgumentException(
-                        String.format(
-                                "The field `%s` in the JSON string is not defined in the"
-                                        + " `FlexibleLoanRepayRequest` properties. JSON: %s",
-                                entry.getKey(), jsonElement.toString()));
-            }
-        }
-
         // check to make sure all required properties/fields are present in the JSON string
         for (String requiredField : FlexibleLoanRepayRequest.openapiRequiredFields) {
             if (jsonElement.getAsJsonObject().get(requiredField) == null) {
@@ -396,6 +386,10 @@ public class FlexibleLoanRepayRequest {
                                     + " string but got `%s`",
                             jsonObj.get("collateralCoin").toString()));
         }
+        // validate the optional field `repaymentType`
+        if (jsonObj.get("repaymentType") != null && !jsonObj.get("repaymentType").isJsonNull()) {
+            RepaymentType.validateJsonElement(jsonObj.get("repaymentType"));
+        }
     }
 
     public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
@@ -415,7 +409,7 @@ public class FlexibleLoanRepayRequest {
                         @Override
                         public void write(JsonWriter out, FlexibleLoanRepayRequest value)
                                 throws IOException {
-                            JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
+                            JsonElement obj = thisAdapter.toJsonTree(value).getAsJsonObject();
                             elementAdapter.write(out, obj);
                         }
 
