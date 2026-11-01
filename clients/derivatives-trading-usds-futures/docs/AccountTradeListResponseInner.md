@@ -7,20 +7,23 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**buyer** | **Boolean** |  |  [optional] |
-|**commission** | **String** |  |  [optional] |
-|**commissionAsset** | **String** |  |  [optional] |
-|**id** | **Long** |  |  [optional] |
-|**maker** | **Boolean** |  |  [optional] |
-|**orderId** | **Long** |  |  [optional] |
-|**price** | **String** |  |  [optional] |
-|**qty** | **String** |  |  [optional] |
-|**quoteQty** | **String** |  |  [optional] |
-|**realizedPnl** | **String** |  |  [optional] |
-|**side** | **String** |  |  [optional] |
-|**positionSide** | **String** |  |  [optional] |
-|**symbol** | **String** |  |  [optional] |
-|**time** | **Long** |  |  [optional] |
+|**buyer** | **Boolean** | Buyer. |  [optional] |
+|**commission** | **String** | Commission. |  [optional] |
+|**commissionAsset** | **String** | Commission Asset. |  [optional] |
+|**id** | **Long** | Id. |  [optional] |
+|**maker** | **Boolean** | Maker. |  [optional] |
+|**orderId** | **Long** | Order Id. |  [optional] |
+|**price** | **String** | Price. |  [optional] |
+|**qty** | **String** | Qty. |  [optional] |
+|**quoteQty** | **String** | Quote asset quantity. Populated for USDⓈ-M symbols; returns \&quot;0\&quot; for COIN-M symbols. |  [optional] |
+|**baseQty** | **String** | Base asset quantity. Populated for COIN-M symbols; returns \&quot;0\&quot; for USDⓈ-M symbols. |  [optional] |
+|**marginAsset** | **String** | Margin Asset. |  [optional] |
+|**realizedPnl** | **String** | Realized Pnl. |  [optional] |
+|**side** | **String** | Side. |  [optional] |
+|**positionSide** | **String** | Position Side. |  [optional] |
+|**symbol** | **String** | Symbol. |  [optional] |
+|**pair** | **String** | Pair. |  [optional] |
+|**time** | **Long** | Time. |  [optional] |
 
 
 

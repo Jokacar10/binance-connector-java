@@ -1,6 +1,6 @@
 /*
- * Binance Margin Trading REST API
- * OpenAPI Specification for the Binance Margin Trading REST API
+ * Margin REST API
+ * Access account information, borrow and repay assets, and trade with Binance Margin.
  *
  * The version of the OpenAPI document: 1.0.0
  *
@@ -33,16 +33,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 import java.util.stream.Collectors;
 import org.hibernate.validator.constraints.*;
 
 /** QueryCrossMarginAccountDetailsResponse */
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
-        comments = "Generator version: 7.12.0")
+        comments = "Generator version: 7.22.0")
 public class QueryCrossMarginAccountDetailsResponse {
     public static final String SERIALIZED_NAME_CREATED = "created";
 
@@ -93,13 +91,6 @@ public class QueryCrossMarginAccountDetailsResponse {
     @jakarta.annotation.Nullable
     private String totalCollateralValueInUSDT;
 
-    public static final String SERIALIZED_NAME_TOTAL_OPEN_ORDER_LOSS_IN_U_S_D_T =
-            "totalOpenOrderLossInUSDT";
-
-    @SerializedName(SERIALIZED_NAME_TOTAL_OPEN_ORDER_LOSS_IN_U_S_D_T)
-    @jakarta.annotation.Nullable
-    private String totalOpenOrderLossInUSDT;
-
     public static final String SERIALIZED_NAME_TRADE_ENABLED = "tradeEnabled";
 
     @SerializedName(SERIALIZED_NAME_TRADE_ENABLED)
@@ -139,7 +130,7 @@ public class QueryCrossMarginAccountDetailsResponse {
     }
 
     /**
-     * Get created
+     * True means margin account created , false means margin account not created.
      *
      * @return created
      */
@@ -159,7 +150,7 @@ public class QueryCrossMarginAccountDetailsResponse {
     }
 
     /**
-     * Get borrowEnabled
+     * borrow Enabled.
      *
      * @return borrowEnabled
      */
@@ -179,7 +170,7 @@ public class QueryCrossMarginAccountDetailsResponse {
     }
 
     /**
-     * Get marginLevel
+     * margin Level.
      *
      * @return marginLevel
      */
@@ -199,7 +190,7 @@ public class QueryCrossMarginAccountDetailsResponse {
     }
 
     /**
-     * Get collateralMarginLevel
+     * collateral Margin Level.
      *
      * @return collateralMarginLevel
      */
@@ -220,7 +211,7 @@ public class QueryCrossMarginAccountDetailsResponse {
     }
 
     /**
-     * Get totalAssetOfBtc
+     * total Asset Of Btc.
      *
      * @return totalAssetOfBtc
      */
@@ -240,7 +231,7 @@ public class QueryCrossMarginAccountDetailsResponse {
     }
 
     /**
-     * Get totalLiabilityOfBtc
+     * total Liability Of Btc.
      *
      * @return totalLiabilityOfBtc
      */
@@ -260,7 +251,7 @@ public class QueryCrossMarginAccountDetailsResponse {
     }
 
     /**
-     * Get totalNetAssetOfBtc
+     * total Net Asset Of Btc.
      *
      * @return totalNetAssetOfBtc
      */
@@ -280,7 +271,7 @@ public class QueryCrossMarginAccountDetailsResponse {
     }
 
     /**
-     * Get totalCollateralValueInUSDT
+     * Total Collateral Value In USDT.
      *
      * @return totalCollateralValueInUSDT
      */
@@ -294,27 +285,6 @@ public class QueryCrossMarginAccountDetailsResponse {
         this.totalCollateralValueInUSDT = totalCollateralValueInUSDT;
     }
 
-    public QueryCrossMarginAccountDetailsResponse totalOpenOrderLossInUSDT(
-            @jakarta.annotation.Nullable String totalOpenOrderLossInUSDT) {
-        this.totalOpenOrderLossInUSDT = totalOpenOrderLossInUSDT;
-        return this;
-    }
-
-    /**
-     * Get totalOpenOrderLossInUSDT
-     *
-     * @return totalOpenOrderLossInUSDT
-     */
-    @jakarta.annotation.Nullable
-    public String getTotalOpenOrderLossInUSDT() {
-        return totalOpenOrderLossInUSDT;
-    }
-
-    public void setTotalOpenOrderLossInUSDT(
-            @jakarta.annotation.Nullable String totalOpenOrderLossInUSDT) {
-        this.totalOpenOrderLossInUSDT = totalOpenOrderLossInUSDT;
-    }
-
     public QueryCrossMarginAccountDetailsResponse tradeEnabled(
             @jakarta.annotation.Nullable Boolean tradeEnabled) {
         this.tradeEnabled = tradeEnabled;
@@ -322,7 +292,7 @@ public class QueryCrossMarginAccountDetailsResponse {
     }
 
     /**
-     * Get tradeEnabled
+     * trade Enabled.
      *
      * @return tradeEnabled
      */
@@ -342,7 +312,7 @@ public class QueryCrossMarginAccountDetailsResponse {
     }
 
     /**
-     * Get transferInEnabled
+     * transfer In Enabled.
      *
      * @return transferInEnabled
      */
@@ -362,7 +332,7 @@ public class QueryCrossMarginAccountDetailsResponse {
     }
 
     /**
-     * Get transferOutEnabled
+     * transfer Out Enabled.
      *
      * @return transferOutEnabled
      */
@@ -382,7 +352,7 @@ public class QueryCrossMarginAccountDetailsResponse {
     }
 
     /**
-     * Get accountType
+     * // MARGIN_1 for Cross Margin Classic, MARGIN_2 for Cross Margin Pro
      *
      * @return accountType
      */
@@ -412,7 +382,7 @@ public class QueryCrossMarginAccountDetailsResponse {
     }
 
     /**
-     * Get userAssets
+     * user Assets list.
      *
      * @return userAssets
      */
@@ -459,9 +429,6 @@ public class QueryCrossMarginAccountDetailsResponse {
                         this.totalCollateralValueInUSDT,
                         queryCrossMarginAccountDetailsResponse.totalCollateralValueInUSDT)
                 && Objects.equals(
-                        this.totalOpenOrderLossInUSDT,
-                        queryCrossMarginAccountDetailsResponse.totalOpenOrderLossInUSDT)
-                && Objects.equals(
                         this.tradeEnabled, queryCrossMarginAccountDetailsResponse.tradeEnabled)
                 && Objects.equals(
                         this.transferInEnabled,
@@ -486,7 +453,6 @@ public class QueryCrossMarginAccountDetailsResponse {
                 totalLiabilityOfBtc,
                 totalNetAssetOfBtc,
                 totalCollateralValueInUSDT,
-                totalOpenOrderLossInUSDT,
                 tradeEnabled,
                 transferInEnabled,
                 transferOutEnabled,
@@ -513,9 +479,6 @@ public class QueryCrossMarginAccountDetailsResponse {
                 .append("\n");
         sb.append("		totalCollateralValueInUSDT: ")
                 .append(toIndentedString(totalCollateralValueInUSDT))
-                .append("\n");
-        sb.append("		totalOpenOrderLossInUSDT: ")
-                .append(toIndentedString(totalOpenOrderLossInUSDT))
                 .append("\n");
         sb.append("		tradeEnabled: ").append(toIndentedString(tradeEnabled)).append("\n");
         sb.append("		transferInEnabled: ").append(toIndentedString(transferInEnabled)).append("\n");
@@ -570,12 +533,6 @@ public class QueryCrossMarginAccountDetailsResponse {
         totalCollateralValueInUSDTValueAsString = totalCollateralValueInUSDTValue.toString();
         sb.append("totalCollateralValueInUSDT=")
                 .append(urlEncode(totalCollateralValueInUSDTValueAsString))
-                .append("");
-        Object totalOpenOrderLossInUSDTValue = getTotalOpenOrderLossInUSDT();
-        String totalOpenOrderLossInUSDTValueAsString = "";
-        totalOpenOrderLossInUSDTValueAsString = totalOpenOrderLossInUSDTValue.toString();
-        sb.append("totalOpenOrderLossInUSDT=")
-                .append(urlEncode(totalOpenOrderLossInUSDTValueAsString))
                 .append("");
         Object tradeEnabledValue = getTradeEnabled();
         String tradeEnabledValueAsString = "";
@@ -640,7 +597,6 @@ public class QueryCrossMarginAccountDetailsResponse {
         openapiFields.add("totalLiabilityOfBtc");
         openapiFields.add("totalNetAssetOfBtc");
         openapiFields.add("TotalCollateralValueInUSDT");
-        openapiFields.add("totalOpenOrderLossInUSDT");
         openapiFields.add("tradeEnabled");
         openapiFields.add("transferInEnabled");
         openapiFields.add("transferOutEnabled");
@@ -668,19 +624,6 @@ public class QueryCrossMarginAccountDetailsResponse {
                                         + " is not found in the empty JSON string",
                                 QueryCrossMarginAccountDetailsResponse.openapiRequiredFields
                                         .toString()));
-            }
-        }
-
-        Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
-        // check to see if the JSON string contains additional fields
-        for (Map.Entry<String, JsonElement> entry : entries) {
-            if (!QueryCrossMarginAccountDetailsResponse.openapiFields.contains(entry.getKey())) {
-                throw new IllegalArgumentException(
-                        String.format(
-                                "The field `%s` in the JSON string is not defined in the"
-                                    + " `QueryCrossMarginAccountDetailsResponse` properties. JSON:"
-                                    + " %s",
-                                entry.getKey(), jsonElement.toString()));
             }
         }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
@@ -736,15 +679,6 @@ public class QueryCrossMarginAccountDetailsResponse {
                                     + " in the JSON string but got `%s`",
                             jsonObj.get("TotalCollateralValueInUSDT").toString()));
         }
-        if ((jsonObj.get("totalOpenOrderLossInUSDT") != null
-                        && !jsonObj.get("totalOpenOrderLossInUSDT").isJsonNull())
-                && !jsonObj.get("totalOpenOrderLossInUSDT").isJsonPrimitive()) {
-            throw new IllegalArgumentException(
-                    String.format(
-                            "Expected the field `totalOpenOrderLossInUSDT` to be a primitive type"
-                                    + " in the JSON string but got `%s`",
-                            jsonObj.get("totalOpenOrderLossInUSDT").toString()));
-        }
         if ((jsonObj.get("accountType") != null && !jsonObj.get("accountType").isJsonNull())
                 && !jsonObj.get("accountType").isJsonPrimitive()) {
             throw new IllegalArgumentException(
@@ -794,7 +728,7 @@ public class QueryCrossMarginAccountDetailsResponse {
                         public void write(
                                 JsonWriter out, QueryCrossMarginAccountDetailsResponse value)
                                 throws IOException {
-                            JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
+                            JsonElement obj = thisAdapter.toJsonTree(value).getAsJsonObject();
                             elementAdapter.write(out, obj);
                         }
 

@@ -95,9 +95,14 @@ public class StreamConnectionWrapper extends ConnectionWrapper
         try {
             JsonElement root = JsonParser.parseString(message);
             JsonObject obj = root.getAsJsonObject();
+
+            if (handleShutdownMessage(obj)) {
+                return;
+            }
+
             // Response to subscribe
             JsonElement id = obj.get("id");
-            if (id != null) {
+            if (id != null && !id.isJsonNull()) {
                 JsonElement result = obj.get("result");
                 RequestWrapperDTO requestWrapperDTO = pendingRequest.get(id.getAsString());
                 Type responseType = requestWrapperDTO.getResponseType();
@@ -129,7 +134,7 @@ public class StreamConnectionWrapper extends ConnectionWrapper
 
     protected void beforeConnect() {
         // no session, so this is not a reconnect
-        if (this.session == null) {
+        if (this.session == null || !this.session.isOpen()) {
             return;
         }
         RequestWrapperDTO<Object, HashSet<String>> listSubscriptions =

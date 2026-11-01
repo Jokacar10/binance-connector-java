@@ -1,6 +1,6 @@
 /*
- * Binance Margin Trading REST API
- * OpenAPI Specification for the Binance Margin Trading REST API
+ * Margin REST API
+ * Access account information, borrow and repay assets, and trade with Binance Margin.
  *
  * The version of the OpenAPI document: 1.0.0
  *
@@ -21,7 +21,7 @@ import jakarta.validation.constraints.*;
 import java.io.IOException;
 import org.hibernate.validator.constraints.*;
 
-/** Gets or Sets newOrderRespType */
+/** MARKET and LIMIT order types default to FULL, all other orders default to ACK. */
 @JsonAdapter(NewOrderRespType.Adapter.class)
 public enum NewOrderRespType {
     ACK("ACK"),

@@ -1,6 +1,6 @@
 /*
- * Binance Derivatives Trading COIN Futures REST API
- * OpenAPI Specification for the Binance Derivatives Trading COIN Futures REST API
+ * Futures (COIN-M) REST API
+ * Access market data, manage accounts, and trade COIN-M perpetual and delivery futures.
  *
  * The version of the OpenAPI document: 1.0.0
  *
@@ -55,8 +55,8 @@ import jakarta.validation.constraints.*;
 import jakarta.validation.executable.ExecutableValidator;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -69,7 +69,7 @@ public class MarketDataApi {
 
     private static final String USER_AGENT =
             String.format(
-                    "binance-derivatives-trading-coin-futures/1.2.0 (Java/%s; %s; %s)",
+                    "binance-derivatives-trading-coin-futures/9.0.0 (Java/%s; %s; %s)",
                     SystemUtil.getJavaVersion(), SystemUtil.getOs(), SystemUtil.getArch());
     private static final boolean HAS_TIME_UNIT = false;
 
@@ -109,12 +109,10 @@ public class MarketDataApi {
     /**
      * Build call for basis
      *
-     * @param pair BTCUSD (required)
-     * @param contractType ALL, CURRENT_QUARTER, NEXT_QUARTER, PERPETUAL (required)
-     * @param period
-     *     \&quot;5m\&quot;,\&quot;15m\&quot;,\&quot;30m\&quot;,\&quot;1h\&quot;,\&quot;2h\&quot;,\&quot;4h\&quot;,\&quot;6h\&quot;,\&quot;12h\&quot;,\&quot;1d\&quot;
-     *     (required)
-     * @param limit Default 100; max 1000 (optional)
+     * @param pair Pair. (required)
+     * @param contractType Contract type. (required)
+     * @param period Period interval. (required)
+     * @param limit Maximum number of records to return. (optional)
      * @param startTime (optional)
      * @param endTime (optional)
      * @return Call to execute
@@ -127,7 +125,7 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Basis">Basis
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#basis">Basis
      *     Documentation</a>
      */
     private okhttp3.Call basisCall(
@@ -196,11 +194,10 @@ public class MarketDataApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(Arrays.asList(new String[] {}));
+        Set<String> localVarAuthNames = new HashSet<>();
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -214,7 +211,7 @@ public class MarketDataApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -264,15 +261,13 @@ public class MarketDataApi {
     }
 
     /**
-     * Basis Query basis * If startTime and endTime are not sent, the most recent data is returned.
-     * * Only the data of the latest 30 days is available. Weight: 1
+     * Basis Query basis Weight(IP): 1 Notes: - If startTime and endTime are not sent, the most
+     * recent data is returned. - Only the data of the latest 30 days is available.
      *
-     * @param pair BTCUSD (required)
-     * @param contractType ALL, CURRENT_QUARTER, NEXT_QUARTER, PERPETUAL (required)
-     * @param period
-     *     \&quot;5m\&quot;,\&quot;15m\&quot;,\&quot;30m\&quot;,\&quot;1h\&quot;,\&quot;2h\&quot;,\&quot;4h\&quot;,\&quot;6h\&quot;,\&quot;12h\&quot;,\&quot;1d\&quot;
-     *     (required)
-     * @param limit Default 100; max 1000 (optional)
+     * @param pair Pair. (required)
+     * @param contractType Contract type. (required)
+     * @param period Period interval. (required)
+     * @param limit Maximum number of records to return. (optional)
      * @param startTime (optional)
      * @param endTime (optional)
      * @return ApiResponse&lt;BasisResponse&gt;
@@ -286,14 +281,14 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Basis">Basis
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#basis">Basis
      *     Documentation</a>
      */
     public ApiResponse<BasisResponse> basis(
             @NotNull String pair,
             @NotNull ContractType contractType,
             @NotNull Period period,
-            Long limit,
+            @Max(500L) Long limit,
             Long startTime,
             Long endTime)
             throws ApiException {
@@ -316,7 +311,7 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Check-Server-time">Check
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#check-server-time">Check
      *     Server time Documentation</a>
      */
     private okhttp3.Call checkServerTimeCall() throws ApiException {
@@ -353,11 +348,10 @@ public class MarketDataApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(Arrays.asList(new String[] {}));
+        Set<String> localVarAuthNames = new HashSet<>();
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -371,7 +365,7 @@ public class MarketDataApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -405,8 +399,8 @@ public class MarketDataApi {
     }
 
     /**
-     * Check Server time Test connectivity to the Rest API and get the current server time. Weight:
-     * 1
+     * Check Server time Test connectivity to the Rest API and get the current server time.
+     * Weight(IP): 1
      *
      * @return ApiResponse&lt;CheckServerTimeResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
@@ -419,7 +413,7 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Check-Server-time">Check
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#check-server-time">Check
      *     Server time Documentation</a>
      */
     public ApiResponse<CheckServerTimeResponse> checkServerTime() throws ApiException {
@@ -432,11 +426,11 @@ public class MarketDataApi {
     /**
      * Build call for compressedAggregateTradesList
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @param fromId ID to get aggregate trades from INCLUSIVE. (optional)
-     * @param startTime (optional)
-     * @param endTime (optional)
-     * @param limit Default 100; max 1000 (optional)
+     * @param startTime Timestamp in ms to get aggregate trades from INCLUSIVE. (optional)
+     * @param endTime Timestamp in ms to get aggregate trades until INCLUSIVE. (optional)
+     * @param limit Maximum number of records to return. (optional)
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
@@ -447,7 +441,7 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Compressed-Aggregate-Trades-List">Compressed/Aggregate
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#compressed-aggregate-trades-list">Compressed/Aggregate
      *     Trades List Documentation</a>
      */
     private okhttp3.Call compressedAggregateTradesListCall(
@@ -506,11 +500,10 @@ public class MarketDataApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(Arrays.asList(new String[] {}));
+        Set<String> localVarAuthNames = new HashSet<>();
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -524,7 +517,7 @@ public class MarketDataApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -569,22 +562,22 @@ public class MarketDataApi {
 
     /**
      * Compressed/Aggregate Trades List Get compressed, aggregate trades. Market trades that fill in
-     * 100ms with the same price and the same taking side will have the quantity aggregated. *
-     * support querying futures trade histories that are not older than one year * If both
-     * &#x60;startTime&#x60; and &#x60;endTime&#x60; are sent, time between &#x60;startTime&#x60;
-     * and &#x60;endTime&#x60; must be less than 1 hour. * If &#x60;fromId&#x60;,
-     * &#x60;startTime&#x60;, and &#x60;endTime&#x60; are not sent, the most recent aggregate trades
-     * will be returned. * Only market trades will be aggregated and returned, which means the
-     * insurance fund trades and ADL trades won&#39;t be aggregated. * Sending both
-     * &#x60;startTime&#x60;/&#x60;endTime&#x60; and &#x60;fromId&#x60; might cause response
-     * timeout, please send either &#x60;fromId&#x60; or &#x60;startTime&#x60;/&#x60;endTime&#x60;
-     * Weight: 20
+     * 100ms with the same price and the same taking side will have the quantity aggregated.
+     * Weight(IP): 20 Notes: - only trade histories within the past 48 hours (counted from now) can
+     * be queried - If both &#x60;startTime&#x60; and &#x60;endTime&#x60; are sent, time between
+     * &#x60;startTime&#x60; and &#x60;endTime&#x60; must be less than 1 hour. - If
+     * &#x60;fromId&#x60;, &#x60;startTime&#x60;, and &#x60;endTime&#x60; are not sent, the most
+     * recent aggregate trades will be returned. - Only market trades will be aggregated and
+     * returned, which means the insurance fund trades and ADL trades won&#39;t be aggregated. -
+     * Sending both &#x60;startTime&#x60;/&#x60;endTime&#x60; and &#x60;fromId&#x60; might cause
+     * response timeout, please send either &#x60;fromId&#x60; or
+     * &#x60;startTime&#x60;/&#x60;endTime&#x60;
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @param fromId ID to get aggregate trades from INCLUSIVE. (optional)
-     * @param startTime (optional)
-     * @param endTime (optional)
-     * @param limit Default 100; max 1000 (optional)
+     * @param startTime Timestamp in ms to get aggregate trades from INCLUSIVE. (optional)
+     * @param endTime Timestamp in ms to get aggregate trades until INCLUSIVE. (optional)
+     * @param limit Maximum number of records to return. (optional)
      * @return ApiResponse&lt;CompressedAggregateTradesListResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
      *     response body
@@ -596,11 +589,15 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Compressed-Aggregate-Trades-List">Compressed/Aggregate
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#compressed-aggregate-trades-list">Compressed/Aggregate
      *     Trades List Documentation</a>
      */
     public ApiResponse<CompressedAggregateTradesListResponse> compressedAggregateTradesList(
-            @NotNull String symbol, Long fromId, Long startTime, Long endTime, Long limit)
+            @NotNull String symbol,
+            Long fromId,
+            Long startTime,
+            Long endTime,
+            @Max(1000L) Long limit)
             throws ApiException {
         okhttp3.Call localVarCall =
                 compressedAggregateTradesListValidateBeforeCall(
@@ -613,12 +610,12 @@ public class MarketDataApi {
     /**
      * Build call for continuousContractKlineCandlestickData
      *
-     * @param pair BTCUSD (required)
-     * @param contractType ALL, CURRENT_QUARTER, NEXT_QUARTER, PERPETUAL (required)
-     * @param interval (required)
-     * @param startTime (optional)
-     * @param endTime (optional)
-     * @param limit Default 100; max 1000 (optional)
+     * @param pair After CM migration, accepts both CM and UM pair values. (required)
+     * @param contractType (required)
+     * @param interval Interval (required)
+     * @param startTime Start time (optional)
+     * @param endTime End time (optional)
+     * @param limit Maximum number of records to return. (optional)
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
@@ -629,7 +626,7 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Continuous-Contract-Kline-Candlestick-Data">Continuous
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#continuous-contract-kline-candlestick-data">Continuous
      *     Contract Kline/Candlestick Data Documentation</a>
      */
     private okhttp3.Call continuousContractKlineCandlestickDataCall(
@@ -698,11 +695,10 @@ public class MarketDataApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(Arrays.asList(new String[] {}));
+        Set<String> localVarAuthNames = new HashSet<>();
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -716,7 +712,7 @@ public class MarketDataApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -768,24 +764,24 @@ public class MarketDataApi {
 
     /**
      * Continuous Contract Kline/Candlestick Data Kline/candlestick bars for a specific contract
-     * type. Klines are uniquely identified by their open time. * Contract type: * PERPETUAL *
-     * CURRENT_QUARTER * NEXT_QUARTER 1000 | 10 * The difference between &#x60;startTime&#x60; and
-     * &#x60;endTime&#x60; can only be up to 200 days * Between &#x60;startTime&#x60; and
+     * type. Klines are uniquely identified by their open time. Weight: based on parameter
+     * &#x60;LIMIT&#x60; | LIMIT | weight | | --- | --- | | [1,100) | 1 | | [100, 500) | 2 | | [500,
+     * 1000] | 5 | | &gt; 1000 | 10 | Notes: - The difference between &#x60;startTime&#x60; and
+     * &#x60;endTime&#x60; can only be up to 200 days - Between &#x60;startTime&#x60; and
      * &#x60;endTime&#x60;, the most recent &#x60;limit&#x60; data from &#x60;endTime&#x60; will be
-     * returned: * If &#x60;startTime&#x60; and &#x60;endTime&#x60; are not sent, current timestamp
-     * will be set as &#x60;endTime&#x60;, and the most recent data will be returned. * If
+     * returned: - If &#x60;startTime&#x60; and &#x60;endTime&#x60; are not sent, current timestamp
+     * will be set as &#x60;endTime&#x60;, and the most recent data will be returned. - If
      * &#x60;startTime&#x60; is sent only, the timestamp of 200 days after &#x60;startTime&#x60;
-     * will be set as &#x60;endTime&#x60;(up to the current time) * If &#x60;endTime&#x60; is sent
+     * will be set as &#x60;endTime&#x60;(up to the current time) - If &#x60;endTime&#x60; is sent
      * only, the timestamp of 200 days before &#x60;endTime&#x60; will be set as
-     * &#x60;startTime&#x60; Weight: based on parameter LIMIT LIMIT | weight ---|--- [1,100) | 1
-     * [100, 500) | 2 [500, 1000] | 5 &gt; 1000 | 10
+     * &#x60;startTime&#x60;
      *
-     * @param pair BTCUSD (required)
-     * @param contractType ALL, CURRENT_QUARTER, NEXT_QUARTER, PERPETUAL (required)
-     * @param interval (required)
-     * @param startTime (optional)
-     * @param endTime (optional)
-     * @param limit Default 100; max 1000 (optional)
+     * @param pair After CM migration, accepts both CM and UM pair values. (required)
+     * @param contractType (required)
+     * @param interval Interval (required)
+     * @param startTime Start time (optional)
+     * @param endTime End time (optional)
+     * @param limit Maximum number of records to return. (optional)
      * @return ApiResponse&lt;ContinuousContractKlineCandlestickDataResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
      *     response body
@@ -797,7 +793,7 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Continuous-Contract-Kline-Candlestick-Data">Continuous
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#continuous-contract-kline-candlestick-data">Continuous
      *     Contract Kline/Candlestick Data Documentation</a>
      */
     public ApiResponse<ContinuousContractKlineCandlestickDataResponse>
@@ -807,7 +803,7 @@ public class MarketDataApi {
                     @NotNull Interval interval,
                     Long startTime,
                     Long endTime,
-                    Long limit)
+                    @Max(1500L) Long limit)
                     throws ApiException {
         okhttp3.Call localVarCall =
                 continuousContractKlineCandlestickDataValidateBeforeCall(
@@ -830,7 +826,7 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Exchange-Information">Exchange
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#exchange-information">Exchange
      *     Information Documentation</a>
      */
     private okhttp3.Call exchangeInformationCall() throws ApiException {
@@ -867,11 +863,10 @@ public class MarketDataApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(Arrays.asList(new String[] {}));
+        Set<String> localVarAuthNames = new HashSet<>();
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -885,7 +880,7 @@ public class MarketDataApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -919,7 +914,7 @@ public class MarketDataApi {
     }
 
     /**
-     * Exchange Information Current exchange trading rules and symbol information Weight: 1
+     * Exchange Information Current exchange trading rules and symbol information Weight(IP): 1
      *
      * @return ApiResponse&lt;ExchangeInformationResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
@@ -932,7 +927,7 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Exchange-Information">Exchange
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#exchange-information">Exchange
      *     Information Documentation</a>
      */
     public ApiResponse<ExchangeInformationResponse> exchangeInformation() throws ApiException {
@@ -945,10 +940,10 @@ public class MarketDataApi {
     /**
      * Build call for getFundingRateHistoryOfPerpetualFutures
      *
-     * @param symbol (required)
-     * @param startTime (optional)
-     * @param endTime (optional)
-     * @param limit Default 100; max 1000 (optional)
+     * @param symbol Symbol (required)
+     * @param startTime Timestamp in ms to get funding rate from INCLUSIVE. (optional)
+     * @param endTime Timestamp in ms to get funding rate until INCLUSIVE. (optional)
+     * @param limit Maximum number of records to return. (optional)
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
@@ -959,7 +954,7 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Get-Funding-Rate-History-of-Perpetual-Futures">Get
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#get-funding-rate-history-of-perpetual-futures">Get
      *     Funding Rate History of Perpetual Futures Documentation</a>
      */
     private okhttp3.Call getFundingRateHistoryOfPerpetualFuturesCall(
@@ -1013,11 +1008,10 @@ public class MarketDataApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(Arrays.asList(new String[] {}));
+        Set<String> localVarAuthNames = new HashSet<>();
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -1031,7 +1025,7 @@ public class MarketDataApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -1074,13 +1068,13 @@ public class MarketDataApi {
     }
 
     /**
-     * Get Funding Rate History of Perpetual Futures Get Funding Rate History of Perpetual Futures *
-     * empty array will be returned for delivery symbols. Weight: 1
+     * Get Funding Rate History of Perpetual Futures Get Funding Rate History of Perpetual Futures
+     * Weight(IP): 1 Notes: - empty array will be returned for delivery symbols.
      *
-     * @param symbol (required)
-     * @param startTime (optional)
-     * @param endTime (optional)
-     * @param limit Default 100; max 1000 (optional)
+     * @param symbol Symbol (required)
+     * @param startTime Timestamp in ms to get funding rate from INCLUSIVE. (optional)
+     * @param endTime Timestamp in ms to get funding rate until INCLUSIVE. (optional)
+     * @param limit Maximum number of records to return. (optional)
      * @return ApiResponse&lt;GetFundingRateHistoryOfPerpetualFuturesResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
      *     response body
@@ -1092,12 +1086,12 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Get-Funding-Rate-History-of-Perpetual-Futures">Get
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#get-funding-rate-history-of-perpetual-futures">Get
      *     Funding Rate History of Perpetual Futures Documentation</a>
      */
     public ApiResponse<GetFundingRateHistoryOfPerpetualFuturesResponse>
             getFundingRateHistoryOfPerpetualFutures(
-                    @NotNull String symbol, Long startTime, Long endTime, Long limit)
+                    @NotNull String symbol, Long startTime, Long endTime, @Max(1000L) Long limit)
                     throws ApiException {
         okhttp3.Call localVarCall =
                 getFundingRateHistoryOfPerpetualFuturesValidateBeforeCall(
@@ -1120,7 +1114,7 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Get-Funding-Info">Get
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#get-funding-rate-info">Get
      *     Funding Rate Info Documentation</a>
      */
     private okhttp3.Call getFundingRateInfoCall() throws ApiException {
@@ -1157,11 +1151,10 @@ public class MarketDataApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(Arrays.asList(new String[] {}));
+        Set<String> localVarAuthNames = new HashSet<>();
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -1175,7 +1168,7 @@ public class MarketDataApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -1209,8 +1202,8 @@ public class MarketDataApi {
     }
 
     /**
-     * Get Funding Rate Info Query funding rate info for symbols that had FundingRateCap/
-     * FundingRateFloor / fundingIntervalHours adjustment Weight: 0
+     * Get Funding Rate Info Query funding rate info for symbols that had
+     * FundingRateCap/FundingRateFloor/fundingIntervalHours adjustment
      *
      * @return ApiResponse&lt;GetFundingRateInfoResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
@@ -1223,7 +1216,7 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Get-Funding-Info">Get
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#get-funding-rate-info">Get
      *     Funding Rate Info Documentation</a>
      */
     public ApiResponse<GetFundingRateInfoResponse> getFundingRateInfo() throws ApiException {
@@ -1248,7 +1241,7 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Index-Price-and-Mark-Price">Index
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#index-price-and-mark-price">Index
      *     Price and Mark Price Documentation</a>
      */
     private okhttp3.Call indexPriceAndMarkPriceCall(String symbol, String pair)
@@ -1294,11 +1287,10 @@ public class MarketDataApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(Arrays.asList(new String[] {}));
+        Set<String> localVarAuthNames = new HashSet<>();
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -1312,7 +1304,7 @@ public class MarketDataApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -1348,7 +1340,7 @@ public class MarketDataApi {
     }
 
     /**
-     * Index Price and Mark Price Query index price and mark price Weight: 10
+     * Index Price and Mark Price Query index price and mark price Weight(IP): 10
      *
      * @param symbol (optional)
      * @param pair (optional)
@@ -1363,7 +1355,7 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Index-Price-and-Mark-Price">Index
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#index-price-and-mark-price">Index
      *     Price and Mark Price Documentation</a>
      */
     public ApiResponse<IndexPriceAndMarkPriceResponse> indexPriceAndMarkPrice(
@@ -1377,11 +1369,11 @@ public class MarketDataApi {
     /**
      * Build call for indexPriceKlineCandlestickData
      *
-     * @param pair BTCUSD (required)
-     * @param interval (required)
-     * @param startTime (optional)
-     * @param endTime (optional)
-     * @param limit Default 100; max 1000 (optional)
+     * @param pair After CM migration, accepts both CM and UM pair values. (required)
+     * @param interval Interval (required)
+     * @param startTime Start time (optional)
+     * @param endTime End time (optional)
+     * @param limit Maximum number of records to return. (optional)
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
@@ -1392,7 +1384,7 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Index-Price-Kline-Candlestick-Data">Index
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#index-price-kline-candlestick-data">Index
      *     Price Kline/Candlestick Data Documentation</a>
      */
     private okhttp3.Call indexPriceKlineCandlestickDataCall(
@@ -1451,11 +1443,10 @@ public class MarketDataApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(Arrays.asList(new String[] {}));
+        Set<String> localVarAuthNames = new HashSet<>();
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -1469,7 +1460,7 @@ public class MarketDataApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -1515,22 +1506,23 @@ public class MarketDataApi {
 
     /**
      * Index Price Kline/Candlestick Data Kline/candlestick bars for the index price of a pair.
-     * Klines are uniquely identified by their open time. 1000 | 10 * The difference between
-     * &#x60;startTime&#x60; and &#x60;endTime&#x60; can only be up to 200 days * Between
-     * &#x60;startTime&#x60; and &#x60;endTime&#x60;, the most recent &#x60;limit&#x60; data from
-     * &#x60;endTime&#x60; will be returned: * If &#x60;startTime&#x60; and &#x60;endTime&#x60; are
-     * not sent, current timestamp will be set as &#x60;endTime&#x60;, and the most recent data will
-     * be returned. * If &#x60;startTime&#x60; is sent only, the timestamp of 200 days after
-     * &#x60;startTime&#x60; will be set as &#x60;endTime&#x60;(up to the current time) * If
-     * &#x60;endTime&#x60; is sent only, the timestamp of 200 days before &#x60;endTime&#x60; will
-     * be set as &#x60;startTime&#x60; Weight: based on parameter LIMIT LIMIT | weight ---|---
-     * [1,100) | 1 [100, 500) | 2 [500, 1000] | 5 &gt; 1000 | 10
+     * Klines are uniquely identified by their open time. Weight: Based on parameter
+     * &#x60;LIMIT&#x60; | LIMIT | weight | | --- | --- | | [1,100) | 1 | | [100, 500) | 2 | | [500,
+     * 1000] | 5 | | &gt; 1000 | 10 | Notes: - The difference between &#x60;startTime&#x60; and
+     * &#x60;endTime&#x60; can only be up to 200 days - Between &#x60;startTime&#x60; and
+     * &#x60;endTime&#x60;, the most recent &#x60;limit&#x60; data from &#x60;endTime&#x60; will be
+     * returned: - If &#x60;startTime&#x60; and &#x60;endTime&#x60; are not sent, current timestamp
+     * will be set as &#x60;endTime&#x60;, and the most recent data will be returned. - If
+     * &#x60;startTime&#x60; is sent only, the timestamp of 200 days after &#x60;startTime&#x60;
+     * will be set as &#x60;endTime&#x60;(up to the current time) - If &#x60;endTime&#x60; is sent
+     * only, the timestamp of 200 days before &#x60;endTime&#x60; will be set as
+     * &#x60;startTime&#x60;
      *
-     * @param pair BTCUSD (required)
-     * @param interval (required)
-     * @param startTime (optional)
-     * @param endTime (optional)
-     * @param limit Default 100; max 1000 (optional)
+     * @param pair After CM migration, accepts both CM and UM pair values. (required)
+     * @param interval Interval (required)
+     * @param startTime Start time (optional)
+     * @param endTime End time (optional)
+     * @param limit Maximum number of records to return. (optional)
      * @return ApiResponse&lt;IndexPriceKlineCandlestickDataResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
      *     response body
@@ -1542,7 +1534,7 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Index-Price-Kline-Candlestick-Data">Index
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#index-price-kline-candlestick-data">Index
      *     Price Kline/Candlestick Data Documentation</a>
      */
     public ApiResponse<IndexPriceKlineCandlestickDataResponse> indexPriceKlineCandlestickData(
@@ -1550,7 +1542,7 @@ public class MarketDataApi {
             @NotNull Interval interval,
             Long startTime,
             Long endTime,
-            Long limit)
+            @Max(1500L) Long limit)
             throws ApiException {
         okhttp3.Call localVarCall =
                 indexPriceKlineCandlestickDataValidateBeforeCall(
@@ -1563,11 +1555,11 @@ public class MarketDataApi {
     /**
      * Build call for klineCandlestickData
      *
-     * @param symbol (required)
-     * @param interval (required)
-     * @param startTime (optional)
-     * @param endTime (optional)
-     * @param limit Default 100; max 1000 (optional)
+     * @param symbol After CM migration, accepts both CM and UM symbols. (required)
+     * @param interval Interval (required)
+     * @param startTime Start time (optional)
+     * @param endTime End time (optional)
+     * @param limit Maximum number of records to return. (optional)
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
@@ -1578,7 +1570,7 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Kline-Candlestick-Data">Kline/Candlestick
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#kline-candlestick-data">Kline/Candlestick
      *     Data Documentation</a>
      */
     private okhttp3.Call klineCandlestickDataCall(
@@ -1637,11 +1629,10 @@ public class MarketDataApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(Arrays.asList(new String[] {}));
+        Set<String> localVarAuthNames = new HashSet<>();
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -1655,7 +1646,7 @@ public class MarketDataApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -1700,22 +1691,22 @@ public class MarketDataApi {
 
     /**
      * Kline/Candlestick Data Kline/candlestick bars for a symbol. Klines are uniquely identified by
-     * their open time. 1000 | 10 * The difference between &#x60;startTime&#x60; and
-     * &#x60;endTime&#x60; can only be up to 200 days * Between &#x60;startTime&#x60; and
-     * &#x60;endTime&#x60;, the most recent &#x60;limit&#x60; data from &#x60;endTime&#x60; will be
-     * returned: * If &#x60;startTime&#x60; and &#x60;endTime&#x60; are not sent, current timestamp
-     * will be set as &#x60;endTime&#x60;, and the most recent data will be returned. * If
-     * &#x60;startTime&#x60; is sent only, the timestamp of 200 days after &#x60;startTime&#x60;
-     * will be set as &#x60;endTime&#x60;(up to the current time) * If &#x60;endTime&#x60; is sent
-     * only, the timestamp of 200 days before &#x60;endTime&#x60; will be set as
-     * &#x60;startTime&#x60; Weight: based on parameter LIMIT LIMIT | weight ---|--- [1,100) | 1
-     * [100, 500) | 2 [500, 1000] | 5 &gt; 1000 | 10
+     * their open time. Weight: Based on parameter &#x60;LIMIT&#x60; | LIMIT | weight | | --- | ---
+     * | | [1,100) | 1 | | [100, 500) | 2 | | [500, 1000] | 5 | | &gt; 1000 | 10 | Notes: - The
+     * difference between &#x60;startTime&#x60; and &#x60;endTime&#x60; can only be up to 200 days -
+     * Between &#x60;startTime&#x60; and &#x60;endTime&#x60;, the most recent &#x60;limit&#x60; data
+     * from &#x60;endTime&#x60; will be returned: - If &#x60;startTime&#x60; and &#x60;endTime&#x60;
+     * are not sent, current timestamp will be set as &#x60;endTime&#x60;, and the most recent data
+     * will be returned. - If &#x60;startTime&#x60; is sent only, the timestamp of 200 days after
+     * &#x60;startTime&#x60; will be set as &#x60;endTime&#x60;(up to the current time) - If
+     * &#x60;endTime&#x60; is sent only, the timestamp of 200 days before &#x60;endTime&#x60; will
+     * be set as &#x60;startTime&#x60;
      *
-     * @param symbol (required)
-     * @param interval (required)
-     * @param startTime (optional)
-     * @param endTime (optional)
-     * @param limit Default 100; max 1000 (optional)
+     * @param symbol After CM migration, accepts both CM and UM symbols. (required)
+     * @param interval Interval (required)
+     * @param startTime Start time (optional)
+     * @param endTime End time (optional)
+     * @param limit Maximum number of records to return. (optional)
      * @return ApiResponse&lt;KlineCandlestickDataResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
      *     response body
@@ -1727,7 +1718,7 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Kline-Candlestick-Data">Kline/Candlestick
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#kline-candlestick-data">Kline/Candlestick
      *     Data Documentation</a>
      */
     public ApiResponse<KlineCandlestickDataResponse> klineCandlestickData(
@@ -1735,7 +1726,7 @@ public class MarketDataApi {
             @NotNull Interval interval,
             Long startTime,
             Long endTime,
-            Long limit)
+            @Max(1500L) Long limit)
             throws ApiException {
         okhttp3.Call localVarCall =
                 klineCandlestickDataValidateBeforeCall(symbol, interval, startTime, endTime, limit);
@@ -1748,10 +1739,10 @@ public class MarketDataApi {
      * Build call for longShortRatio
      *
      * @param pair BTCUSD (required)
-     * @param period
-     *     \&quot;5m\&quot;,\&quot;15m\&quot;,\&quot;30m\&quot;,\&quot;1h\&quot;,\&quot;2h\&quot;,\&quot;4h\&quot;,\&quot;6h\&quot;,\&quot;12h\&quot;,\&quot;1d\&quot;
-     *     (required)
-     * @param limit Default 100; max 1000 (optional)
+     * @param period (required)
+     * @param contractType Contract type filter. If omitted, returns aggregated data across all
+     *     contract types. (optional)
+     * @param limit Maximum number of records to return. (optional)
      * @param startTime (optional)
      * @param endTime (optional)
      * @return Call to execute
@@ -1764,11 +1755,16 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Long-Short-Ratio">Long/Short
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#long-short-ratio">Long/Short
      *     Ratio Documentation</a>
      */
     private okhttp3.Call longShortRatioCall(
-            String pair, Period period, Long limit, Long startTime, Long endTime)
+            String pair,
+            Period period,
+            ContractType contractType,
+            Long limit,
+            Long startTime,
+            Long endTime)
             throws ApiException {
         String basePath = null;
         // Operation Servers
@@ -1802,6 +1798,11 @@ public class MarketDataApi {
             localVarQueryParams.addAll(localVarApiClient.parameterToPair("period", period));
         }
 
+        if (contractType != null) {
+            localVarQueryParams.addAll(
+                    localVarApiClient.parameterToPair("contractType", contractType));
+        }
+
         if (limit != null) {
             localVarQueryParams.addAll(localVarApiClient.parameterToPair("limit", limit));
         }
@@ -1823,11 +1824,10 @@ public class MarketDataApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(Arrays.asList(new String[] {}));
+        Set<String> localVarAuthNames = new HashSet<>();
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -1841,12 +1841,17 @@ public class MarketDataApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call longShortRatioValidateBeforeCall(
-            String pair, Period period, Long limit, Long startTime, Long endTime)
+            String pair,
+            Period period,
+            ContractType contractType,
+            Long limit,
+            Long startTime,
+            Long endTime)
             throws ApiException {
         try {
             Validator validator =
@@ -1857,13 +1862,14 @@ public class MarketDataApi {
                             .getValidator();
             ExecutableValidator executableValidator = validator.forExecutables();
 
-            Object[] parameterValues = {pair, period, limit, startTime, endTime};
+            Object[] parameterValues = {pair, period, contractType, limit, startTime, endTime};
             Method method =
                     this.getClass()
                             .getMethod(
                                     "longShortRatio",
                                     String.class,
                                     Period.class,
+                                    ContractType.class,
                                     Long.class,
                                     Long.class,
                                     Long.class);
@@ -1871,7 +1877,7 @@ public class MarketDataApi {
                     executableValidator.validateParameters(this, method, parameterValues);
 
             if (violations.size() == 0) {
-                return longShortRatioCall(pair, period, limit, startTime, endTime);
+                return longShortRatioCall(pair, period, contractType, limit, startTime, endTime);
             } else {
                 throw new ConstraintViolationException((Set) violations);
             }
@@ -1885,14 +1891,15 @@ public class MarketDataApi {
     }
 
     /**
-     * Long/Short Ratio Query symbol Long/Short Ratio * If startTime and endTime are not sent, the
-     * most recent data is returned. * Only the data of the latest 30 days is available. Weight: 1
+     * Long/Short Ratio Query symbol Long/Short Ratio Weight(IP): 1 Notes: - If startTime and
+     * endTime are not sent, the most recent data is returned. - Only the data of the latest 30 days
+     * is available.
      *
      * @param pair BTCUSD (required)
-     * @param period
-     *     \&quot;5m\&quot;,\&quot;15m\&quot;,\&quot;30m\&quot;,\&quot;1h\&quot;,\&quot;2h\&quot;,\&quot;4h\&quot;,\&quot;6h\&quot;,\&quot;12h\&quot;,\&quot;1d\&quot;
-     *     (required)
-     * @param limit Default 100; max 1000 (optional)
+     * @param period (required)
+     * @param contractType Contract type filter. If omitted, returns aggregated data across all
+     *     contract types. (optional)
+     * @param limit Maximum number of records to return. (optional)
      * @param startTime (optional)
      * @param endTime (optional)
      * @return ApiResponse&lt;LongShortRatioResponse&gt;
@@ -1906,14 +1913,20 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Long-Short-Ratio">Long/Short
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#long-short-ratio">Long/Short
      *     Ratio Documentation</a>
      */
     public ApiResponse<LongShortRatioResponse> longShortRatio(
-            @NotNull String pair, @NotNull Period period, Long limit, Long startTime, Long endTime)
+            @NotNull String pair,
+            @NotNull Period period,
+            ContractType contractType,
+            @Max(500L) Long limit,
+            Long startTime,
+            Long endTime)
             throws ApiException {
         okhttp3.Call localVarCall =
-                longShortRatioValidateBeforeCall(pair, period, limit, startTime, endTime);
+                longShortRatioValidateBeforeCall(
+                        pair, period, contractType, limit, startTime, endTime);
         java.lang.reflect.Type localVarReturnType =
                 new TypeToken<LongShortRatioResponse>() {}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -1922,11 +1935,11 @@ public class MarketDataApi {
     /**
      * Build call for markPriceKlineCandlestickData
      *
-     * @param symbol (required)
-     * @param interval (required)
-     * @param startTime (optional)
-     * @param endTime (optional)
-     * @param limit Default 100; max 1000 (optional)
+     * @param symbol After CM migration, accepts both CM and UM symbols. (required)
+     * @param interval Interval (required)
+     * @param startTime Start time (optional)
+     * @param endTime End time (optional)
+     * @param limit Maximum number of records to return. (optional)
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
@@ -1937,7 +1950,7 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Mark-Price-Kline-Candlestick-Data">Mark
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#mark-price-kline-candlestick-data">Mark
      *     Price Kline/Candlestick Data Documentation</a>
      */
     private okhttp3.Call markPriceKlineCandlestickDataCall(
@@ -1996,11 +2009,10 @@ public class MarketDataApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(Arrays.asList(new String[] {}));
+        Set<String> localVarAuthNames = new HashSet<>();
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -2014,7 +2026,7 @@ public class MarketDataApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -2060,22 +2072,23 @@ public class MarketDataApi {
 
     /**
      * Mark Price Kline/Candlestick Data Kline/candlestick bars for the mark price of a symbol.
-     * Klines are uniquely identified by their open time. 1000 | 10 * The difference between
-     * &#x60;startTime&#x60; and &#x60;endTime&#x60; can only be up to 200 days * Between
-     * &#x60;startTime&#x60; and &#x60;endTime&#x60;, the most recent &#x60;limit&#x60; data from
-     * &#x60;endTime&#x60; will be returned: * If &#x60;startTime&#x60; and &#x60;endTime&#x60; are
-     * not sent, current timestamp will be set as &#x60;endTime&#x60;, and the most recent data will
-     * be returned. * If &#x60;startTime&#x60; is sent only, the timestamp of 200 days after
-     * &#x60;startTime&#x60; will be set as &#x60;endTime&#x60;(up to the current time) * If
-     * &#x60;endTime&#x60; is sent only, the timestamp of 200 days before &#x60;endTime&#x60; will
-     * be set as &#x60;startTime&#x60; Weight: based on parameter LIMIT LIMIT | weight ---|---
-     * [1,100) | 1 [100, 500) | 2 [500, 1000] | 5 &gt; 1000 | 10
+     * Klines are uniquely identified by their open time. Weight: Based on parameter
+     * &#x60;LIMIT&#x60; | LIMIT | weight | | --- | --- | | [1,100) | 1 | | [100, 500) | 2 | | [500,
+     * 1000] | 5 | | &gt; 1000 | 10 | Notes: - The difference between &#x60;startTime&#x60; and
+     * &#x60;endTime&#x60; can only be up to 200 days - Between &#x60;startTime&#x60; and
+     * &#x60;endTime&#x60;, the most recent &#x60;limit&#x60; data from &#x60;endTime&#x60; will be
+     * returned: - If &#x60;startTime&#x60; and &#x60;endTime&#x60; are not sent, current timestamp
+     * will be set as &#x60;endTime&#x60;, and the most recent data will be returned. - If
+     * &#x60;startTime&#x60; is sent only, the timestamp of 200 days after &#x60;startTime&#x60;
+     * will be set as &#x60;endTime&#x60;(up to the current time) - If &#x60;endTime&#x60; is sent
+     * only, the timestamp of 200 days before &#x60;endTime&#x60; will be set as
+     * &#x60;startTime&#x60;
      *
-     * @param symbol (required)
-     * @param interval (required)
-     * @param startTime (optional)
-     * @param endTime (optional)
-     * @param limit Default 100; max 1000 (optional)
+     * @param symbol After CM migration, accepts both CM and UM symbols. (required)
+     * @param interval Interval (required)
+     * @param startTime Start time (optional)
+     * @param endTime End time (optional)
+     * @param limit Maximum number of records to return. (optional)
      * @return ApiResponse&lt;MarkPriceKlineCandlestickDataResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
      *     response body
@@ -2087,7 +2100,7 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Mark-Price-Kline-Candlestick-Data">Mark
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#mark-price-kline-candlestick-data">Mark
      *     Price Kline/Candlestick Data Documentation</a>
      */
     public ApiResponse<MarkPriceKlineCandlestickDataResponse> markPriceKlineCandlestickData(
@@ -2095,7 +2108,7 @@ public class MarketDataApi {
             @NotNull Interval interval,
             Long startTime,
             Long endTime,
-            Long limit)
+            @Max(1500L) Long limit)
             throws ApiException {
         okhttp3.Call localVarCall =
                 markPriceKlineCandlestickDataValidateBeforeCall(
@@ -2108,9 +2121,9 @@ public class MarketDataApi {
     /**
      * Build call for oldTradesLookup
      *
-     * @param symbol (required)
-     * @param limit Default 100; max 1000 (optional)
-     * @param fromId ID to get aggregate trades from INCLUSIVE. (optional)
+     * @param symbol Symbol (required)
+     * @param limit Maximum number of records to return. (optional)
+     * @param fromId TradeId to fetch from. Default gets most recent trades. (optional)
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
@@ -2121,8 +2134,8 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Old-Trades-Lookup">Old
-     *     Trades Lookup(MARKET_DATA) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#old-trades-lookup">Old
+     *     Trades Lookup (MARKET_DATA) Documentation</a>
      */
     private okhttp3.Call oldTradesLookupCall(String symbol, Long limit, Long fromId)
             throws ApiException {
@@ -2171,11 +2184,10 @@ public class MarketDataApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(Arrays.asList(new String[] {}));
+        Set<String> localVarAuthNames = new HashSet<>();
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -2189,7 +2201,7 @@ public class MarketDataApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -2226,13 +2238,14 @@ public class MarketDataApi {
     }
 
     /**
-     * Old Trades Lookup(MARKET_DATA) Get older market historical trades. * Market trades means
-     * trades filled in the order book. Only market trades will be returned, which means the
-     * insurance fund trades and ADL trades won&#39;t be returned. Weight: 20
+     * Old Trades Lookup (MARKET_DATA) Get older market historical trades. Weight(IP): 200 Security
+     * Type: MARKET_DATA Notes: - Market trades means trades filled in the order book. Only market
+     * trades will be returned, which means the insurance fund trades and ADL trades won&#39;t be
+     * returned. - Only supports data from within the last one month
      *
-     * @param symbol (required)
-     * @param limit Default 100; max 1000 (optional)
-     * @param fromId ID to get aggregate trades from INCLUSIVE. (optional)
+     * @param symbol Symbol (required)
+     * @param limit Maximum number of records to return. (optional)
+     * @param fromId TradeId to fetch from. Default gets most recent trades. (optional)
      * @return ApiResponse&lt;OldTradesLookupResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
      *     response body
@@ -2244,11 +2257,11 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Old-Trades-Lookup">Old
-     *     Trades Lookup(MARKET_DATA) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#old-trades-lookup">Old
+     *     Trades Lookup (MARKET_DATA) Documentation</a>
      */
     public ApiResponse<OldTradesLookupResponse> oldTradesLookup(
-            @NotNull String symbol, Long limit, Long fromId) throws ApiException {
+            @NotNull String symbol, @Max(500L) Long limit, Long fromId) throws ApiException {
         okhttp3.Call localVarCall = oldTradesLookupValidateBeforeCall(symbol, limit, fromId);
         java.lang.reflect.Type localVarReturnType =
                 new TypeToken<OldTradesLookupResponse>() {}.getType();
@@ -2258,7 +2271,7 @@ public class MarketDataApi {
     /**
      * Build call for openInterest
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
@@ -2269,7 +2282,7 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Open-Interest">Open
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#open-interest">Open
      *     Interest Documentation</a>
      */
     private okhttp3.Call openInterestCall(String symbol) throws ApiException {
@@ -2310,11 +2323,10 @@ public class MarketDataApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(Arrays.asList(new String[] {}));
+        Set<String> localVarAuthNames = new HashSet<>();
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -2328,7 +2340,7 @@ public class MarketDataApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -2362,9 +2374,9 @@ public class MarketDataApi {
     }
 
     /**
-     * Open Interest Get present open interest of a specific symbol. Weight: 1
+     * Open Interest Get present open interest of a specific symbol. Weight(IP): 1
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @return ApiResponse&lt;OpenInterestResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
      *     response body
@@ -2376,7 +2388,7 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Open-Interest">Open
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#open-interest">Open
      *     Interest Documentation</a>
      */
     public ApiResponse<OpenInterestResponse> openInterest(@NotNull String symbol)
@@ -2390,12 +2402,11 @@ public class MarketDataApi {
     /**
      * Build call for openInterestStatistics
      *
-     * @param pair BTCUSD (required)
-     * @param contractType ALL, CURRENT_QUARTER, NEXT_QUARTER, PERPETUAL (required)
-     * @param period
-     *     \&quot;5m\&quot;,\&quot;15m\&quot;,\&quot;30m\&quot;,\&quot;1h\&quot;,\&quot;2h\&quot;,\&quot;4h\&quot;,\&quot;6h\&quot;,\&quot;12h\&quot;,\&quot;1d\&quot;
-     *     (required)
-     * @param limit Default 100; max 1000 (optional)
+     * @param pair (required)
+     * @param period (required)
+     * @param contractType Contract type filter. If omitted, returns aggregated data across all
+     *     contract types. (optional)
+     * @param limit Maximum number of records to return. (optional)
      * @param startTime (optional)
      * @param endTime (optional)
      * @return Call to execute
@@ -2408,13 +2419,13 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Open-Interest-Statistics">Open
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#open-interest-statistics">Open
      *     Interest Statistics Documentation</a>
      */
     private okhttp3.Call openInterestStatisticsCall(
             String pair,
-            ContractType contractType,
             Period period,
+            ContractType contractType,
             Long limit,
             Long startTime,
             Long endTime)
@@ -2477,11 +2488,10 @@ public class MarketDataApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(Arrays.asList(new String[] {}));
+        Set<String> localVarAuthNames = new HashSet<>();
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -2495,14 +2505,14 @@ public class MarketDataApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call openInterestStatisticsValidateBeforeCall(
             String pair,
-            ContractType contractType,
             Period period,
+            ContractType contractType,
             Long limit,
             Long startTime,
             Long endTime)
@@ -2516,14 +2526,14 @@ public class MarketDataApi {
                             .getValidator();
             ExecutableValidator executableValidator = validator.forExecutables();
 
-            Object[] parameterValues = {pair, contractType, period, limit, startTime, endTime};
+            Object[] parameterValues = {pair, period, contractType, limit, startTime, endTime};
             Method method =
                     this.getClass()
                             .getMethod(
                                     "openInterestStatistics",
                                     String.class,
-                                    ContractType.class,
                                     Period.class,
+                                    ContractType.class,
                                     Long.class,
                                     Long.class,
                                     Long.class);
@@ -2532,7 +2542,7 @@ public class MarketDataApi {
 
             if (violations.size() == 0) {
                 return openInterestStatisticsCall(
-                        pair, contractType, period, limit, startTime, endTime);
+                        pair, period, contractType, limit, startTime, endTime);
             } else {
                 throw new ConstraintViolationException((Set) violations);
             }
@@ -2546,16 +2556,15 @@ public class MarketDataApi {
     }
 
     /**
-     * Open Interest Statistics Query open interest stats * If startTime and endTime are not sent,
-     * the most recent data is returned. * Only the data of the latest 30 days is available. Weight:
-     * 1
+     * Open Interest Statistics Query open interest stats Weight(IP): 1 Notes: - If startTime and
+     * endTime are not sent, the most recent data is returned. - Only the data of the latest 30 days
+     * is available.
      *
-     * @param pair BTCUSD (required)
-     * @param contractType ALL, CURRENT_QUARTER, NEXT_QUARTER, PERPETUAL (required)
-     * @param period
-     *     \&quot;5m\&quot;,\&quot;15m\&quot;,\&quot;30m\&quot;,\&quot;1h\&quot;,\&quot;2h\&quot;,\&quot;4h\&quot;,\&quot;6h\&quot;,\&quot;12h\&quot;,\&quot;1d\&quot;
-     *     (required)
-     * @param limit Default 100; max 1000 (optional)
+     * @param pair (required)
+     * @param period (required)
+     * @param contractType Contract type filter. If omitted, returns aggregated data across all
+     *     contract types. (optional)
+     * @param limit Maximum number of records to return. (optional)
      * @param startTime (optional)
      * @param endTime (optional)
      * @return ApiResponse&lt;OpenInterestStatisticsResponse&gt;
@@ -2569,20 +2578,20 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Open-Interest-Statistics">Open
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#open-interest-statistics">Open
      *     Interest Statistics Documentation</a>
      */
     public ApiResponse<OpenInterestStatisticsResponse> openInterestStatistics(
             @NotNull String pair,
-            @NotNull ContractType contractType,
             @NotNull Period period,
-            Long limit,
+            ContractType contractType,
+            @Max(500L) Long limit,
             Long startTime,
             Long endTime)
             throws ApiException {
         okhttp3.Call localVarCall =
                 openInterestStatisticsValidateBeforeCall(
-                        pair, contractType, period, limit, startTime, endTime);
+                        pair, period, contractType, limit, startTime, endTime);
         java.lang.reflect.Type localVarReturnType =
                 new TypeToken<OpenInterestStatisticsResponse>() {}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -2591,8 +2600,8 @@ public class MarketDataApi {
     /**
      * Build call for orderBook
      *
-     * @param symbol (required)
-     * @param limit Default 100; max 1000 (optional)
+     * @param symbol Symbol (required)
+     * @param limit Valid limits:[5, 10, 20, 50, 100, 500, 1000]. (optional)
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
@@ -2603,7 +2612,7 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Order-Book">Order
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#order-book">Order
      *     Book Documentation</a>
      */
     private okhttp3.Call orderBookCall(String symbol, Long limit) throws ApiException {
@@ -2648,11 +2657,10 @@ public class MarketDataApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(Arrays.asList(new String[] {}));
+        Set<String> localVarAuthNames = new HashSet<>();
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -2666,7 +2674,7 @@ public class MarketDataApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -2701,11 +2709,12 @@ public class MarketDataApi {
     }
 
     /**
-     * Order Book Query orderbook on specific symbol Weight: Adjusted based on the limit: Limit |
-     * Weight ------------ | ------------ 5, 10, 20, 50 | 2 100 | 5 500 | 10 1000 | 20
+     * Order Book Query orderbook on specific symbol Weight: Adjusted based on the limit: | Limit |
+     * Weight | | ------------ | ------------ | | 5, 10, 20, 50 | 2 | | 100 | 5 | | 500 | 10 | |
+     * 1000 | 20 |
      *
-     * @param symbol (required)
-     * @param limit Default 100; max 1000 (optional)
+     * @param symbol Symbol (required)
+     * @param limit Valid limits:[5, 10, 20, 50, 100, 500, 1000]. (optional)
      * @return ApiResponse&lt;OrderBookResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
      *     response body
@@ -2717,10 +2726,10 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Order-Book">Order
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#order-book">Order
      *     Book Documentation</a>
      */
-    public ApiResponse<OrderBookResponse> orderBook(@NotNull String symbol, Long limit)
+    public ApiResponse<OrderBookResponse> orderBook(@NotNull String symbol, @Max(1000L) Long limit)
             throws ApiException {
         okhttp3.Call localVarCall = orderBookValidateBeforeCall(symbol, limit);
         java.lang.reflect.Type localVarReturnType = new TypeToken<OrderBookResponse>() {}.getType();
@@ -2730,11 +2739,11 @@ public class MarketDataApi {
     /**
      * Build call for premiumIndexKlineData
      *
-     * @param symbol (required)
-     * @param interval (required)
-     * @param startTime (optional)
-     * @param endTime (optional)
-     * @param limit Default 100; max 1000 (optional)
+     * @param symbol After CM migration, accepts both CM and UM symbols. (required)
+     * @param interval Interval (required)
+     * @param startTime Start time (optional)
+     * @param endTime End time (optional)
+     * @param limit Maximum number of records to return. (optional)
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
@@ -2745,7 +2754,7 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Premium-index-Kline-Data">Premium
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#premium-index-kline-data">Premium
      *     index Kline Data Documentation</a>
      */
     private okhttp3.Call premiumIndexKlineDataCall(
@@ -2804,11 +2813,10 @@ public class MarketDataApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(Arrays.asList(new String[] {}));
+        Set<String> localVarAuthNames = new HashSet<>();
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -2822,7 +2830,7 @@ public class MarketDataApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -2867,15 +2875,15 @@ public class MarketDataApi {
 
     /**
      * Premium index Kline Data Premium index kline bars of a symbol. Klines are uniquely identified
-     * by their open time. * If startTime and endTime are not sent, the most recent klines are
-     * returned. Weight: based on parameter LIMIT | LIMIT | weight | | ----------- | ------ | |
-     * [1,100) | 1 | | [100, 500) | 2 | | [500, 1000] | 5 | | &gt; 1000 | 10 |
+     * by their open time. Weight: Based on parameter &#x60;LIMIT&#x60; | LIMIT | weight | |
+     * ----------- | ------ | | [1,100) | 1 | | [100, 500) | 2 | | [500, 1000] | 5 | | &gt; 1000 |
+     * 10 | Notes: - If startTime and endTime are not sent, the most recent klines are returned.
      *
-     * @param symbol (required)
-     * @param interval (required)
-     * @param startTime (optional)
-     * @param endTime (optional)
-     * @param limit Default 100; max 1000 (optional)
+     * @param symbol After CM migration, accepts both CM and UM symbols. (required)
+     * @param interval Interval (required)
+     * @param startTime Start time (optional)
+     * @param endTime End time (optional)
+     * @param limit Maximum number of records to return. (optional)
      * @return ApiResponse&lt;PremiumIndexKlineDataResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
      *     response body
@@ -2887,7 +2895,7 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Premium-index-Kline-Data">Premium
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#premium-index-kline-data">Premium
      *     index Kline Data Documentation</a>
      */
     public ApiResponse<PremiumIndexKlineDataResponse> premiumIndexKlineData(
@@ -2895,7 +2903,7 @@ public class MarketDataApi {
             @NotNull Interval interval,
             Long startTime,
             Long endTime,
-            Long limit)
+            @Max(1500L) Long limit)
             throws ApiException {
         okhttp3.Call localVarCall =
                 premiumIndexKlineDataValidateBeforeCall(
@@ -2908,7 +2916,7 @@ public class MarketDataApi {
     /**
      * Build call for queryIndexPriceConstituents
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
@@ -2919,7 +2927,7 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Index-Constituents">Query
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#query-index-price-constituents">Query
      *     Index Price Constituents Documentation</a>
      */
     private okhttp3.Call queryIndexPriceConstituentsCall(String symbol) throws ApiException {
@@ -2960,11 +2968,10 @@ public class MarketDataApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(Arrays.asList(new String[] {}));
+        Set<String> localVarAuthNames = new HashSet<>();
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -2978,7 +2985,7 @@ public class MarketDataApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -3013,9 +3020,9 @@ public class MarketDataApi {
     }
 
     /**
-     * Query Index Price Constituents Query index price constituents Weight: 2
+     * Query Index Price Constituents Query index price constituents Weight(IP): 1
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @return ApiResponse&lt;QueryIndexPriceConstituentsResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
      *     response body
@@ -3027,7 +3034,7 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Index-Constituents">Query
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#query-index-price-constituents">Query
      *     Index Price Constituents Documentation</a>
      */
     public ApiResponse<QueryIndexPriceConstituentsResponse> queryIndexPriceConstituents(
@@ -3041,8 +3048,8 @@ public class MarketDataApi {
     /**
      * Build call for recentTradesList
      *
-     * @param symbol (required)
-     * @param limit Default 100; max 1000 (optional)
+     * @param symbol Symbol (required)
+     * @param limit Maximum number of records to return. (optional)
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
@@ -3053,7 +3060,7 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Recent-Trades-List">Recent
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#recent-trades-list">Recent
      *     Trades List Documentation</a>
      */
     private okhttp3.Call recentTradesListCall(String symbol, Long limit) throws ApiException {
@@ -3098,11 +3105,10 @@ public class MarketDataApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(Arrays.asList(new String[] {}));
+        Set<String> localVarAuthNames = new HashSet<>();
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -3116,7 +3122,7 @@ public class MarketDataApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -3151,12 +3157,12 @@ public class MarketDataApi {
     }
 
     /**
-     * Recent Trades List Get recent market trades * Market trades means trades filled in the order
-     * book. Only market trades will be returned, which means the insurance fund trades and ADL
-     * trades won&#39;t be returned. Weight: 5
+     * Recent Trades List Get recent market trades Weight(IP): 5 Notes: - Market trades means trades
+     * filled in the order book. Only market trades will be returned, which means the insurance fund
+     * trades and ADL trades won&#39;t be returned.
      *
-     * @param symbol (required)
-     * @param limit Default 100; max 1000 (optional)
+     * @param symbol Symbol (required)
+     * @param limit Maximum number of records to return. (optional)
      * @return ApiResponse&lt;RecentTradesListResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
      *     response body
@@ -3168,11 +3174,11 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Recent-Trades-List">Recent
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#recent-trades-list">Recent
      *     Trades List Documentation</a>
      */
     public ApiResponse<RecentTradesListResponse> recentTradesList(
-            @NotNull String symbol, Long limit) throws ApiException {
+            @NotNull String symbol, @Max(1000L) Long limit) throws ApiException {
         okhttp3.Call localVarCall = recentTradesListValidateBeforeCall(symbol, limit);
         java.lang.reflect.Type localVarReturnType =
                 new TypeToken<RecentTradesListResponse>() {}.getType();
@@ -3182,8 +3188,8 @@ public class MarketDataApi {
     /**
      * Build call for symbolOrderBookTicker
      *
-     * @param symbol (optional)
-     * @param pair (optional)
+     * @param symbol Symbol (optional)
+     * @param pair Symbol (optional)
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
@@ -3194,7 +3200,7 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Symbol-Order-Book-Ticker">Symbol
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#symbol-order-book-ticker">Symbol
      *     Order Book Ticker Documentation</a>
      */
     private okhttp3.Call symbolOrderBookTickerCall(String symbol, String pair) throws ApiException {
@@ -3239,11 +3245,10 @@ public class MarketDataApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(Arrays.asList(new String[] {}));
+        Set<String> localVarAuthNames = new HashSet<>();
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -3257,7 +3262,7 @@ public class MarketDataApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -3293,13 +3298,14 @@ public class MarketDataApi {
     }
 
     /**
-     * Symbol Order Book Ticker Best price/qty on the order book for a symbol or symbols. * Symbol
-     * and pair cannot be sent together * If a pair is sent,tickers for all symbols of the pair will
-     * be returned * If either a pair or symbol is sent, tickers for all symbols of all pairs will
-     * be returned Weight: 2 for a single symbol, 5 when the symbol parameter is omitted
+     * Symbol Order Book Ticker Best price/qty on the order book for a symbol or symbols. Weight:
+     * **2** for a single symbol, **5** when the symbol parameter is omitted Notes: - Symbol and
+     * pair cannot be sent together - If a pair is sent,tickers for all symbols of the pair will be
+     * returned - If either a pair or symbol is sent, tickers for all symbols of all pairs will be
+     * returned
      *
-     * @param symbol (optional)
-     * @param pair (optional)
+     * @param symbol Symbol (optional)
+     * @param pair Symbol (optional)
      * @return ApiResponse&lt;SymbolOrderBookTickerResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
      *     response body
@@ -3311,7 +3317,7 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Symbol-Order-Book-Ticker">Symbol
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#symbol-order-book-ticker">Symbol
      *     Order Book Ticker Documentation</a>
      */
     public ApiResponse<SymbolOrderBookTickerResponse> symbolOrderBookTicker(
@@ -3325,8 +3331,8 @@ public class MarketDataApi {
     /**
      * Build call for symbolPriceTicker
      *
-     * @param symbol (optional)
-     * @param pair (optional)
+     * @param symbol Symbol (optional)
+     * @param pair Pair (optional)
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
@@ -3337,7 +3343,7 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Symbol-Price-Ticker">Symbol
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#symbol-price-ticker">Symbol
      *     Price Ticker Documentation</a>
      */
     private okhttp3.Call symbolPriceTickerCall(String symbol, String pair) throws ApiException {
@@ -3382,11 +3388,10 @@ public class MarketDataApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(Arrays.asList(new String[] {}));
+        Set<String> localVarAuthNames = new HashSet<>();
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -3400,7 +3405,7 @@ public class MarketDataApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -3436,13 +3441,13 @@ public class MarketDataApi {
     }
 
     /**
-     * Symbol Price Ticker Latest price for a symbol or symbols. * Symbol and pair cannot be sent
-     * together * If a pair is sent,tickers for all symbols of the pair will be returned * If either
-     * a pair or symbol is sent, tickers for all symbols of all pairs will be returned Weight: 1 for
-     * a single symbol, 2 when the symbol parameter is omitted
+     * Symbol Price Ticker Latest price for a symbol or symbols. Weight: **1** for a single symbol,
+     * **2** when the symbol parameter is omitted Notes: - Symbol and pair cannot be sent together -
+     * If a pair is sent,tickers for all symbols of the pair will be returned - If either a pair or
+     * symbol is sent, tickers for all symbols of all pairs will be returned
      *
-     * @param symbol (optional)
-     * @param pair (optional)
+     * @param symbol Symbol (optional)
+     * @param pair Pair (optional)
      * @return ApiResponse&lt;SymbolPriceTickerResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
      *     response body
@@ -3454,7 +3459,7 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Symbol-Price-Ticker">Symbol
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#symbol-price-ticker">Symbol
      *     Price Ticker Documentation</a>
      */
     public ApiResponse<SymbolPriceTickerResponse> symbolPriceTicker(String symbol, String pair)
@@ -3468,12 +3473,10 @@ public class MarketDataApi {
     /**
      * Build call for takerBuySellVolume
      *
-     * @param pair BTCUSD (required)
-     * @param contractType ALL, CURRENT_QUARTER, NEXT_QUARTER, PERPETUAL (required)
-     * @param period
-     *     \&quot;5m\&quot;,\&quot;15m\&quot;,\&quot;30m\&quot;,\&quot;1h\&quot;,\&quot;2h\&quot;,\&quot;4h\&quot;,\&quot;6h\&quot;,\&quot;12h\&quot;,\&quot;1d\&quot;
-     *     (required)
-     * @param limit Default 100; max 1000 (optional)
+     * @param pair (required)
+     * @param contractType (required)
+     * @param period (required)
+     * @param limit Maximum number of records to return. (optional)
      * @param startTime (optional)
      * @param endTime (optional)
      * @return Call to execute
@@ -3486,7 +3489,7 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Taker-Buy-Sell-Volume">Taker
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#taker-buy-sell-volume">Taker
      *     Buy/Sell Volume Documentation</a>
      */
     private okhttp3.Call takerBuySellVolumeCall(
@@ -3555,11 +3558,10 @@ public class MarketDataApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(Arrays.asList(new String[] {}));
+        Set<String> localVarAuthNames = new HashSet<>();
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -3573,7 +3575,7 @@ public class MarketDataApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -3626,15 +3628,13 @@ public class MarketDataApi {
     /**
      * Taker Buy/Sell Volume Taker Buy Volume: the total volume of buy orders filled by takers
      * within the period. Taker Sell Volume: the total volume of sell orders filled by takers within
-     * the period. * If startTime and endTime are not sent, the most recent data is returned. * Only
-     * the data of the latest 30 days is available. Weight: 1
+     * the period. Weight(IP): 1 Notes: - If startTime and endTime are not sent, the most recent
+     * data is returned. - Only the data of the latest 30 days is available.
      *
-     * @param pair BTCUSD (required)
-     * @param contractType ALL, CURRENT_QUARTER, NEXT_QUARTER, PERPETUAL (required)
-     * @param period
-     *     \&quot;5m\&quot;,\&quot;15m\&quot;,\&quot;30m\&quot;,\&quot;1h\&quot;,\&quot;2h\&quot;,\&quot;4h\&quot;,\&quot;6h\&quot;,\&quot;12h\&quot;,\&quot;1d\&quot;
-     *     (required)
-     * @param limit Default 100; max 1000 (optional)
+     * @param pair (required)
+     * @param contractType (required)
+     * @param period (required)
+     * @param limit Maximum number of records to return. (optional)
      * @param startTime (optional)
      * @param endTime (optional)
      * @return ApiResponse&lt;TakerBuySellVolumeResponse&gt;
@@ -3648,14 +3648,14 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Taker-Buy-Sell-Volume">Taker
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#taker-buy-sell-volume">Taker
      *     Buy/Sell Volume Documentation</a>
      */
     public ApiResponse<TakerBuySellVolumeResponse> takerBuySellVolume(
             @NotNull String pair,
             @NotNull ContractType contractType,
             @NotNull Period period,
-            Long limit,
+            @Max(500L) Long limit,
             Long startTime,
             Long endTime)
             throws ApiException {
@@ -3680,7 +3680,7 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Test-Connectivity">Test
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#test-connectivity">Test
      *     Connectivity Documentation</a>
      */
     private okhttp3.Call testConnectivityCall() throws ApiException {
@@ -3717,11 +3717,10 @@ public class MarketDataApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(Arrays.asList(new String[] {}));
+        Set<String> localVarAuthNames = new HashSet<>();
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -3735,7 +3734,7 @@ public class MarketDataApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -3769,7 +3768,7 @@ public class MarketDataApi {
     }
 
     /**
-     * Test Connectivity Test connectivity to the Rest API. Weight: 1
+     * Test Connectivity Test connectivity to the Rest API. Weight(IP): 1
      *
      * @return ApiResponse&lt;Void&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
@@ -3782,7 +3781,7 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Test-Connectivity">Test
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#test-connectivity">Test
      *     Connectivity Documentation</a>
      */
     public ApiResponse<Void> testConnectivity() throws ApiException {
@@ -3793,8 +3792,8 @@ public class MarketDataApi {
     /**
      * Build call for ticker24hrPriceChangeStatistics
      *
-     * @param symbol (optional)
-     * @param pair (optional)
+     * @param symbol Symbol (optional)
+     * @param pair Pair (optional)
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
@@ -3805,7 +3804,7 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/24hr-Ticker-Price-Change-Statistics">24hr
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#ticker24hr-price-change-statistics">24hr
      *     Ticker Price Change Statistics Documentation</a>
      */
     private okhttp3.Call ticker24hrPriceChangeStatisticsCall(String symbol, String pair)
@@ -3851,11 +3850,10 @@ public class MarketDataApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(Arrays.asList(new String[] {}));
+        Set<String> localVarAuthNames = new HashSet<>();
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -3869,7 +3867,7 @@ public class MarketDataApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -3907,14 +3905,14 @@ public class MarketDataApi {
     }
 
     /**
-     * 24hr Ticker Price Change Statistics 24 hour rolling window price change statistics. * Symbol
-     * and pair cannot be sent together * If a pair is sent,tickers for all symbols of the pair will
-     * be returned * If either a pair or symbol is sent, tickers for all symbols of all pairs will
-     * be returned Weight: 1 for a single symbol, 40 when the symbol parameter is omitted Careful
-     * when accessing this with no symbol.
+     * 24hr Ticker Price Change Statistics 24 hour rolling window price change statistics. Weight:
+     * **1** for a single symbol, **40** when the symbol parameter is omitted **Careful** when
+     * accessing this with no symbol. Notes: - Symbol and pair cannot be sent together - If a pair
+     * is sent,tickers for all symbols of the pair will be returned - If either a pair or symbol is
+     * sent, tickers for all symbols of all pairs will be returned
      *
-     * @param symbol (optional)
-     * @param pair (optional)
+     * @param symbol Symbol (optional)
+     * @param pair Pair (optional)
      * @return ApiResponse&lt;Ticker24hrPriceChangeStatisticsResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
      *     response body
@@ -3926,7 +3924,7 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/24hr-Ticker-Price-Change-Statistics">24hr
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#ticker24hr-price-change-statistics">24hr
      *     Ticker Price Change Statistics Documentation</a>
      */
     public ApiResponse<Ticker24hrPriceChangeStatisticsResponse> ticker24hrPriceChangeStatistics(
@@ -3940,11 +3938,11 @@ public class MarketDataApi {
     /**
      * Build call for topTraderLongShortRatioAccounts
      *
-     * @param symbol (required)
-     * @param period
-     *     \&quot;5m\&quot;,\&quot;15m\&quot;,\&quot;30m\&quot;,\&quot;1h\&quot;,\&quot;2h\&quot;,\&quot;4h\&quot;,\&quot;6h\&quot;,\&quot;12h\&quot;,\&quot;1d\&quot;
-     *     (required)
-     * @param limit Default 100; max 1000 (optional)
+     * @param pair Pair (required)
+     * @param period (required)
+     * @param contractType Contract type filter. If omitted, returns aggregated data across all
+     *     contract types. (optional)
+     * @param limit Maximum number of records to return. (optional)
      * @param startTime (optional)
      * @param endTime (optional)
      * @return Call to execute
@@ -3957,11 +3955,16 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Top-Long-Short-Account-Ratio">Top
-     *     Trader Long/Short Ratio (Accounts) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#top-trader-long-short-ratio-accounts">Top
+     *     Trader Long/Short Account Ratio Documentation</a>
      */
     private okhttp3.Call topTraderLongShortRatioAccountsCall(
-            String symbol, Period period, Long limit, Long startTime, Long endTime)
+            String pair,
+            Period period,
+            ContractType contractType,
+            Long limit,
+            Long startTime,
+            Long endTime)
             throws ApiException {
         String basePath = null;
         // Operation Servers
@@ -3987,12 +3990,17 @@ public class MarketDataApi {
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-        if (symbol != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("symbol", symbol));
+        if (pair != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("pair", pair));
         }
 
         if (period != null) {
             localVarQueryParams.addAll(localVarApiClient.parameterToPair("period", period));
+        }
+
+        if (contractType != null) {
+            localVarQueryParams.addAll(
+                    localVarApiClient.parameterToPair("contractType", contractType));
         }
 
         if (limit != null) {
@@ -4016,11 +4024,10 @@ public class MarketDataApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(Arrays.asList(new String[] {}));
+        Set<String> localVarAuthNames = new HashSet<>();
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -4034,12 +4041,17 @@ public class MarketDataApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call topTraderLongShortRatioAccountsValidateBeforeCall(
-            String symbol, Period period, Long limit, Long startTime, Long endTime)
+            String pair,
+            Period period,
+            ContractType contractType,
+            Long limit,
+            Long startTime,
+            Long endTime)
             throws ApiException {
         try {
             Validator validator =
@@ -4050,13 +4062,14 @@ public class MarketDataApi {
                             .getValidator();
             ExecutableValidator executableValidator = validator.forExecutables();
 
-            Object[] parameterValues = {symbol, period, limit, startTime, endTime};
+            Object[] parameterValues = {pair, period, contractType, limit, startTime, endTime};
             Method method =
                     this.getClass()
                             .getMethod(
                                     "topTraderLongShortRatioAccounts",
                                     String.class,
                                     Period.class,
+                                    ContractType.class,
                                     Long.class,
                                     Long.class,
                                     Long.class);
@@ -4065,7 +4078,7 @@ public class MarketDataApi {
 
             if (violations.size() == 0) {
                 return topTraderLongShortRatioAccountsCall(
-                        symbol, period, limit, startTime, endTime);
+                        pair, period, contractType, limit, startTime, endTime);
             } else {
                 throw new ConstraintViolationException((Set) violations);
             }
@@ -4079,20 +4092,20 @@ public class MarketDataApi {
     }
 
     /**
-     * Top Trader Long/Short Ratio (Accounts) The proportion of net long and net short accounts to
+     * Top Trader Long/Short Account Ratio The proportion of net long and net short accounts to
      * total accounts of the top 20% users with the highest margin balance. Each account is counted
      * once only. Long Account % &#x3D; Accounts of top traders with net long positions / Total
      * accounts of top traders with open positions Short Account % &#x3D; Accounts of top traders
      * with net short positions / Total accounts of top traders with open positions Long/Short Ratio
-     * (Accounts) &#x3D; Long Account % / Short Account % * If startTime and endTime are not sent,
-     * the most recent data is returned. * Only the data of the latest 30 days is available. Weight:
-     * 1
+     * (Accounts) &#x3D; Long Account % / Short Account % Weight(IP): 1 Security Type: Accounts
+     * Notes: - If startTime and endTime are not sent, the most recent data is returned. - Only the
+     * data of the latest 30 days is available.
      *
-     * @param symbol (required)
-     * @param period
-     *     \&quot;5m\&quot;,\&quot;15m\&quot;,\&quot;30m\&quot;,\&quot;1h\&quot;,\&quot;2h\&quot;,\&quot;4h\&quot;,\&quot;6h\&quot;,\&quot;12h\&quot;,\&quot;1d\&quot;
-     *     (required)
-     * @param limit Default 100; max 1000 (optional)
+     * @param pair Pair (required)
+     * @param period (required)
+     * @param contractType Contract type filter. If omitted, returns aggregated data across all
+     *     contract types. (optional)
+     * @param limit Maximum number of records to return. (optional)
      * @param startTime (optional)
      * @param endTime (optional)
      * @return ApiResponse&lt;TopTraderLongShortRatioAccountsResponse&gt;
@@ -4106,19 +4119,20 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Top-Long-Short-Account-Ratio">Top
-     *     Trader Long/Short Ratio (Accounts) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#top-trader-long-short-ratio-accounts">Top
+     *     Trader Long/Short Account Ratio Documentation</a>
      */
     public ApiResponse<TopTraderLongShortRatioAccountsResponse> topTraderLongShortRatioAccounts(
-            @NotNull String symbol,
+            @NotNull String pair,
             @NotNull Period period,
-            Long limit,
+            ContractType contractType,
+            @Max(500L) Long limit,
             Long startTime,
             Long endTime)
             throws ApiException {
         okhttp3.Call localVarCall =
                 topTraderLongShortRatioAccountsValidateBeforeCall(
-                        symbol, period, limit, startTime, endTime);
+                        pair, period, contractType, limit, startTime, endTime);
         java.lang.reflect.Type localVarReturnType =
                 new TypeToken<TopTraderLongShortRatioAccountsResponse>() {}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -4127,11 +4141,11 @@ public class MarketDataApi {
     /**
      * Build call for topTraderLongShortRatioPositions
      *
-     * @param pair BTCUSD (required)
-     * @param period
-     *     \&quot;5m\&quot;,\&quot;15m\&quot;,\&quot;30m\&quot;,\&quot;1h\&quot;,\&quot;2h\&quot;,\&quot;4h\&quot;,\&quot;6h\&quot;,\&quot;12h\&quot;,\&quot;1d\&quot;
-     *     (required)
-     * @param limit Default 100; max 1000 (optional)
+     * @param pair (required)
+     * @param period (required)
+     * @param contractType Contract type filter. If omitted, returns aggregated data across all
+     *     contract types. (optional)
+     * @param limit Maximum number of records to return. (optional)
      * @param startTime (optional)
      * @param endTime (optional)
      * @return Call to execute
@@ -4144,11 +4158,16 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Top-Trader-Long-Short-Ratio">Top
-     *     Trader Long/Short Ratio (Positions) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#top-trader-long-short-ratio-positions">Top
+     *     Trader Long/Short Position Ratio Documentation</a>
      */
     private okhttp3.Call topTraderLongShortRatioPositionsCall(
-            String pair, Period period, Long limit, Long startTime, Long endTime)
+            String pair,
+            Period period,
+            ContractType contractType,
+            Long limit,
+            Long startTime,
+            Long endTime)
             throws ApiException {
         String basePath = null;
         // Operation Servers
@@ -4182,6 +4201,11 @@ public class MarketDataApi {
             localVarQueryParams.addAll(localVarApiClient.parameterToPair("period", period));
         }
 
+        if (contractType != null) {
+            localVarQueryParams.addAll(
+                    localVarApiClient.parameterToPair("contractType", contractType));
+        }
+
         if (limit != null) {
             localVarQueryParams.addAll(localVarApiClient.parameterToPair("limit", limit));
         }
@@ -4203,11 +4227,10 @@ public class MarketDataApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(Arrays.asList(new String[] {}));
+        Set<String> localVarAuthNames = new HashSet<>();
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -4221,12 +4244,17 @@ public class MarketDataApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call topTraderLongShortRatioPositionsValidateBeforeCall(
-            String pair, Period period, Long limit, Long startTime, Long endTime)
+            String pair,
+            Period period,
+            ContractType contractType,
+            Long limit,
+            Long startTime,
+            Long endTime)
             throws ApiException {
         try {
             Validator validator =
@@ -4237,13 +4265,14 @@ public class MarketDataApi {
                             .getValidator();
             ExecutableValidator executableValidator = validator.forExecutables();
 
-            Object[] parameterValues = {pair, period, limit, startTime, endTime};
+            Object[] parameterValues = {pair, period, contractType, limit, startTime, endTime};
             Method method =
                     this.getClass()
                             .getMethod(
                                     "topTraderLongShortRatioPositions",
                                     String.class,
                                     Period.class,
+                                    ContractType.class,
                                     Long.class,
                                     Long.class,
                                     Long.class);
@@ -4252,7 +4281,7 @@ public class MarketDataApi {
 
             if (violations.size() == 0) {
                 return topTraderLongShortRatioPositionsCall(
-                        pair, period, limit, startTime, endTime);
+                        pair, period, contractType, limit, startTime, endTime);
             } else {
                 throw new ConstraintViolationException((Set) violations);
             }
@@ -4266,19 +4295,19 @@ public class MarketDataApi {
     }
 
     /**
-     * Top Trader Long/Short Ratio (Positions) The proportion of net long and net short positions to
+     * Top Trader Long/Short Position Ratio The proportion of net long and net short positions to
      * total open positions of the top 20% users with the highest margin balance. Long Position %
      * &#x3D; Long positions of top traders / Total open positions of top traders Short Position %
      * &#x3D; Short positions of top traders / Total open positions of top traders Long/Short Ratio
-     * (Positions) &#x3D; Long Position % / Short Position % * If startTime and endTime are not
-     * sent, the most recent data is returned. * Only the data of the latest 30 days is available.
-     * Weight: 1
+     * (Positions) &#x3D; Long Position % / Short Position % Weight(IP): 1 Security Type: Positions
+     * Notes: - If startTime and endTime are not sent, the most recent data is returned. - Only the
+     * data of the latest 30 days is available.
      *
-     * @param pair BTCUSD (required)
-     * @param period
-     *     \&quot;5m\&quot;,\&quot;15m\&quot;,\&quot;30m\&quot;,\&quot;1h\&quot;,\&quot;2h\&quot;,\&quot;4h\&quot;,\&quot;6h\&quot;,\&quot;12h\&quot;,\&quot;1d\&quot;
-     *     (required)
-     * @param limit Default 100; max 1000 (optional)
+     * @param pair (required)
+     * @param period (required)
+     * @param contractType Contract type filter. If omitted, returns aggregated data across all
+     *     contract types. (optional)
+     * @param limit Maximum number of records to return. (optional)
      * @param startTime (optional)
      * @param endTime (optional)
      * @return ApiResponse&lt;TopTraderLongShortRatioPositionsResponse&gt;
@@ -4292,15 +4321,20 @@ public class MarketDataApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/coin-margined-futures/market-data/rest-api/Top-Trader-Long-Short-Ratio">Top
-     *     Trader Long/Short Ratio (Positions) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-coin-m-futures/api/rest-api/market-data#top-trader-long-short-ratio-positions">Top
+     *     Trader Long/Short Position Ratio Documentation</a>
      */
     public ApiResponse<TopTraderLongShortRatioPositionsResponse> topTraderLongShortRatioPositions(
-            @NotNull String pair, @NotNull Period period, Long limit, Long startTime, Long endTime)
+            @NotNull String pair,
+            @NotNull Period period,
+            ContractType contractType,
+            @Max(500L) Long limit,
+            Long startTime,
+            Long endTime)
             throws ApiException {
         okhttp3.Call localVarCall =
                 topTraderLongShortRatioPositionsValidateBeforeCall(
-                        pair, period, limit, startTime, endTime);
+                        pair, period, contractType, limit, startTime, endTime);
         java.lang.reflect.Type localVarReturnType =
                 new TypeToken<TopTraderLongShortRatioPositionsResponse>() {}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);

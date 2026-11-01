@@ -1,8 +1,8 @@
 
 
 /*
- * Binance Derivatives Trading Portfolio Margin REST API
- * OpenAPI Specification for the Binance Derivatives Trading Portfolio Margin REST API
+ * Portfolio Margin REST API
+ * Access account information, manage margin positions, and trade with Binance Portfolio Margin.
  *
  * The version of the OpenAPI document: 1.0.0
  *
@@ -25,17 +25,19 @@ import com.binance.connector.client.common.exception.ConstraintViolationExceptio
 import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.AutoCloseType;
 import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.CancelAllCmOpenConditionalOrdersResponse;
 import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.CancelAllCmOpenOrdersResponse;
-import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.CancelAllUmOpenConditionalOrdersResponse;
+import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.CancelAllUmAlgoOpenOrdersResponse;
 import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.CancelAllUmOpenOrdersResponse;
 import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.CancelCmConditionalOrderResponse;
 import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.CancelCmOrderResponse;
 import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.CancelMarginAccountAllOpenOrdersOnASymbolResponse;
 import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.CancelMarginAccountOcoOrdersResponse;
 import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.CancelMarginAccountOrderResponse;
-import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.CancelUmConditionalOrderResponse;
+import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.CancelUmAlgoOrderResponse;
 import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.CancelUmOrderResponse;
 import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.CmAccountTradeListResponse;
 import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.CmPositionAdlQuantileEstimationResponse;
+import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.FuturesTradfiPerpsContractRequest;
+import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.FuturesTradfiPerpsContractResponse;
 import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.GetUmFuturesBnbBurnStatusResponse;
 import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.MarginAccountBorrowRequest;
 import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.MarginAccountBorrowResponse;
@@ -56,18 +58,17 @@ import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.mo
 import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.NewCmOrderResponse;
 import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.NewMarginOrderRequest;
 import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.NewMarginOrderResponse;
-import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.NewUmConditionalOrderRequest;
-import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.NewUmConditionalOrderResponse;
+import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.NewUmAlgoOrderRequest;
+import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.NewUmAlgoOrderResponse;
 import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.NewUmOrderRequest;
 import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.NewUmOrderResponse;
 import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.QueryAllCmConditionalOrdersResponse;
 import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.QueryAllCmOrdersResponse;
 import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.QueryAllCurrentCmOpenConditionalOrdersResponse;
 import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.QueryAllCurrentCmOpenOrdersResponse;
-import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.QueryAllCurrentUmOpenConditionalOrdersResponse;
+import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.QueryAllCurrentUmOpenAlgoOrdersResponse;
 import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.QueryAllCurrentUmOpenOrdersResponse;
 import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.QueryAllMarginAccountOrdersResponse;
-import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.QueryAllUmConditionalOrdersResponse;
 import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.QueryAllUmOrdersResponse;
 import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.QueryCmConditionalOrderHistoryResponse;
 import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.QueryCmModifyOrderHistoryResponse;
@@ -75,13 +76,13 @@ import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.mo
 import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.QueryCurrentCmOpenConditionalOrderResponse;
 import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.QueryCurrentCmOpenOrderResponse;
 import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.QueryCurrentMarginOpenOrderResponse;
-import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.QueryCurrentUmOpenConditionalOrderResponse;
+import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.QueryCurrentUmOpenAlgoOrderResponse;
 import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.QueryCurrentUmOpenOrderResponse;
 import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.QueryMarginAccountOrderResponse;
 import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.QueryMarginAccountsAllOcoResponse;
 import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.QueryMarginAccountsOcoResponse;
 import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.QueryMarginAccountsOpenOcoResponse;
-import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.QueryUmConditionalOrderHistoryResponse;
+import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.QueryUmAlgoOrderHistoryResponse;
 import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.QueryUmModifyOrderHistoryResponse;
 import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.QueryUmOrderResponse;
 import com.binance.connector.client.derivatives_trading_portfolio_margin.rest.model.QueryUsersCmForceOrdersResponse;
@@ -100,8 +101,8 @@ import jakarta.validation.constraints.*;
 import jakarta.validation.executable.ExecutableValidator;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -114,7 +115,7 @@ public class TradeApi {
 
     private static final String USER_AGENT =
             String.format(
-                    "binance-derivatives-trading-portfolio-margin/1.1.0 (Java/%s; %s; %s)",
+                    "binance-derivatives-trading-portfolio-margin/8.0.0 (Java/%s; %s; %s)",
                     SystemUtil.getJavaVersion(), SystemUtil.getOs(), SystemUtil.getArch());
     private static final boolean HAS_TIME_UNIT = false;
 
@@ -154,7 +155,7 @@ public class TradeApi {
     /**
      * Build call for cancelAllCmOpenConditionalOrders
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @param recvWindow (optional)
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -166,8 +167,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Cancel-All-CM-Open-Conditional-Orders">Cancel
-     *     All CM Open Conditional Orders(TRADE) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#cancel-all-cm-open-conditional-orders">Cancel
+     *     All CM Open Conditional Orders (TRADE) Documentation</a>
      */
     private okhttp3.Call cancelAllCmOpenConditionalOrdersCall(String symbol, Long recvWindow)
             throws ApiException {
@@ -212,15 +213,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -234,7 +231,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -272,9 +269,10 @@ public class TradeApi {
     }
 
     /**
-     * Cancel All CM Open Conditional Orders(TRADE) Cancel All CM Open Conditional Orders Weight: 1
+     * Cancel All CM Open Conditional Orders (TRADE) Cancel All CM Open Conditional Orders
+     * Weight(IP): 1 Security Type: TRADE
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @param recvWindow (optional)
      * @return ApiResponse&lt;CancelAllCmOpenConditionalOrdersResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
@@ -287,8 +285,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Cancel-All-CM-Open-Conditional-Orders">Cancel
-     *     All CM Open Conditional Orders(TRADE) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#cancel-all-cm-open-conditional-orders">Cancel
+     *     All CM Open Conditional Orders (TRADE) Documentation</a>
      */
     public ApiResponse<CancelAllCmOpenConditionalOrdersResponse> cancelAllCmOpenConditionalOrders(
             @NotNull String symbol, Long recvWindow) throws ApiException {
@@ -302,7 +300,7 @@ public class TradeApi {
     /**
      * Build call for cancelAllCmOpenOrders
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @param recvWindow (optional)
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -314,8 +312,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Cancel-All-CM-Open-Orders">Cancel
-     *     All CM Open Orders(TRADE) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#cancel-all-cm-open-orders">Cancel
+     *     All CM Open Orders (TRADE) Documentation</a>
      */
     private okhttp3.Call cancelAllCmOpenOrdersCall(String symbol, Long recvWindow)
             throws ApiException {
@@ -360,15 +358,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -382,7 +376,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -418,9 +412,10 @@ public class TradeApi {
     }
 
     /**
-     * Cancel All CM Open Orders(TRADE) Cancel all active LIMIT orders on specific symbol Weight: 1
+     * Cancel All CM Open Orders (TRADE) Cancel all active LIMIT orders on specific symbol
+     * Weight(IP): 1 Security Type: TRADE
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @param recvWindow (optional)
      * @return ApiResponse&lt;CancelAllCmOpenOrdersResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
@@ -433,8 +428,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Cancel-All-CM-Open-Orders">Cancel
-     *     All CM Open Orders(TRADE) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#cancel-all-cm-open-orders">Cancel
+     *     All CM Open Orders (TRADE) Documentation</a>
      */
     public ApiResponse<CancelAllCmOpenOrdersResponse> cancelAllCmOpenOrders(
             @NotNull String symbol, Long recvWindow) throws ApiException {
@@ -445,9 +440,9 @@ public class TradeApi {
     }
 
     /**
-     * Build call for cancelAllUmOpenConditionalOrders
+     * Build call for cancelAllUmAlgoOpenOrders
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @param recvWindow (optional)
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -455,14 +450,14 @@ public class TradeApi {
      *     <table border="1">
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> Cancel All UM Open Conditional Orders </td><td>  -  </td></tr>
+     * <tr><td> 200 </td><td> Cancel All UM Algo Open Orders </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Cancel-All-UM-Open-Conditional-Orders">Cancel
-     *     All UM Open Conditional Orders (TRADE) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#cancel-all-um-algo-open-orders">Cancel
+     *     All UM Algo Open Orders (TRADE) Documentation</a>
      */
-    private okhttp3.Call cancelAllUmOpenConditionalOrdersCall(String symbol, Long recvWindow)
+    private okhttp3.Call cancelAllUmAlgoOpenOrdersCall(String symbol, Long recvWindow)
             throws ApiException {
         String basePath = null;
         // Operation Servers
@@ -480,7 +475,7 @@ public class TradeApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/papi/v1/um/conditional/allOpenOrders";
+        String localVarPath = "/papi/v1/um/algo/allOpenOrders";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -505,15 +500,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -527,12 +518,12 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call cancelAllUmOpenConditionalOrdersValidateBeforeCall(
-            String symbol, Long recvWindow) throws ApiException {
+    private okhttp3.Call cancelAllUmAlgoOpenOrdersValidateBeforeCall(String symbol, Long recvWindow)
+            throws ApiException {
         try {
             Validator validator =
                     Validation.byDefaultProvider()
@@ -545,13 +536,12 @@ public class TradeApi {
             Object[] parameterValues = {symbol, recvWindow};
             Method method =
                     this.getClass()
-                            .getMethod(
-                                    "cancelAllUmOpenConditionalOrders", String.class, Long.class);
+                            .getMethod("cancelAllUmAlgoOpenOrders", String.class, Long.class);
             Set<ConstraintViolation<TradeApi>> violations =
                     executableValidator.validateParameters(this, method, parameterValues);
 
             if (violations.size() == 0) {
-                return cancelAllUmOpenConditionalOrdersCall(symbol, recvWindow);
+                return cancelAllUmAlgoOpenOrdersCall(symbol, recvWindow);
             } else {
                 throw new ConstraintViolationException((Set) violations);
             }
@@ -565,37 +555,37 @@ public class TradeApi {
     }
 
     /**
-     * Cancel All UM Open Conditional Orders (TRADE) Cancel All UM Open Conditional Orders Weight: 1
+     * Cancel All UM Algo Open Orders (TRADE) Cancel All UM Algo Open Orders Weight(IP): 1 Security
+     * Type: TRADE
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @param recvWindow (optional)
-     * @return ApiResponse&lt;CancelAllUmOpenConditionalOrdersResponse&gt;
+     * @return ApiResponse&lt;CancelAllUmAlgoOpenOrdersResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
      *     response body
      * @http.response.details
      *     <table border="1">
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> Cancel All UM Open Conditional Orders </td><td>  -  </td></tr>
+     * <tr><td> 200 </td><td> Cancel All UM Algo Open Orders </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Cancel-All-UM-Open-Conditional-Orders">Cancel
-     *     All UM Open Conditional Orders (TRADE) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#cancel-all-um-algo-open-orders">Cancel
+     *     All UM Algo Open Orders (TRADE) Documentation</a>
      */
-    public ApiResponse<CancelAllUmOpenConditionalOrdersResponse> cancelAllUmOpenConditionalOrders(
-            @NotNull String symbol, Long recvWindow) throws ApiException {
-        okhttp3.Call localVarCall =
-                cancelAllUmOpenConditionalOrdersValidateBeforeCall(symbol, recvWindow);
+    public ApiResponse<CancelAllUmAlgoOpenOrdersResponse> cancelAllUmAlgoOpenOrders(
+            @NotNull String symbol, @Max(60000L) Long recvWindow) throws ApiException {
+        okhttp3.Call localVarCall = cancelAllUmAlgoOpenOrdersValidateBeforeCall(symbol, recvWindow);
         java.lang.reflect.Type localVarReturnType =
-                new TypeToken<CancelAllUmOpenConditionalOrdersResponse>() {}.getType();
+                new TypeToken<CancelAllUmAlgoOpenOrdersResponse>() {}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Build call for cancelAllUmOpenOrders
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @param recvWindow (optional)
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -607,8 +597,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Cancel-All-UM-Open-Orders">Cancel
-     *     All UM Open Orders(TRADE) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#cancel-all-um-open-orders">Cancel
+     *     All UM Open Orders (TRADE) Documentation</a>
      */
     private okhttp3.Call cancelAllUmOpenOrdersCall(String symbol, Long recvWindow)
             throws ApiException {
@@ -653,15 +643,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -675,7 +661,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -711,9 +697,10 @@ public class TradeApi {
     }
 
     /**
-     * Cancel All UM Open Orders(TRADE) Cancel all active LIMIT orders on specific symbol Weight: 1
+     * Cancel All UM Open Orders (TRADE) Cancel all active LIMIT orders on specific symbol
+     * Weight(IP): 1 Security Type: TRADE
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @param recvWindow (optional)
      * @return ApiResponse&lt;CancelAllUmOpenOrdersResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
@@ -726,8 +713,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Cancel-All-UM-Open-Orders">Cancel
-     *     All UM Open Orders(TRADE) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#cancel-all-um-open-orders">Cancel
+     *     All UM Open Orders (TRADE) Documentation</a>
      */
     public ApiResponse<CancelAllUmOpenOrdersResponse> cancelAllUmOpenOrders(
             @NotNull String symbol, Long recvWindow) throws ApiException {
@@ -740,7 +727,7 @@ public class TradeApi {
     /**
      * Build call for cancelCmConditionalOrder
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @param strategyId (optional)
      * @param newClientStrategyId (optional)
      * @param recvWindow (optional)
@@ -754,8 +741,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Cancel-CM-Conditional-Order">Cancel
-     *     CM Conditional Order(TRADE) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#cancel-cm-conditional-order">Cancel
+     *     CM Conditional Order (TRADE) Documentation</a>
      */
     private okhttp3.Call cancelCmConditionalOrderCall(
             String symbol, Long strategyId, String newClientStrategyId, Long recvWindow)
@@ -810,15 +797,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -832,7 +815,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -876,10 +859,10 @@ public class TradeApi {
     }
 
     /**
-     * Cancel CM Conditional Order(TRADE) Cancel CM Conditional Order * Either
-     * &#x60;strategyId&#x60; or &#x60;newClientStrategyId&#x60; must be sent. Weight: 1
+     * Cancel CM Conditional Order (TRADE) Cancel CM Conditional Order Weight(IP): 1 Security Type:
+     * TRADE Notes: - Either &#x60;strategyId&#x60; or &#x60;newClientStrategyId&#x60; must be sent.
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @param strategyId (optional)
      * @param newClientStrategyId (optional)
      * @param recvWindow (optional)
@@ -894,8 +877,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Cancel-CM-Conditional-Order">Cancel
-     *     CM Conditional Order(TRADE) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#cancel-cm-conditional-order">Cancel
+     *     CM Conditional Order (TRADE) Documentation</a>
      */
     public ApiResponse<CancelCmConditionalOrderResponse> cancelCmConditionalOrder(
             @NotNull String symbol, Long strategyId, String newClientStrategyId, Long recvWindow)
@@ -911,7 +894,7 @@ public class TradeApi {
     /**
      * Build call for cancelCmOrder
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @param orderId (optional)
      * @param origClientOrderId (optional)
      * @param recvWindow (optional)
@@ -925,8 +908,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Cancel-CM-Order">Cancel
-     *     CM Order(TRADE) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#cancel-cm-order">Cancel
+     *     CM Order (TRADE) Documentation</a>
      */
     private okhttp3.Call cancelCmOrderCall(
             String symbol, Long orderId, String origClientOrderId, Long recvWindow)
@@ -981,15 +964,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -1003,7 +982,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -1046,10 +1025,10 @@ public class TradeApi {
     }
 
     /**
-     * Cancel CM Order(TRADE) Cancel an active LIMIT order * Either &#x60;orderId&#x60; or
-     * &#x60;origClientOrderId&#x60; must be sent. Weight: 1
+     * Cancel CM Order (TRADE) Cancel an active LIMIT order Weight(IP): 1 Security Type: TRADE
+     * Notes: - Either &#x60;orderId&#x60; or &#x60;origClientOrderId&#x60; must be sent.
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @param orderId (optional)
      * @param origClientOrderId (optional)
      * @param recvWindow (optional)
@@ -1064,8 +1043,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Cancel-CM-Order">Cancel
-     *     CM Order(TRADE) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#cancel-cm-order">Cancel
+     *     CM Order (TRADE) Documentation</a>
      */
     public ApiResponse<CancelCmOrderResponse> cancelCmOrder(
             @NotNull String symbol, Long orderId, String origClientOrderId, Long recvWindow)
@@ -1080,7 +1059,7 @@ public class TradeApi {
     /**
      * Build call for cancelMarginAccountAllOpenOrdersOnASymbol
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @param recvWindow (optional)
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -1092,8 +1071,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Cancel-Margin-Account-All-Open-Orders-on-a-Symbol">Cancel
-     *     Margin Account All Open Orders on a Symbol(TRADE) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#cancel-margin-account-all-open-orders-on-asymbol">Cancel
+     *     Margin Account All Open Orders on a Symbol (TRADE) Documentation</a>
      */
     private okhttp3.Call cancelMarginAccountAllOpenOrdersOnASymbolCall(
             String symbol, Long recvWindow) throws ApiException {
@@ -1138,15 +1117,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -1160,7 +1135,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -1200,10 +1175,10 @@ public class TradeApi {
     }
 
     /**
-     * Cancel Margin Account All Open Orders on a Symbol(TRADE) Cancel Margin Account All Open
-     * Orders on a Symbol Weight: 5
+     * Cancel Margin Account All Open Orders on a Symbol (TRADE) Cancel Margin Account All Open
+     * Orders on a Symbol Weight(IP): 5 Security Type: TRADE
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @param recvWindow (optional)
      * @return ApiResponse&lt;CancelMarginAccountAllOpenOrdersOnASymbolResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
@@ -1216,12 +1191,12 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Cancel-Margin-Account-All-Open-Orders-on-a-Symbol">Cancel
-     *     Margin Account All Open Orders on a Symbol(TRADE) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#cancel-margin-account-all-open-orders-on-asymbol">Cancel
+     *     Margin Account All Open Orders on a Symbol (TRADE) Documentation</a>
      */
     public ApiResponse<CancelMarginAccountAllOpenOrdersOnASymbolResponse>
-            cancelMarginAccountAllOpenOrdersOnASymbol(@NotNull String symbol, Long recvWindow)
-                    throws ApiException {
+            cancelMarginAccountAllOpenOrdersOnASymbol(
+                    @NotNull String symbol, @Max(60000L) Long recvWindow) throws ApiException {
         okhttp3.Call localVarCall =
                 cancelMarginAccountAllOpenOrdersOnASymbolValidateBeforeCall(symbol, recvWindow);
         java.lang.reflect.Type localVarReturnType =
@@ -1232,14 +1207,13 @@ public class TradeApi {
     /**
      * Build call for cancelMarginAccountOcoOrders
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @param orderListId Either &#x60;orderListId&#x60; or &#x60;listClientOrderId&#x60; must be
      *     provided (optional)
      * @param listClientOrderId Either &#x60;orderListId&#x60; or &#x60;listClientOrderId&#x60; must
      *     be provided (optional)
-     * @param newClientOrderId Used to uniquely identify this cancel. Automatically generated by
-     *     default (optional)
-     * @param recvWindow (optional)
+     * @param newClientOrderId Used to uniquely identify this cancel request. (optional)
+     * @param recvWindow The value cannot be greater than 60000 (optional)
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
@@ -1250,8 +1224,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Cancel-Margin-Account-OCO-Orders">Cancel
-     *     Margin Account OCO Orders(TRADE) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#cancel-margin-account-oco-orders">Cancel
+     *     Margin Account OCO Orders (TRADE) Documentation</a>
      */
     private okhttp3.Call cancelMarginAccountOcoOrdersCall(
             String symbol,
@@ -1316,15 +1290,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -1338,7 +1308,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -1389,17 +1359,17 @@ public class TradeApi {
     }
 
     /**
-     * Cancel Margin Account OCO Orders(TRADE) Cancel Margin Account OCO Orders * Additional notes:
-     * Canceling an individual leg will cancel the entire OCO Weight: 2
+     * Cancel Margin Account OCO Orders (TRADE) Cancel Margin Account OCO Orders Weight(IP): 2
+     * Security Type: TRADE Notes: - Additional notes: Canceling an individual leg will cancel the
+     * entire OCO
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @param orderListId Either &#x60;orderListId&#x60; or &#x60;listClientOrderId&#x60; must be
      *     provided (optional)
      * @param listClientOrderId Either &#x60;orderListId&#x60; or &#x60;listClientOrderId&#x60; must
      *     be provided (optional)
-     * @param newClientOrderId Used to uniquely identify this cancel. Automatically generated by
-     *     default (optional)
-     * @param recvWindow (optional)
+     * @param newClientOrderId Used to uniquely identify this cancel request. (optional)
+     * @param recvWindow The value cannot be greater than 60000 (optional)
      * @return ApiResponse&lt;CancelMarginAccountOcoOrdersResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
      *     response body
@@ -1411,8 +1381,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Cancel-Margin-Account-OCO-Orders">Cancel
-     *     Margin Account OCO Orders(TRADE) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#cancel-margin-account-oco-orders">Cancel
+     *     Margin Account OCO Orders (TRADE) Documentation</a>
      */
     public ApiResponse<CancelMarginAccountOcoOrdersResponse> cancelMarginAccountOcoOrders(
             @NotNull String symbol,
@@ -1432,12 +1402,11 @@ public class TradeApi {
     /**
      * Build call for cancelMarginAccountOrder
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @param orderId (optional)
      * @param origClientOrderId (optional)
-     * @param newClientOrderId Used to uniquely identify this cancel. Automatically generated by
-     *     default (optional)
-     * @param recvWindow (optional)
+     * @param newClientOrderId Used to uniquely identify this cancel request. (optional)
+     * @param recvWindow The value cannot be greater than &#x60;60000&#x60; (optional)
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
@@ -1448,8 +1417,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Cancel-Margin-Account-Order">Cancel
-     *     Margin Account Order(TRADE) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#cancel-margin-account-order">Cancel
+     *     Margin Account Order (TRADE) Documentation</a>
      */
     private okhttp3.Call cancelMarginAccountOrderCall(
             String symbol,
@@ -1513,15 +1482,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -1535,7 +1500,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -1586,15 +1551,14 @@ public class TradeApi {
     }
 
     /**
-     * Cancel Margin Account Order(TRADE) Cancel Margin Account Order * Either &#x60;orderId&#x60;
-     * or &#x60;origClientOrderId&#x60; must be sent. Weight: 2
+     * Cancel Margin Account Order (TRADE) Cancel Margin Account Order Weight(IP): 2 Security Type:
+     * TRADE Notes: - Either &#x60;orderId&#x60; or &#x60;origClientOrderId&#x60; must be sent.
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @param orderId (optional)
      * @param origClientOrderId (optional)
-     * @param newClientOrderId Used to uniquely identify this cancel. Automatically generated by
-     *     default (optional)
-     * @param recvWindow (optional)
+     * @param newClientOrderId Used to uniquely identify this cancel request. (optional)
+     * @param recvWindow The value cannot be greater than &#x60;60000&#x60; (optional)
      * @return ApiResponse&lt;CancelMarginAccountOrderResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
      *     response body
@@ -1606,8 +1570,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Cancel-Margin-Account-Order">Cancel
-     *     Margin Account Order(TRADE) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#cancel-margin-account-order">Cancel
+     *     Margin Account Order (TRADE) Documentation</a>
      */
     public ApiResponse<CancelMarginAccountOrderResponse> cancelMarginAccountOrder(
             @NotNull String symbol,
@@ -1625,11 +1589,10 @@ public class TradeApi {
     }
 
     /**
-     * Build call for cancelUmConditionalOrder
+     * Build call for cancelUmAlgoOrder
      *
-     * @param symbol (required)
-     * @param strategyId (optional)
-     * @param newClientStrategyId (optional)
+     * @param algoId Algo order ID (optional)
+     * @param clientAlgoId Client algo order ID (optional)
      * @param recvWindow (optional)
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -1637,15 +1600,14 @@ public class TradeApi {
      *     <table border="1">
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> Cancel UM Conditional Order </td><td>  -  </td></tr>
+     * <tr><td> 200 </td><td> Cancel UM Algo Order </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Cancel-UM-Conditional-Order">Cancel
-     *     UM Conditional Order(TRADE) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#cancel-um-algo-order">Cancel
+     *     UM Algo Order (TRADE) Documentation</a>
      */
-    private okhttp3.Call cancelUmConditionalOrderCall(
-            String symbol, Long strategyId, String newClientStrategyId, Long recvWindow)
+    private okhttp3.Call cancelUmAlgoOrderCall(Long algoId, String clientAlgoId, Long recvWindow)
             throws ApiException {
         String basePath = null;
         // Operation Servers
@@ -1663,7 +1625,7 @@ public class TradeApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/papi/v1/um/conditional/order";
+        String localVarPath = "/papi/v1/um/algo/order";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -1671,17 +1633,13 @@ public class TradeApi {
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-        if (symbol != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("symbol", symbol));
+        if (algoId != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("algoId", algoId));
         }
 
-        if (strategyId != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("strategyId", strategyId));
-        }
-
-        if (newClientStrategyId != null) {
+        if (clientAlgoId != null) {
             localVarQueryParams.addAll(
-                    localVarApiClient.parameterToPair("newClientStrategyId", newClientStrategyId));
+                    localVarApiClient.parameterToPair("clientAlgoId", clientAlgoId));
         }
 
         if (recvWindow != null) {
@@ -1697,15 +1655,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -1719,13 +1673,12 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call cancelUmConditionalOrderValidateBeforeCall(
-            String symbol, Long strategyId, String newClientStrategyId, Long recvWindow)
-            throws ApiException {
+    private okhttp3.Call cancelUmAlgoOrderValidateBeforeCall(
+            Long algoId, String clientAlgoId, Long recvWindow) throws ApiException {
         try {
             Validator validator =
                     Validation.byDefaultProvider()
@@ -1735,21 +1688,15 @@ public class TradeApi {
                             .getValidator();
             ExecutableValidator executableValidator = validator.forExecutables();
 
-            Object[] parameterValues = {symbol, strategyId, newClientStrategyId, recvWindow};
+            Object[] parameterValues = {algoId, clientAlgoId, recvWindow};
             Method method =
                     this.getClass()
-                            .getMethod(
-                                    "cancelUmConditionalOrder",
-                                    String.class,
-                                    Long.class,
-                                    String.class,
-                                    Long.class);
+                            .getMethod("cancelUmAlgoOrder", Long.class, String.class, Long.class);
             Set<ConstraintViolation<TradeApi>> violations =
                     executableValidator.validateParameters(this, method, parameterValues);
 
             if (violations.size() == 0) {
-                return cancelUmConditionalOrderCall(
-                        symbol, strategyId, newClientStrategyId, recvWindow);
+                return cancelUmAlgoOrderCall(algoId, clientAlgoId, recvWindow);
             } else {
                 throw new ConstraintViolationException((Set) violations);
             }
@@ -1763,42 +1710,39 @@ public class TradeApi {
     }
 
     /**
-     * Cancel UM Conditional Order(TRADE) Cancel UM Conditional Order * Either
-     * &#x60;strategyId&#x60; or &#x60;newClientStrategyId&#x60; must be sent. Weight: 1
+     * Cancel UM Algo Order (TRADE) Cancel an active UM algo order Weight(IP): 1 Security Type:
+     * TRADE Notes: - Either &#x60;algoId&#x60; or &#x60;clientAlgoId&#x60; must be sent.
      *
-     * @param symbol (required)
-     * @param strategyId (optional)
-     * @param newClientStrategyId (optional)
+     * @param algoId Algo order ID (optional)
+     * @param clientAlgoId Client algo order ID (optional)
      * @param recvWindow (optional)
-     * @return ApiResponse&lt;CancelUmConditionalOrderResponse&gt;
+     * @return ApiResponse&lt;CancelUmAlgoOrderResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
      *     response body
      * @http.response.details
      *     <table border="1">
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> Cancel UM Conditional Order </td><td>  -  </td></tr>
+     * <tr><td> 200 </td><td> Cancel UM Algo Order </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Cancel-UM-Conditional-Order">Cancel
-     *     UM Conditional Order(TRADE) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#cancel-um-algo-order">Cancel
+     *     UM Algo Order (TRADE) Documentation</a>
      */
-    public ApiResponse<CancelUmConditionalOrderResponse> cancelUmConditionalOrder(
-            @NotNull String symbol, Long strategyId, String newClientStrategyId, Long recvWindow)
-            throws ApiException {
+    public ApiResponse<CancelUmAlgoOrderResponse> cancelUmAlgoOrder(
+            Long algoId, String clientAlgoId, @Max(60000L) Long recvWindow) throws ApiException {
         okhttp3.Call localVarCall =
-                cancelUmConditionalOrderValidateBeforeCall(
-                        symbol, strategyId, newClientStrategyId, recvWindow);
+                cancelUmAlgoOrderValidateBeforeCall(algoId, clientAlgoId, recvWindow);
         java.lang.reflect.Type localVarReturnType =
-                new TypeToken<CancelUmConditionalOrderResponse>() {}.getType();
+                new TypeToken<CancelUmAlgoOrderResponse>() {}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Build call for cancelUmOrder
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @param orderId (optional)
      * @param origClientOrderId (optional)
      * @param recvWindow (optional)
@@ -1812,8 +1756,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Cancel-UM-Order">Cancel
-     *     UM Order(TRADE) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#cancel-um-order">Cancel
+     *     UM Order (TRADE) Documentation</a>
      */
     private okhttp3.Call cancelUmOrderCall(
             String symbol, Long orderId, String origClientOrderId, Long recvWindow)
@@ -1868,15 +1812,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -1890,7 +1830,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -1933,10 +1873,10 @@ public class TradeApi {
     }
 
     /**
-     * Cancel UM Order(TRADE) Cancel an active UM LIMIT order * Either &#x60;orderId&#x60; or
-     * &#x60;origClientOrderId&#x60; must be sent. Weight: 1
+     * Cancel UM Order (TRADE) Cancel an active UM LIMIT order Weight(IP): 1 Security Type: TRADE
+     * Notes: - Either &#x60;orderId&#x60; or &#x60;origClientOrderId&#x60; must be sent.
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @param orderId (optional)
      * @param origClientOrderId (optional)
      * @param recvWindow (optional)
@@ -1951,8 +1891,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Cancel-UM-Order">Cancel
-     *     UM Order(TRADE) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#cancel-um-order">Cancel
+     *     UM Order (TRADE) Documentation</a>
      */
     public ApiResponse<CancelUmOrderResponse> cancelUmOrder(
             @NotNull String symbol, Long orderId, String origClientOrderId, Long recvWindow)
@@ -1971,8 +1911,8 @@ public class TradeApi {
      * @param pair (optional)
      * @param startTime Timestamp in ms to get funding from INCLUSIVE. (optional)
      * @param endTime Timestamp in ms to get funding until INCLUSIVE. (optional)
-     * @param fromId Trade id to fetch from. Default gets most recent trades. (optional)
-     * @param limit Default 100; max 1000 (optional)
+     * @param fromId Trade ID to fetch from. (optional)
+     * @param limit Number of results returned. (optional)
      * @param recvWindow (optional)
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -1984,8 +1924,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/CM-Account-Trade-List">CM
-     *     Account Trade List(USER_DATA) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#cm-account-trade-list">CM
+     *     Account Trade List (USER_DATA) Documentation</a>
      */
     private okhttp3.Call cmAccountTradeListCall(
             String symbol,
@@ -2057,15 +1997,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -2079,7 +2015,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -2134,20 +2070,23 @@ public class TradeApi {
     }
 
     /**
-     * CM Account Trade List(USER_DATA) Get trades for a specific account and CM symbol. * Either
-     * &#x60;symbol&#x60; or &#x60;pair&#x60; must be sent * &#x60;symbol&#x60; and &#x60;pair&#x60;
-     * cannot be sent together * &#x60;pair&#x60; and &#x60;fromId&#x60; cannot be sent together *
-     * &#x60;OrderId&#x60; can only be sent together with symbol * If a &#x60;pair&#x60; is sent,
-     * tickers for all symbols of the &#x60;pair&#x60; will be returned * The parameter
-     * &#x60;fromId&#x60; cannot be sent with &#x60;startTime&#x60; or &#x60;endTime&#x60; Weight:
-     * 20 with symbol, 40 with pair
+     * CM Account Trade List (USER_DATA) Get trades for a specific account and CM symbol. Weight: -
+     * 20 with &#x60;symbol&#x60; - 40 with &#x60;pair&#x60; Security Type: USER_DATA Notes: -
+     * Either &#x60;symbol&#x60; or &#x60;pair&#x60; must be sent - &#x60;symbol&#x60; and
+     * &#x60;pair&#x60; cannot be sent together - &#x60;pair&#x60; and &#x60;fromId&#x60; cannot be
+     * sent together - &#x60;OrderId&#x60; can only be sent together with symbol - If a
+     * &#x60;pair&#x60; is sent, tickers for all symbols of the &#x60;pair&#x60; will be returned -
+     * The parameter &#x60;fromId&#x60; cannot be sent with &#x60;startTime&#x60; or
+     * &#x60;endTime&#x60; - If &#x60;startTime&#x60; and &#x60;endTime&#x60; are both not sent,
+     * then the last &#39;24 hours&#39; data will be returned. - The time between
+     * &#x60;startTime&#x60; and &#x60;endTime&#x60; cannot be longer than 24 hours.
      *
      * @param symbol (optional)
      * @param pair (optional)
      * @param startTime Timestamp in ms to get funding from INCLUSIVE. (optional)
      * @param endTime Timestamp in ms to get funding until INCLUSIVE. (optional)
-     * @param fromId Trade id to fetch from. Default gets most recent trades. (optional)
-     * @param limit Default 100; max 1000 (optional)
+     * @param fromId Trade ID to fetch from. (optional)
+     * @param limit Number of results returned. (optional)
      * @param recvWindow (optional)
      * @return ApiResponse&lt;CmAccountTradeListResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
@@ -2160,8 +2099,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/CM-Account-Trade-List">CM
-     *     Account Trade List(USER_DATA) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#cm-account-trade-list">CM
+     *     Account Trade List (USER_DATA) Documentation</a>
      */
     public ApiResponse<CmAccountTradeListResponse> cmAccountTradeList(
             String symbol,
@@ -2169,7 +2108,7 @@ public class TradeApi {
             Long startTime,
             Long endTime,
             Long fromId,
-            Long limit,
+            @Max(1000L) Long limit,
             Long recvWindow)
             throws ApiException {
         okhttp3.Call localVarCall =
@@ -2195,8 +2134,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/CM-Position-ADL-Quantile-Estimation">CM
-     *     Position ADL Quantile Estimation(USER_DATA) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#cm-position-adl-quantile-estimation">CM
+     *     Position ADL Quantile Estimation (USER_DATA) Documentation</a>
      */
     private okhttp3.Call cmPositionAdlQuantileEstimationCall(String symbol, Long recvWindow)
             throws ApiException {
@@ -2241,15 +2180,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -2263,7 +2198,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -2300,7 +2235,7 @@ public class TradeApi {
     }
 
     /**
-     * CM Position ADL Quantile Estimation(USER_DATA) Query CM Position ADL Quantile Estimation *
+     * CM Position ADL Quantile Estimation (USER_DATA) Query CM Position ADL Quantile Estimation *
      * Values update every 30s. * Values 0, 1, 2, 3, 4 shows the queue position and possibility of
      * ADL from low to high. * For positions of the symbol are in One-way Mode or isolated margined
      * in Hedge Mode, \&quot;LONG\&quot;, \&quot;SHORT\&quot;, and \&quot;BOTH\&quot; will be
@@ -2308,7 +2243,8 @@ public class TradeApi {
      * positions of the symbol are crossed margined in Hedge Mode: * \&quot;HEDGE\&quot; as a sign
      * will be returned instead of \&quot;BOTH\&quot;; * A same value caculated on unrealized pnls
      * on long and short sides&#39; positions will be shown for \&quot;LONG\&quot; and
-     * \&quot;SHORT\&quot; when there are positions in both of long and short sides. Weight: 5
+     * \&quot;SHORT\&quot; when there are positions in both of long and short sides. Weight(IP): 5
+     * Security Type: USER_DATA
      *
      * @param symbol (optional)
      * @param recvWindow (optional)
@@ -2323,8 +2259,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/CM-Position-ADL-Quantile-Estimation">CM
-     *     Position ADL Quantile Estimation(USER_DATA) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#cm-position-adl-quantile-estimation">CM
+     *     Position ADL Quantile Estimation (USER_DATA) Documentation</a>
      */
     public ApiResponse<CmPositionAdlQuantileEstimationResponse> cmPositionAdlQuantileEstimation(
             String symbol, Long recvWindow) throws ApiException {
@@ -2332,6 +2268,149 @@ public class TradeApi {
                 cmPositionAdlQuantileEstimationValidateBeforeCall(symbol, recvWindow);
         java.lang.reflect.Type localVarReturnType =
                 new TypeToken<CmPositionAdlQuantileEstimationResponse>() {}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Build call for futuresTradfiPerpsContract
+     *
+     * @param futuresTradfiPerpsContractRequest (optional)
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     *     <table border="1">
+     * <caption>Response Details</caption>
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Futures TradFi Perps Contract </td><td>  -  </td></tr>
+     * </table>
+     *
+     * @see <a
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#futures-tradfi-perps-contract">Futures
+     *     TradFi Perps Contract (USER_DATA) Documentation</a>
+     */
+    private okhttp3.Call futuresTradfiPerpsContractCall(
+            FuturesTradfiPerpsContractRequest futuresTradfiPerpsContractRequest)
+            throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {};
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null) {
+            basePath = localCustomBaseUrl;
+        } else if (localBasePaths.length > 0) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/papi/v1/um/stock/contract";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        if (futuresTradfiPerpsContractRequest.getRecvWindow() != null) {
+            localVarFormParams.put("recvWindow", futuresTradfiPerpsContractRequest.getRecvWindow());
+        }
+
+        final String[] localVarAccepts = {"application/json"};
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
+        final String localVarContentType =
+                localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
+        if (HAS_TIME_UNIT) {
+            localVarAuthNames.add("timeUnit");
+        }
+        return localVarApiClient.buildCall(
+                basePath,
+                localVarPath,
+                "POST",
+                localVarQueryParams,
+                localVarCollectionQueryParams,
+                localVarPostBody,
+                localVarHeaderParams,
+                localVarCookieParams,
+                localVarFormParams,
+                localVarAuthNames);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call futuresTradfiPerpsContractValidateBeforeCall(
+            FuturesTradfiPerpsContractRequest futuresTradfiPerpsContractRequest)
+            throws ApiException {
+        try {
+            Validator validator =
+                    Validation.byDefaultProvider()
+                            .configure()
+                            .messageInterpolator(new ParameterMessageInterpolator())
+                            .buildValidatorFactory()
+                            .getValidator();
+            ExecutableValidator executableValidator = validator.forExecutables();
+
+            Object[] parameterValues = {futuresTradfiPerpsContractRequest};
+            Method method =
+                    this.getClass()
+                            .getMethod(
+                                    "futuresTradfiPerpsContract",
+                                    FuturesTradfiPerpsContractRequest.class);
+            Set<ConstraintViolation<TradeApi>> violations =
+                    executableValidator.validateParameters(this, method, parameterValues);
+
+            if (violations.size() == 0) {
+                return futuresTradfiPerpsContractCall(futuresTradfiPerpsContractRequest);
+            } else {
+                throw new ConstraintViolationException((Set) violations);
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        } catch (SecurityException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        }
+    }
+
+    /**
+     * Futures TradFi Perps Contract (USER_DATA) Sign TradFi-Perps agreement contract Weight(IP): 5
+     * Security Type: USER_DATA
+     *
+     * @param futuresTradfiPerpsContractRequest (optional)
+     * @return ApiResponse&lt;FuturesTradfiPerpsContractResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
+     *     response body
+     * @http.response.details
+     *     <table border="1">
+     * <caption>Response Details</caption>
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Futures TradFi Perps Contract </td><td>  -  </td></tr>
+     * </table>
+     *
+     * @see <a
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#futures-tradfi-perps-contract">Futures
+     *     TradFi Perps Contract (USER_DATA) Documentation</a>
+     */
+    public ApiResponse<FuturesTradfiPerpsContractResponse> futuresTradfiPerpsContract(
+            @Valid FuturesTradfiPerpsContractRequest futuresTradfiPerpsContractRequest)
+            throws ApiException {
+        okhttp3.Call localVarCall =
+                futuresTradfiPerpsContractValidateBeforeCall(futuresTradfiPerpsContractRequest);
+        java.lang.reflect.Type localVarReturnType =
+                new TypeToken<FuturesTradfiPerpsContractResponse>() {}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
@@ -2349,7 +2428,7 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Get-UM-Futures-BNB-Burn-Status">Get
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#get-um-futures-bnb-burn-status">Get
      *     UM Futures BNB Burn Status (USER_DATA) Documentation</a>
      */
     private okhttp3.Call getUmFuturesBnbBurnStatusCall(Long recvWindow) throws ApiException {
@@ -2390,15 +2469,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -2412,7 +2487,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -2448,7 +2523,7 @@ public class TradeApi {
 
     /**
      * Get UM Futures BNB Burn Status (USER_DATA) Get user&#39;s BNB Fee Discount for UM Futures
-     * (Fee Discount On or Fee Discount Off ) Weight: 30
+     * (Fee Discount On or Fee Discount Off ) Weight(IP): 30 Security Type: USER_DATA
      *
      * @param recvWindow (optional)
      * @return ApiResponse&lt;GetUmFuturesBnbBurnStatusResponse&gt;
@@ -2462,7 +2537,7 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Get-UM-Futures-BNB-Burn-Status">Get
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#get-um-futures-bnb-burn-status">Get
      *     UM Futures BNB Burn Status (USER_DATA) Documentation</a>
      */
     public ApiResponse<GetUmFuturesBnbBurnStatusResponse> getUmFuturesBnbBurnStatus(Long recvWindow)
@@ -2487,8 +2562,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Margin-Account-Borrow">Margin
-     *     Account Borrow(MARGIN) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#margin-account-borrow">Margin
+     *     Account Borrow (MARGIN) Documentation</a>
      */
     private okhttp3.Call marginAccountBorrowCall(
             MarginAccountBorrowRequest marginAccountBorrowRequest) throws ApiException {
@@ -2539,15 +2614,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -2561,7 +2632,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -2598,7 +2669,7 @@ public class TradeApi {
     }
 
     /**
-     * Margin Account Borrow(MARGIN) Apply for a margin loan. Weight: 100
+     * Margin Account Borrow (MARGIN) Apply for a margin loan. Weight(IP): 100 Security Type: MARGIN
      *
      * @param marginAccountBorrowRequest (required)
      * @return ApiResponse&lt;MarginAccountBorrowResponse&gt;
@@ -2612,8 +2683,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Margin-Account-Borrow">Margin
-     *     Account Borrow(MARGIN) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#margin-account-borrow">Margin
+     *     Account Borrow (MARGIN) Documentation</a>
      */
     public ApiResponse<MarginAccountBorrowResponse> marginAccountBorrow(
             @Valid @NotNull MarginAccountBorrowRequest marginAccountBorrowRequest)
@@ -2639,8 +2710,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Margin-Account-New-OCO">Margin
-     *     Account New OCO(TRADE) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#margin-account-new-oco">Margin
+     *     Account New OCO (TRADE) Documentation</a>
      */
     private okhttp3.Call marginAccountNewOcoCall(
             MarginAccountNewOcoRequest marginAccountNewOcoRequest) throws ApiException {
@@ -2760,15 +2831,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -2782,7 +2849,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -2819,11 +2886,12 @@ public class TradeApi {
     }
 
     /**
-     * Margin Account New OCO(TRADE) Send in a new OCO for a margin account * Price Restrictions: *
-     * &#x60;SELL&#x60;: Limit Price &gt; Last Price &gt; Stop Price * &#x60;BUY&#x60;: Limit Price
-     * &lt; Last Price &lt; Stop Price * Quantity Restrictions: * Both legs must have the same
-     * quantity * &#x60;ICEBERG&#x60; quantities however do not have to be the same. * Order Rate
-     * Limit * &#x60;OCO&#x60; counts as 2 orders against the order rate limit. Weight: 1
+     * Margin Account New OCO (TRADE) Send in a new OCO for a margin account Weight(IP): 1 Security
+     * Type: TRADE Notes: - Other Info: - Price Restrictions: - &#x60;SELL&#x60;: Limit Price &gt;
+     * Last Price &gt; Stop Price - &#x60;BUY&#x60;: Limit Price * Quantity Restrictions: - Both
+     * legs must have the same quantity - &#x60;ICEBERG&#x60; quantities however do not have to be
+     * the same. - Order Rate Limit - &#x60;OCO&#x60; counts as 2 orders against the order rate
+     * limit.
      *
      * @param marginAccountNewOcoRequest (required)
      * @return ApiResponse&lt;MarginAccountNewOcoResponse&gt;
@@ -2837,8 +2905,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Margin-Account-New-OCO">Margin
-     *     Account New OCO(TRADE) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#margin-account-new-oco">Margin
+     *     Account New OCO (TRADE) Documentation</a>
      */
     public ApiResponse<MarginAccountNewOcoResponse> marginAccountNewOco(
             @Valid @NotNull MarginAccountNewOcoRequest marginAccountNewOcoRequest)
@@ -2864,8 +2932,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Margin-Account-Repay">Margin
-     *     Account Repay(MARGIN) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#margin-account-repay">Margin
+     *     Account Repay (MARGIN) Documentation</a>
      */
     private okhttp3.Call marginAccountRepayCall(MarginAccountRepayRequest marginAccountRepayRequest)
             throws ApiException {
@@ -2916,15 +2984,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -2938,7 +3002,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -2975,7 +3039,7 @@ public class TradeApi {
     }
 
     /**
-     * Margin Account Repay(MARGIN) Repay for a margin loan. Weight: 100
+     * Margin Account Repay (MARGIN) Repay for a margin loan. Weight(IP): 100 Security Type: MARGIN
      *
      * @param marginAccountRepayRequest (required)
      * @return ApiResponse&lt;MarginAccountRepayResponse&gt;
@@ -2989,8 +3053,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Margin-Account-Repay">Margin
-     *     Account Repay(MARGIN) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#margin-account-repay">Margin
+     *     Account Repay (MARGIN) Documentation</a>
      */
     public ApiResponse<MarginAccountRepayResponse> marginAccountRepay(
             @Valid @NotNull MarginAccountRepayRequest marginAccountRepayRequest)
@@ -3015,8 +3079,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Margin-Account-Repay-Debt">Margin
-     *     Account Repay Debt(TRADE) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#margin-account-repay-debt">Margin
+     *     Account Repay Debt (TRADE) Documentation</a>
      */
     private okhttp3.Call marginAccountRepayDebtCall(
             MarginAccountRepayDebtRequest marginAccountRepayDebtRequest) throws ApiException {
@@ -3049,10 +3113,7 @@ public class TradeApi {
         }
 
         if (marginAccountRepayDebtRequest.getAmount() != null) {
-            localVarFormParams.put(
-                    "amount",
-                    DecimalFormatter.getFormatter()
-                            .format(marginAccountRepayDebtRequest.getAmount()));
+            localVarFormParams.put("amount", marginAccountRepayDebtRequest.getAmount());
         }
 
         if (marginAccountRepayDebtRequest.getSpecifyRepayAssets() != null) {
@@ -3073,15 +3134,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -3095,7 +3152,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -3133,13 +3190,13 @@ public class TradeApi {
     }
 
     /**
-     * Margin Account Repay Debt(TRADE) Repay debt for a margin loan. * The repay asset amount
-     * cannot exceed 50000 USD equivalent value for a single request. * If &#x60;amount&#x60; is not
-     * sent, all the asset loan will be repaid if having enough specific repay assets. * If
-     * &#x60;amount&#x60; is sent, only the certain amount of the asset loan will be repaid if
-     * having enough specific repay assets. * The system will use the same asset to repay the loan
-     * first (if have) no matter whether put the asset in &#x60;specifyRepayAssets&#x60; Weight:
-     * 3000
+     * Margin Account Repay Debt (TRADE) Repay debt for a margin loan. Weight(IP): 3000 Security
+     * Type: TRADE Notes: - The repay asset amount cannot exceed 50000 USD equivalent value for a
+     * single request. - If &#x60;amount&#x60; is not sent, all the asset loan will be repaid if
+     * having enough specific repay assets. - If &#x60;amount&#x60; is sent, only the certain amount
+     * of the asset loan will be repaid if having enough specific repay assets. - The system will
+     * use the same asset to repay the loan first (if have) no matter whether put the asset in
+     * &#x60;specifyRepayAssets&#x60;
      *
      * @param marginAccountRepayDebtRequest (required)
      * @return ApiResponse&lt;MarginAccountRepayDebtResponse&gt;
@@ -3153,8 +3210,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Margin-Account-Repay-Debt">Margin
-     *     Account Repay Debt(TRADE) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#margin-account-repay-debt">Margin
+     *     Account Repay Debt (TRADE) Documentation</a>
      */
     public ApiResponse<MarginAccountRepayDebtResponse> marginAccountRepayDebt(
             @Valid @NotNull MarginAccountRepayDebtRequest marginAccountRepayDebtRequest)
@@ -3169,13 +3226,13 @@ public class TradeApi {
     /**
      * Build call for marginAccountTradeList
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @param orderId (optional)
      * @param startTime Timestamp in ms to get funding from INCLUSIVE. (optional)
      * @param endTime Timestamp in ms to get funding until INCLUSIVE. (optional)
-     * @param fromId Trade id to fetch from. Default gets most recent trades. (optional)
-     * @param limit Default 100; max 1000 (optional)
-     * @param recvWindow (optional)
+     * @param fromId Trade ID to fetch from. (optional)
+     * @param limit Number of results returned. (optional)
+     * @param recvWindow Value cannot be greater than 60000 (optional)
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
@@ -3186,7 +3243,7 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Margin-Account-Trade-List">Margin
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#margin-account-trade-list">Margin
      *     Account Trade List (USER_DATA) Documentation</a>
      */
     private okhttp3.Call marginAccountTradeListCall(
@@ -3259,15 +3316,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -3281,7 +3334,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -3336,15 +3389,18 @@ public class TradeApi {
     }
 
     /**
-     * Margin Account Trade List (USER_DATA) Margin Account Trade List Weight: 5
+     * Margin Account Trade List (USER_DATA) Margin Account Trade List Weight(IP): 5 Security Type:
+     * USER_DATA Notes: - **Note:** * If &#x60;fromId&#x60; is set, returns orders with id
+     * &gt;&#x3D; &#x60;fromId&#x60;; otherwise returns recent order history. - The interval between
+     * &#x60;startTime&#x60; and &#x60;endTime&#x60; must be less than 24 hours.
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @param orderId (optional)
      * @param startTime Timestamp in ms to get funding from INCLUSIVE. (optional)
      * @param endTime Timestamp in ms to get funding until INCLUSIVE. (optional)
-     * @param fromId Trade id to fetch from. Default gets most recent trades. (optional)
-     * @param limit Default 100; max 1000 (optional)
-     * @param recvWindow (optional)
+     * @param fromId Trade ID to fetch from. (optional)
+     * @param limit Number of results returned. (optional)
+     * @param recvWindow Value cannot be greater than 60000 (optional)
      * @return ApiResponse&lt;MarginAccountTradeListResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
      *     response body
@@ -3356,7 +3412,7 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Margin-Account-Trade-List">Margin
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#margin-account-trade-list">Margin
      *     Account Trade List (USER_DATA) Documentation</a>
      */
     public ApiResponse<MarginAccountTradeListResponse> marginAccountTradeList(
@@ -3365,7 +3421,7 @@ public class TradeApi {
             Long startTime,
             Long endTime,
             Long fromId,
-            Long limit,
+            @Max(1000L) Long limit,
             Long recvWindow)
             throws ApiException {
         okhttp3.Call localVarCall =
@@ -3390,8 +3446,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Modify-CM-Order">Modify
-     *     CM Order(TRADE) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#modify-cm-order">Modify
+     *     CM Order (TRADE) Documentation</a>
      */
     private okhttp3.Call modifyCmOrderCall(ModifyCmOrderRequest modifyCmOrderRequest)
             throws ApiException {
@@ -3452,6 +3508,10 @@ public class TradeApi {
             localVarFormParams.put("priceMatch", modifyCmOrderRequest.getPriceMatch());
         }
 
+        if (modifyCmOrderRequest.getModifyId() != null) {
+            localVarFormParams.put("modifyId", modifyCmOrderRequest.getModifyId());
+        }
+
         if (modifyCmOrderRequest.getRecvWindow() != null) {
             localVarFormParams.put("recvWindow", modifyCmOrderRequest.getRecvWindow());
         }
@@ -3465,15 +3525,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -3487,7 +3543,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -3522,16 +3578,16 @@ public class TradeApi {
     }
 
     /**
-     * Modify CM Order(TRADE) Order modify function, currently only LIMIT order modification is
-     * supported, modified orders will be reordered in the match queue * Either &#x60;orderId&#x60;
-     * or &#x60;origClientOrderId&#x60; must be sent, and the &#x60;orderId&#x60; will prevail if
-     * both are sent. * Both &#x60;quantity&#x60; and &#x60;price&#x60; must be sent * When the new
-     * &#x60;quantity&#x60; or &#x60;price&#x60; doesn&#39;t satisfy PRICE_FILTER / PERCENT_FILTER /
-     * LOT_SIZE, amendment will be rejected and the order will stay as it is. * However the order
-     * will be cancelled by the amendment in the following situations: * when the order is in
-     * partially filled status and the new &#x60;quantity&#x60; &lt;&#x3D; &#x60;executedQty&#x60; *
-     * When the order is &#x60;GTX&#x60; and the new price will cause it to be executed immediately
-     * Weight: 1
+     * Modify CM Order (TRADE) Order modify function, currently only LIMIT order modification is
+     * supported, modified orders will be reordered in the match queue Weight(IP): 1 Security Type:
+     * TRADE Notes: - Either &#x60;orderId&#x60; or &#x60;origClientOrderId&#x60; must be sent, and
+     * the &#x60;orderId&#x60; will prevail if both are sent. - Both &#x60;quantity&#x60; and
+     * &#x60;price&#x60; must be sent - When the new &#x60;quantity&#x60; or &#x60;price&#x60;
+     * doesn&#39;t satisfy PRICE_FILTER / PERCENT_FILTER / LOT_SIZE, amendment will be rejected and
+     * the order will stay as it is. - However the order will be cancelled by the amendment in the
+     * following situations: - when the order is in partially filled status and the new
+     * &#x60;quantity&#x60; &lt;&#x3D; &#x60;executedQty&#x60; - When the order is &#x60;GTX&#x60;
+     * and the new price will cause it to be executed immediately
      *
      * @param modifyCmOrderRequest (required)
      * @return ApiResponse&lt;ModifyCmOrderResponse&gt;
@@ -3545,8 +3601,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Modify-CM-Order">Modify
-     *     CM Order(TRADE) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#modify-cm-order">Modify
+     *     CM Order (TRADE) Documentation</a>
      */
     public ApiResponse<ModifyCmOrderResponse> modifyCmOrder(
             @Valid @NotNull ModifyCmOrderRequest modifyCmOrderRequest) throws ApiException {
@@ -3570,8 +3626,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Modify-UM-Order">Modify
-     *     UM Order(TRADE) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#modify-um-order">Modify
+     *     UM Order (TRADE) Documentation</a>
      */
     private okhttp3.Call modifyUmOrderCall(ModifyUmOrderRequest modifyUmOrderRequest)
             throws ApiException {
@@ -3632,6 +3688,10 @@ public class TradeApi {
             localVarFormParams.put("priceMatch", modifyUmOrderRequest.getPriceMatch());
         }
 
+        if (modifyUmOrderRequest.getModifyId() != null) {
+            localVarFormParams.put("modifyId", modifyUmOrderRequest.getModifyId());
+        }
+
         if (modifyUmOrderRequest.getRecvWindow() != null) {
             localVarFormParams.put("recvWindow", modifyUmOrderRequest.getRecvWindow());
         }
@@ -3645,15 +3705,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -3667,7 +3723,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -3702,14 +3758,15 @@ public class TradeApi {
     }
 
     /**
-     * Modify UM Order(TRADE) Order modify function, currently only LIMIT order modification is
-     * supported, modified orders will be reordered in the match queue * Either orderId or
-     * origClientOrderId must be sent, and the orderId will prevail if both are sent. * Both
-     * quantity and price must be sent * When the new quantity or price doesn&#39;t satisfy
-     * PRICE_FILTER / PERCENT_FILTER / LOT_SIZE, amendment will be rejected and the order will stay
-     * as it is. * However the order will be cancelled by the amendment in the following situations:
-     * * when the order is in partially filled status and the new quantity &lt;&#x3D; executedQty *
-     * When the order is GTX and the new price will cause it to be executed immediately Weight: 1
+     * Modify UM Order (TRADE) Order modify function, currently only LIMIT order modification is
+     * supported, modified orders will be reordered in the match queue Weight(IP): 1 Security Type:
+     * TRADE Notes: - Either orderId or origClientOrderId must be sent, and the orderId will prevail
+     * if both are sent. - Both quantity and price must be sent - When the new quantity or price
+     * doesn&#39;t satisfy PRICE_FILTER / PERCENT_FILTER / LOT_SIZE, amendment will be rejected and
+     * the order will stay as it is. - However the order will be cancelled by the amendment in the
+     * following situations: - when the order is in partially filled status and the new quantity
+     * &lt;&#x3D; executedQty - When the order is GTX and the new price will cause it to be executed
+     * immediately - The amendment keeps the order&#39;s original selfTradePreventionMode.
      *
      * @param modifyUmOrderRequest (required)
      * @return ApiResponse&lt;ModifyUmOrderResponse&gt;
@@ -3723,8 +3780,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Modify-UM-Order">Modify
-     *     UM Order(TRADE) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#modify-um-order">Modify
+     *     UM Order (TRADE) Documentation</a>
      */
     public ApiResponse<ModifyUmOrderResponse> modifyUmOrder(
             @Valid @NotNull ModifyUmOrderRequest modifyUmOrderRequest) throws ApiException {
@@ -3748,8 +3805,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/New-CM-Conditional-Order">New
-     *     CM Conditional Order(TRADE) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#new-cm-conditional-order">New
+     *     CM Conditional Order (TRADE) Documentation</a>
      */
     private okhttp3.Call newCmConditionalOrderCall(
             NewCmConditionalOrderRequest newCmConditionalOrderRequest) throws ApiException {
@@ -3862,15 +3919,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -3884,7 +3937,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -3921,34 +3974,17 @@ public class TradeApi {
     }
 
     /**
-     * New CM Conditional Order(TRADE) New CM Conditional Order * Order with type
+     * New CM Conditional Order (TRADE) New CM Conditional Order Weight(IP): 1 Security Type: TRADE
+     * Notes: - Additional mandatory parameters based on type: - Order with type
      * &#x60;STOP/TAKE_PROFIT&#x60;, parameter &#x60;timeInForce&#x60; can be sent ( default
-     * &#x60;GTC&#x60;). * Condition orders will be triggered when: * &#x60;STOP&#x60;,
-     * &#x60;STOP_MARKET&#x60;: * BUY: \&quot;MARK_PRICE\&quot; &gt;&#x3D; &#x60;stopPrice&#x60; *
-     * SELL: \&quot;MARK_PRICE\&quot; &lt;&#x3D; &#x60;stopPrice&#x60; * &#x60;TAKE_PROFIT&#x60;,
-     * &#x60;TAKE_PROFIT_MARKET&#x60;: * BUY: \&quot;MARK_PRICE\&quot; &lt;&#x3D;
-     * &#x60;stopPrice&#x60; * SELL: \&quot;MARK_PRICE\&quot; &gt;&#x3D; &#x60;stopPrice&#x60; *
-     * &#x60;TRAILING_STOP_MARKET&#x60;: * BUY: the lowest mark price after order placed
-     * &#x60;&lt;&#x3D; &#x60;activationPrice&#x60;, and the latest mark price &gt;&#x60;&#x3D; the
-     * lowest mark price * (1 + &#x60;callbackRate&#x60;) * SELL: the highest mark price after order
-     * placed &gt;&#x3D; &#x60;activationPrice&#x60;, and the latest mark price &lt;&#x3D; the
-     * highest mark price * (1 - &#x60;callbackRate&#x60;) * For &#x60;TRAILING_STOP_MARKET&#x60;,
-     * if you got such error code. &#x60;{\&quot;code\&quot;: -2021, \&quot;msg\&quot;: \&quot;Order
-     * would immediately trigger.\&quot;}&#x60; means that the parameters you send do not meet the
-     * following requirements: * BUY: &#x60;activationPrice&#x60; should be smaller than latest mark
-     * price. * SELL: &#x60;activationPrice&#x60; should be larger than latest mark price. *
-     * Condition orders will be triggered when: * If parameter&#x60;priceProtect&#x60;is sent as
-     * true: * when price reaches the &#x60;stopPrice&#x60; ，the difference rate between
-     * \&quot;MARK_PRICE\&quot; and \&quot;CONTRACT_PRICE\&quot; cannot be larger than the
-     * \&quot;triggerProtect\&quot; of the symbol * \&quot;triggerProtect\&quot; of a symbol can be
-     * got from &#x60;GET /fapi/v1/exchangeInfo&#x60; * &#x60;STOP&#x60;, &#x60;STOP_MARKET&#x60;: *
-     * BUY: latest price (\&quot;MARK_PRICE\&quot; or \&quot;CONTRACT_PRICE\&quot;) &gt;&#x3D;
-     * &#x60;stopPrice&#x60; * SELL: latest price (\&quot;MARK_PRICE\&quot; or
-     * \&quot;CONTRACT_PRICE\&quot;) &lt;&#x3D; &#x60;stopPrice&#x60; * &#x60;TAKE_PROFIT&#x60;,
-     * &#x60;TAKE_PROFIT_MARKET&#x60;: * BUY: latest price (\&quot;MARK_PRICE\&quot; or
-     * \&quot;CONTRACT_PRICE\&quot;) &lt;&#x3D; &#x60;stopPrice&#x60; * SELL: latest price
-     * (\&quot;MARK_PRICE\&quot; or \&quot;CONTRACT_PRICE\&quot;) &gt;&#x3D; &#x60;stopPrice&#x60;
-     * Weight: 1
+     * &#x60;GTC&#x60;). - Condition orders will be triggered when: - &#x60;STOP&#x60;,
+     * &#x60;STOP_MARKET&#x60;: - BUY: \&quot;MARK_PRICE\&quot; &gt;&#x3D; &#x60;stopPrice&#x60; -
+     * SELL: \&quot;MARK_PRICE\&quot; &#x3D; &#x60;stopPrice&#x60; -
+     * &#x60;TRAILING_STOP_MARKET&#x60;: - BUY: the lowest mark price after order placed
+     * &#x60;&#x60;&#x3D; the lowest mark price - (1 + &#x60;callbackRate&#x60;) - SELL: the highest
+     * mark price after order placed &gt;&#x3D; &#x60;activationPrice&#x60;, and the latest mark
+     * price &#x3D; &#x60;stopPrice&#x60; - SELL: latest price (\&quot;MARK_PRICE\&quot; or
+     * \&quot;CONTRACT_PRICE\&quot;) &#x3D; &#x60;stopPrice&#x60;
      *
      * @param newCmConditionalOrderRequest (required)
      * @return ApiResponse&lt;NewCmConditionalOrderResponse&gt;
@@ -3962,8 +3998,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/New-CM-Conditional-Order">New
-     *     CM Conditional Order(TRADE) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#new-cm-conditional-order">New
+     *     CM Conditional Order (TRADE) Documentation</a>
      */
     public ApiResponse<NewCmConditionalOrderResponse> newCmConditionalOrder(
             @Valid @NotNull NewCmConditionalOrderRequest newCmConditionalOrderRequest)
@@ -3989,8 +4025,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/New-CM-Order">New
-     *     CM Order(TRADE) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#new-cm-order">New
+     *     CM Order (TRADE) Documentation</a>
      */
     private okhttp3.Call newCmOrderCall(NewCmOrderRequest newCmOrderRequest) throws ApiException {
         String basePath = null;
@@ -4077,15 +4113,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -4099,7 +4131,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -4134,10 +4166,12 @@ public class TradeApi {
     }
 
     /**
-     * New CM Order(TRADE) Place new CM order * If &#x60;newOrderRespType&#x60; is sent as
-     * &#x60;RESULT&#x60; : * &#x60;MARKET&#x60; order: the final FILLED result of the order will be
-     * return directly. * &#x60;LIMIT&#x60; order with special &#x60;timeInForce&#x60;: the final
-     * status result of the order(FILLED or EXPIRED) will be returned directly. Weight: 1
+     * New CM Order (TRADE) Place new CM order Weight(IP): 1 Security Type: TRADE Notes: -
+     * Additional mandatory parameters based on &#x60;type&#x60;: - If &#x60;newOrderRespType&#x60;
+     * is sent as &#x60;RESULT&#x60; : - &#x60;MARKET&#x60; order: the final FILLED result of the
+     * order will be return directly. - &#x60;LIMIT&#x60; order with special
+     * &#x60;timeInForce&#x60;: the final status result of the order(FILLED or EXPIRED) will be
+     * returned directly.
      *
      * @param newCmOrderRequest (required)
      * @return ApiResponse&lt;NewCmOrderResponse&gt;
@@ -4151,8 +4185,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/New-CM-Order">New
-     *     CM Order(TRADE) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#new-cm-order">New
+     *     CM Order (TRADE) Documentation</a>
      */
     public ApiResponse<NewCmOrderResponse> newCmOrder(
             @Valid @NotNull NewCmOrderRequest newCmOrderRequest) throws ApiException {
@@ -4176,8 +4210,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/New-Margin-Order">New
-     *     Margin Order(TRADE) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#new-margin-order">New
+     *     Margin Order (TRADE) Documentation</a>
      */
     private okhttp3.Call newMarginOrderCall(NewMarginOrderRequest newMarginOrderRequest)
             throws ApiException {
@@ -4287,15 +4321,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -4309,7 +4339,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -4345,7 +4375,7 @@ public class TradeApi {
     }
 
     /**
-     * New Margin Order(TRADE) New Margin Order Weight: 1
+     * New Margin Order (TRADE) New Margin Order Weight(IP): 1 Security Type: TRADE
      *
      * @param newMarginOrderRequest (required)
      * @return ApiResponse&lt;NewMarginOrderResponse&gt;
@@ -4359,8 +4389,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/New-Margin-Order">New
-     *     Margin Order(TRADE) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#new-margin-order">New
+     *     Margin Order (TRADE) Documentation</a>
      */
     public ApiResponse<NewMarginOrderResponse> newMarginOrder(
             @Valid @NotNull NewMarginOrderRequest newMarginOrderRequest) throws ApiException {
@@ -4371,24 +4401,24 @@ public class TradeApi {
     }
 
     /**
-     * Build call for newUmConditionalOrder
+     * Build call for newUmAlgoOrder
      *
-     * @param newUmConditionalOrderRequest (required)
+     * @param newUmAlgoOrderRequest (required)
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
      *     <table border="1">
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> New UM Conditional Order </td><td>  -  </td></tr>
+     * <tr><td> 200 </td><td> New UM Algo Order </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/New-UM-Conditional-Order">New
-     *     UM Conditional Order (TRADE) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#new-um-algo-order">New
+     *     UM Algo Order (TRADE) Documentation</a>
      */
-    private okhttp3.Call newUmConditionalOrderCall(
-            NewUmConditionalOrderRequest newUmConditionalOrderRequest) throws ApiException {
+    private okhttp3.Call newUmAlgoOrderCall(NewUmAlgoOrderRequest newUmAlgoOrderRequest)
+            throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {};
@@ -4405,7 +4435,7 @@ public class TradeApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/papi/v1/um/conditional/order";
+        String localVarPath = "/papi/v1/um/algo/order";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -4413,94 +4443,102 @@ public class TradeApi {
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-        if (newUmConditionalOrderRequest.getSymbol() != null) {
-            localVarFormParams.put("symbol", newUmConditionalOrderRequest.getSymbol());
+        if (newUmAlgoOrderRequest.getAlgoType() != null) {
+            localVarFormParams.put("algoType", newUmAlgoOrderRequest.getAlgoType());
         }
 
-        if (newUmConditionalOrderRequest.getSide() != null) {
-            localVarFormParams.put("side", newUmConditionalOrderRequest.getSide());
+        if (newUmAlgoOrderRequest.getSymbol() != null) {
+            localVarFormParams.put("symbol", newUmAlgoOrderRequest.getSymbol());
         }
 
-        if (newUmConditionalOrderRequest.getPositionSide() != null) {
-            localVarFormParams.put("positionSide", newUmConditionalOrderRequest.getPositionSide());
+        if (newUmAlgoOrderRequest.getSide() != null) {
+            localVarFormParams.put("side", newUmAlgoOrderRequest.getSide());
         }
 
-        if (newUmConditionalOrderRequest.getStrategyType() != null) {
-            localVarFormParams.put("strategyType", newUmConditionalOrderRequest.getStrategyType());
+        if (newUmAlgoOrderRequest.getPositionSide() != null) {
+            localVarFormParams.put("positionSide", newUmAlgoOrderRequest.getPositionSide());
         }
 
-        if (newUmConditionalOrderRequest.getTimeInForce() != null) {
-            localVarFormParams.put("timeInForce", newUmConditionalOrderRequest.getTimeInForce());
+        if (newUmAlgoOrderRequest.getType() != null) {
+            localVarFormParams.put("type", newUmAlgoOrderRequest.getType());
         }
 
-        if (newUmConditionalOrderRequest.getQuantity() != null) {
+        if (newUmAlgoOrderRequest.getTimeInForce() != null) {
+            localVarFormParams.put("timeInForce", newUmAlgoOrderRequest.getTimeInForce());
+        }
+
+        if (newUmAlgoOrderRequest.getQuantity() != null) {
             localVarFormParams.put(
                     "quantity",
-                    DecimalFormatter.getFormatter()
-                            .format(newUmConditionalOrderRequest.getQuantity()));
+                    DecimalFormatter.getFormatter().format(newUmAlgoOrderRequest.getQuantity()));
         }
 
-        if (newUmConditionalOrderRequest.getReduceOnly() != null) {
-            localVarFormParams.put("reduceOnly", newUmConditionalOrderRequest.getReduceOnly());
-        }
-
-        if (newUmConditionalOrderRequest.getPrice() != null) {
+        if (newUmAlgoOrderRequest.getPrice() != null) {
             localVarFormParams.put(
                     "price",
-                    DecimalFormatter.getFormatter()
-                            .format(newUmConditionalOrderRequest.getPrice()));
+                    DecimalFormatter.getFormatter().format(newUmAlgoOrderRequest.getPrice()));
         }
 
-        if (newUmConditionalOrderRequest.getWorkingType() != null) {
-            localVarFormParams.put("workingType", newUmConditionalOrderRequest.getWorkingType());
-        }
-
-        if (newUmConditionalOrderRequest.getPriceProtect() != null) {
-            localVarFormParams.put("priceProtect", newUmConditionalOrderRequest.getPriceProtect());
-        }
-
-        if (newUmConditionalOrderRequest.getNewClientStrategyId() != null) {
+        if (newUmAlgoOrderRequest.getTriggerPrice() != null) {
             localVarFormParams.put(
-                    "newClientStrategyId", newUmConditionalOrderRequest.getNewClientStrategyId());
-        }
-
-        if (newUmConditionalOrderRequest.getStopPrice() != null) {
-            localVarFormParams.put(
-                    "stopPrice",
+                    "triggerPrice",
                     DecimalFormatter.getFormatter()
-                            .format(newUmConditionalOrderRequest.getStopPrice()));
+                            .format(newUmAlgoOrderRequest.getTriggerPrice()));
         }
 
-        if (newUmConditionalOrderRequest.getActivationPrice() != null) {
+        if (newUmAlgoOrderRequest.getWorkingType() != null) {
+            localVarFormParams.put("workingType", newUmAlgoOrderRequest.getWorkingType());
+        }
+
+        if (newUmAlgoOrderRequest.getPriceMatch() != null) {
+            localVarFormParams.put("priceMatch", newUmAlgoOrderRequest.getPriceMatch());
+        }
+
+        if (newUmAlgoOrderRequest.getClosePosition() != null) {
+            localVarFormParams.put("closePosition", newUmAlgoOrderRequest.getClosePosition());
+        }
+
+        if (newUmAlgoOrderRequest.getPriceProtect() != null) {
+            localVarFormParams.put("priceProtect", newUmAlgoOrderRequest.getPriceProtect());
+        }
+
+        if (newUmAlgoOrderRequest.getReduceOnly() != null) {
+            localVarFormParams.put("reduceOnly", newUmAlgoOrderRequest.getReduceOnly());
+        }
+
+        if (newUmAlgoOrderRequest.getActivatePrice() != null) {
             localVarFormParams.put(
-                    "activationPrice",
+                    "activatePrice",
                     DecimalFormatter.getFormatter()
-                            .format(newUmConditionalOrderRequest.getActivationPrice()));
+                            .format(newUmAlgoOrderRequest.getActivatePrice()));
         }
 
-        if (newUmConditionalOrderRequest.getCallbackRate() != null) {
+        if (newUmAlgoOrderRequest.getCallbackRate() != null) {
             localVarFormParams.put(
                     "callbackRate",
                     DecimalFormatter.getFormatter()
-                            .format(newUmConditionalOrderRequest.getCallbackRate()));
+                            .format(newUmAlgoOrderRequest.getCallbackRate()));
         }
 
-        if (newUmConditionalOrderRequest.getPriceMatch() != null) {
-            localVarFormParams.put("priceMatch", newUmConditionalOrderRequest.getPriceMatch());
+        if (newUmAlgoOrderRequest.getClientAlgoId() != null) {
+            localVarFormParams.put("clientAlgoId", newUmAlgoOrderRequest.getClientAlgoId());
         }
 
-        if (newUmConditionalOrderRequest.getSelfTradePreventionMode() != null) {
+        if (newUmAlgoOrderRequest.getNewOrderRespType() != null) {
+            localVarFormParams.put("newOrderRespType", newUmAlgoOrderRequest.getNewOrderRespType());
+        }
+
+        if (newUmAlgoOrderRequest.getSelfTradePreventionMode() != null) {
             localVarFormParams.put(
-                    "selfTradePreventionMode",
-                    newUmConditionalOrderRequest.getSelfTradePreventionMode());
+                    "selfTradePreventionMode", newUmAlgoOrderRequest.getSelfTradePreventionMode());
         }
 
-        if (newUmConditionalOrderRequest.getGoodTillDate() != null) {
-            localVarFormParams.put("goodTillDate", newUmConditionalOrderRequest.getGoodTillDate());
+        if (newUmAlgoOrderRequest.getGoodTillDate() != null) {
+            localVarFormParams.put("goodTillDate", newUmAlgoOrderRequest.getGoodTillDate());
         }
 
-        if (newUmConditionalOrderRequest.getRecvWindow() != null) {
-            localVarFormParams.put("recvWindow", newUmConditionalOrderRequest.getRecvWindow());
+        if (newUmAlgoOrderRequest.getRecvWindow() != null) {
+            localVarFormParams.put("recvWindow", newUmAlgoOrderRequest.getRecvWindow());
         }
 
         final String[] localVarAccepts = {"application/json"};
@@ -4512,15 +4550,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -4534,12 +4568,12 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call newUmConditionalOrderValidateBeforeCall(
-            NewUmConditionalOrderRequest newUmConditionalOrderRequest) throws ApiException {
+    private okhttp3.Call newUmAlgoOrderValidateBeforeCall(
+            NewUmAlgoOrderRequest newUmAlgoOrderRequest) throws ApiException {
         try {
             Validator validator =
                     Validation.byDefaultProvider()
@@ -4549,15 +4583,14 @@ public class TradeApi {
                             .getValidator();
             ExecutableValidator executableValidator = validator.forExecutables();
 
-            Object[] parameterValues = {newUmConditionalOrderRequest};
+            Object[] parameterValues = {newUmAlgoOrderRequest};
             Method method =
-                    this.getClass()
-                            .getMethod("newUmConditionalOrder", NewUmConditionalOrderRequest.class);
+                    this.getClass().getMethod("newUmAlgoOrder", NewUmAlgoOrderRequest.class);
             Set<ConstraintViolation<TradeApi>> violations =
                     executableValidator.validateParameters(this, method, parameterValues);
 
             if (violations.size() == 0) {
-                return newUmConditionalOrderCall(newUmConditionalOrderRequest);
+                return newUmAlgoOrderCall(newUmAlgoOrderRequest);
             } else {
                 throw new ConstraintViolationException((Set) violations);
             }
@@ -4571,60 +4604,48 @@ public class TradeApi {
     }
 
     /**
-     * New UM Conditional Order (TRADE) Place new UM conditional order * Order with type
-     * &#x60;STOP/TAKE_PROFIT&#x60;, parameter &#x60;timeInForce&#x60; can be sent ( default
-     * &#x60;GTC&#x60;). * Condition orders will be triggered when: * &#x60;STOP&#x60;,
-     * &#x60;STOP_MARKET&#x60;: * BUY: \&quot;MARK_PRICE\&quot; &gt;&#x3D; &#x60;stopPrice&#x60; *
-     * SELL: \&quot;MARK_PRICE\&quot; &lt;&#x3D; &#x60;stopPrice&#x60; * &#x60;TAKE_PROFIT&#x60;,
-     * &#x60;TAKE_PROFIT_MARKET&#x60;: * BUY: \&quot;MARK_PRICE\&quot; &lt;&#x3D;
-     * &#x60;stopPrice&#x60; * SELL: \&quot;MARK_PRICE\&quot; &gt;&#x3D; &#x60;stopPrice&#x60; *
-     * &#x60;TRAILING_STOP_MARKET&#x60;: * BUY: the lowest mark price after order placed
-     * &#x60;&lt;&#x3D; &#x60;activationPrice&#x60;, and the latest mark price &gt;&#x60;&#x3D; the
-     * lowest mark price * (1 + &#x60;callbackRate&#x60;) * SELL: the highest mark price after order
-     * placed &gt;&#x3D; &#x60;activationPrice&#x60;, and the latest mark price &lt;&#x3D; the
-     * highest mark price * (1 - &#x60;callbackRate&#x60;) * For &#x60;TRAILING_STOP_MARKET&#x60;,
-     * if you got such error code. &#x60;{\&quot;code\&quot;: -2021, \&quot;msg\&quot;: \&quot;Order
-     * would immediately trigger.\&quot;}&#x60; means that the parameters you send do not meet the
-     * following requirements: * BUY: &#x60;activationPrice&#x60; should be smaller than latest mark
-     * price. * SELL: &#x60;activationPrice&#x60; should be larger than latest mark price. *
-     * Condition orders will be triggered when: * If parameter&#x60;priceProtect&#x60;is sent as
-     * true: * when price reaches the &#x60;stopPrice&#x60; ，the difference rate between
-     * \&quot;MARK_PRICE\&quot; and \&quot;CONTRACT_PRICE\&quot; cannot be larger than the
-     * \&quot;triggerProtect\&quot; of the symbol * \&quot;triggerProtect\&quot; of a symbol can be
-     * got from &#x60;GET /fapi/v1/exchangeInfo&#x60; * &#x60;STOP&#x60;, &#x60;STOP_MARKET&#x60;: *
-     * BUY: latest price (\&quot;MARK_PRICE\&quot; or \&quot;CONTRACT_PRICE\&quot;) &gt;&#x3D;
-     * &#x60;stopPrice&#x60; * SELL: latest price (\&quot;MARK_PRICE\&quot; or
-     * \&quot;CONTRACT_PRICE\&quot;) &lt;&#x3D; &#x60;stopPrice&#x60; * &#x60;TAKE_PROFIT&#x60;,
-     * &#x60;TAKE_PROFIT_MARKET&#x60;: * BUY: latest price (\&quot;MARK_PRICE\&quot; or
-     * \&quot;CONTRACT_PRICE\&quot;) &lt;&#x3D; &#x60;stopPrice&#x60; * SELL: latest price
-     * (\&quot;MARK_PRICE\&quot; or \&quot;CONTRACT_PRICE\&quot;) &gt;&#x3D; &#x60;stopPrice&#x60; *
+     * New UM Algo Order (TRADE) Place new UM conditional order Weight(IP): 1 Security Type: TRADE
+     * Notes: - Algo order with type &#x60;STOP&#x60;, parameter &#x60;timeInForce&#x60; can be sent
+     * (default &#x60;GTC&#x60;). - Algo order with type &#x60;TAKE_PROFIT&#x60;, parameter
+     * &#x60;timeInForce&#x60; can be sent (default &#x60;GTC&#x60;). - Condition orders will be
+     * triggered when price reaches the &#x60;triggerPrice&#x60;. - &#x60;STOP&#x60;,
+     * &#x60;STOP_MARKET&#x60;: BUY: latest price &gt;&#x3D; &#x60;triggerPrice&#x60;; SELL: latest
+     * price &lt;&#x3D; &#x60;triggerPrice&#x60;. - &#x60;TAKE_PROFIT&#x60;,
+     * &#x60;TAKE_PROFIT_MARKET&#x60;: BUY: latest price &lt;&#x3D; &#x60;triggerPrice&#x60;; SELL:
+     * latest price &gt;&#x3D; &#x60;triggerPrice&#x60;. - &#x60;TRAILING_STOP_MARKET&#x60;: BUY:
+     * lowest price after order placed &lt;&#x3D; &#x60;activatePrice&#x60;, and latest price
+     * &gt;&#x3D; lowest price * (1 + &#x60;callbackRate&#x60;); SELL: highest price after order
+     * placed &gt;&#x3D; &#x60;activatePrice&#x60;, and latest price &lt;&#x3D; highest price * (1 -
+     * &#x60;callbackRate&#x60;). - &#x60;STOP_MARKET&#x60;, &#x60;TAKE_PROFIT_MARKET&#x60; with
+     * &#x60;closePosition&#x60;&#x3D;&#x60;true&#x60;: follow the same rules for conditional
+     * orders; if triggered, close all current long position (if &#x60;SELL&#x60;) or current short
+     * position (if &#x60;BUY&#x60;); cannot be used with &#x60;quantity&#x60; parameter; cannot be
+     * used with &#x60;reduceOnly&#x60; parameter; in Hedge Mode, cannot be used with
+     * &#x60;BUY&#x60; orders in &#x60;LONG&#x60; position side, and cannot be used with
+     * &#x60;SELL&#x60; orders in &#x60;SHORT&#x60; position side. -
      * &#x60;selfTradePreventionMode&#x60; is only effective when &#x60;timeInForce&#x60; set to
-     * &#x60;IOC&#x60; or &#x60;GTC&#x60; or &#x60;GTD&#x60;. * In extreme market conditions,
-     * timeInForce &#x60;GTD&#x60; order auto cancel time might be delayed comparing to
-     * &#x60;goodTillDate&#x60; Weight: 1
+     * &#x60;IOC&#x60; or &#x60;GTC&#x60; or &#x60;GTD&#x60;.
      *
-     * @param newUmConditionalOrderRequest (required)
-     * @return ApiResponse&lt;NewUmConditionalOrderResponse&gt;
+     * @param newUmAlgoOrderRequest (required)
+     * @return ApiResponse&lt;NewUmAlgoOrderResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
      *     response body
      * @http.response.details
      *     <table border="1">
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> New UM Conditional Order </td><td>  -  </td></tr>
+     * <tr><td> 200 </td><td> New UM Algo Order </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/New-UM-Conditional-Order">New
-     *     UM Conditional Order (TRADE) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#new-um-algo-order">New
+     *     UM Algo Order (TRADE) Documentation</a>
      */
-    public ApiResponse<NewUmConditionalOrderResponse> newUmConditionalOrder(
-            @Valid @NotNull NewUmConditionalOrderRequest newUmConditionalOrderRequest)
-            throws ApiException {
-        okhttp3.Call localVarCall =
-                newUmConditionalOrderValidateBeforeCall(newUmConditionalOrderRequest);
+    public ApiResponse<NewUmAlgoOrderResponse> newUmAlgoOrder(
+            @Valid @NotNull NewUmAlgoOrderRequest newUmAlgoOrderRequest) throws ApiException {
+        okhttp3.Call localVarCall = newUmAlgoOrderValidateBeforeCall(newUmAlgoOrderRequest);
         java.lang.reflect.Type localVarReturnType =
-                new TypeToken<NewUmConditionalOrderResponse>() {}.getType();
+                new TypeToken<NewUmAlgoOrderResponse>() {}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
@@ -4642,7 +4663,7 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/New-UM-Order">New
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#new-um-order">New
      *     UM Order (TRADE) Documentation</a>
      */
     private okhttp3.Call newUmOrderCall(NewUmOrderRequest newUmOrderRequest) throws ApiException {
@@ -4739,15 +4760,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -4761,7 +4778,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -4796,14 +4813,15 @@ public class TradeApi {
     }
 
     /**
-     * New UM Order (TRADE) Place new UM order * If &#x60;newOrderRespType&#x60; is sent as
-     * &#x60;RESULT&#x60; : * &#x60;MARKET&#x60; order: the final FILLED result of the order will be
-     * return directly. * &#x60;LIMIT&#x60; order with special &#x60;timeInForce&#x60;: the final
-     * status result of the order(FILLED or EXPIRED) will be returned directly. *
+     * New UM Order (TRADE) Place new UM order Weight(IP): 1 Security Type: TRADE Notes: -
+     * Additional mandatory parameters based on type: - If &#x60;newOrderRespType&#x60; is sent as
+     * &#x60;RESULT&#x60; : - &#x60;MARKET&#x60; order: the final FILLED result of the order will be
+     * return directly. - &#x60;LIMIT&#x60; order with special &#x60;timeInForce&#x60;: the final
+     * status result of the order(FILLED or EXPIRED) will be returned directly. -
      * &#x60;selfTradePreventionMode&#x60; is only effective when &#x60;timeInForce&#x60; set to
-     * &#x60;IOC&#x60; or &#x60;GTC&#x60; or &#x60;GTD&#x60;. * In extreme market conditions,
+     * &#x60;IOC&#x60; or &#x60;GTC&#x60; or &#x60;GTD&#x60;. - In extreme market conditions,
      * timeInForce &#x60;GTD&#x60; order auto cancel time might be delayed comparing to
-     * &#x60;goodTillDate&#x60; Weight: 1
+     * &#x60;goodTillDate&#x60;
      *
      * @param newUmOrderRequest (required)
      * @return ApiResponse&lt;NewUmOrderResponse&gt;
@@ -4817,7 +4835,7 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/New-UM-Order">New
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#new-um-order">New
      *     UM Order (TRADE) Documentation</a>
      */
     public ApiResponse<NewUmOrderResponse> newUmOrder(
@@ -4835,7 +4853,7 @@ public class TradeApi {
      * @param strategyId (optional)
      * @param startTime Timestamp in ms to get funding from INCLUSIVE. (optional)
      * @param endTime Timestamp in ms to get funding until INCLUSIVE. (optional)
-     * @param limit Default 100; max 1000 (optional)
+     * @param limit Number of results returned. (optional)
      * @param recvWindow (optional)
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -4847,8 +4865,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-All-CM-Conditional-Orders">Query
-     *     All CM Conditional Orders(USER_DATA) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-all-cm-conditional-orders">Query
+     *     All CM Conditional Orders (USER_DATA) Documentation</a>
      */
     private okhttp3.Call queryAllCmConditionalOrdersCall(
             String symbol,
@@ -4915,15 +4933,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -4937,7 +4951,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -4988,17 +5002,17 @@ public class TradeApi {
     }
 
     /**
-     * Query All CM Conditional Orders(USER_DATA) Query All CM Conditional Orders * These orders
-     * will not be found: * order strategyStatus is &#x60;CANCELED&#x60; or &#x60;EXPIRED&#x60;,
-     * **AND** * order has NO filled trade, **AND** * created time + 7 days &lt; current time * The
-     * query time period must be less than 7 days( default as the recent 7 days). Weight: 1 for a
-     * single symbol; 40 when the symbol parameter is omitted
+     * Query All CM Conditional Orders (USER_DATA) Query All CM Conditional Orders Weight: - 1 for a
+     * single &#x60;symbol&#x60; - 40 when &#x60;symbol&#x60; is omitted Security Type: USER_DATA
+     * Notes: - These orders will not be found: - order strategyStatus is &#x60;CANCELED&#x60; or
+     * &#x60;EXPIRED&#x60;, **AND** - order has NO filled trade, **AND** - created time + 7 days *
+     * The query time period must be less than 7 days( default as the recent 7 days).
      *
      * @param symbol (optional)
      * @param strategyId (optional)
      * @param startTime Timestamp in ms to get funding from INCLUSIVE. (optional)
      * @param endTime Timestamp in ms to get funding until INCLUSIVE. (optional)
-     * @param limit Default 100; max 1000 (optional)
+     * @param limit Number of results returned. (optional)
      * @param recvWindow (optional)
      * @return ApiResponse&lt;QueryAllCmConditionalOrdersResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
@@ -5011,15 +5025,15 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-All-CM-Conditional-Orders">Query
-     *     All CM Conditional Orders(USER_DATA) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-all-cm-conditional-orders">Query
+     *     All CM Conditional Orders (USER_DATA) Documentation</a>
      */
     public ApiResponse<QueryAllCmConditionalOrdersResponse> queryAllCmConditionalOrders(
             String symbol,
             Long strategyId,
             Long startTime,
             Long endTime,
-            Long limit,
+            @Max(1000L) Long limit,
             Long recvWindow)
             throws ApiException {
         okhttp3.Call localVarCall =
@@ -5033,12 +5047,12 @@ public class TradeApi {
     /**
      * Build call for queryAllCmOrders
      *
-     * @param symbol (required)
+     * @param symbol Symbol (optional)
      * @param pair (optional)
      * @param orderId (optional)
      * @param startTime Timestamp in ms to get funding from INCLUSIVE. (optional)
      * @param endTime Timestamp in ms to get funding until INCLUSIVE. (optional)
-     * @param limit Default 100; max 1000 (optional)
+     * @param limit Number of results returned. (optional)
      * @param recvWindow (optional)
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -5050,7 +5064,7 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-All-CM-Orders">Query
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-all-cm-orders">Query
      *     All CM Orders (USER_DATA) Documentation</a>
      */
     private okhttp3.Call queryAllCmOrdersCall(
@@ -5123,15 +5137,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -5145,7 +5155,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -5200,19 +5210,20 @@ public class TradeApi {
     }
 
     /**
-     * Query All CM Orders (USER_DATA) Get all account CM orders; active, canceled, or filled. *
-     * Either &#x60;symbol&#x60; or &#x60;pair&#x60; must be sent. * If &#x60;orderId&#x60; is set,
-     * it will get orders &gt;&#x3D; that orderId. Otherwise most recent orders are returned. *
-     * These orders will not be found: * order status is &#x60;CANCELED&#x60; or
-     * &#x60;EXPIRED&#x60;, **AND** * order has NO filled trade, **AND** * created time + 3 days
-     * &lt; current time Weight: 20 with symbol, 40 with pair
+     * Query All CM Orders (USER_DATA) Get all account CM orders; active, canceled, or filled.
+     * Weight: - 20 with &#x60;symbol&#x60; - 40 with &#x60;pair&#x60; Security Type: USER_DATA
+     * Notes: - Either &#x60;symbol&#x60; or &#x60;pair&#x60; must be sent. - If &#x60;orderId&#x60;
+     * is set, it will get orders &gt;&#x3D; that orderId. Otherwise most recent orders are
+     * returned. - These orders will not be found: - order status is &#x60;CANCELED&#x60; or
+     * &#x60;EXPIRED&#x60;, **AND** - order has NO filled trade, **AND** - created time + 3 days
+     * &lt; current time
      *
-     * @param symbol (required)
+     * @param symbol Symbol (optional)
      * @param pair (optional)
      * @param orderId (optional)
      * @param startTime Timestamp in ms to get funding from INCLUSIVE. (optional)
      * @param endTime Timestamp in ms to get funding until INCLUSIVE. (optional)
-     * @param limit Default 100; max 1000 (optional)
+     * @param limit Number of results returned. (optional)
      * @param recvWindow (optional)
      * @return ApiResponse&lt;QueryAllCmOrdersResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
@@ -5225,16 +5236,16 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-All-CM-Orders">Query
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-all-cm-orders">Query
      *     All CM Orders (USER_DATA) Documentation</a>
      */
     public ApiResponse<QueryAllCmOrdersResponse> queryAllCmOrders(
-            @NotNull String symbol,
+            String symbol,
             String pair,
             Long orderId,
             Long startTime,
             Long endTime,
-            Long limit,
+            @Max(100L) Long limit,
             Long recvWindow)
             throws ApiException {
         okhttp3.Call localVarCall =
@@ -5260,7 +5271,7 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-All-Current-CM-Open-Conditional-Orders">Query
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-all-current-cm-open-conditional-orders">Query
      *     All Current CM Open Conditional Orders (USER_DATA) Documentation</a>
      */
     private okhttp3.Call queryAllCurrentCmOpenConditionalOrdersCall(String symbol, Long recvWindow)
@@ -5306,15 +5317,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -5328,7 +5335,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -5369,9 +5376,9 @@ public class TradeApi {
 
     /**
      * Query All Current CM Open Conditional Orders (USER_DATA) Get all open conditional orders on a
-     * symbol. **Careful** when accessing this with no symbol. * If the symbol is not sent, orders
-     * for all symbols will be returned in an array. Weight: 1 for a single symbol; 40 when the
-     * symbol parameter is omitted
+     * symbol. **Careful** when accessing this with no symbol. Weight: - 1 for a single
+     * &#x60;symbol&#x60; - 40 when &#x60;symbol&#x60; is omitted Security Type: USER_DATA Notes: -
+     * If the symbol is not sent, orders for all symbols will be returned in an array.
      *
      * @param symbol (optional)
      * @param recvWindow (optional)
@@ -5386,7 +5393,7 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-All-Current-CM-Open-Conditional-Orders">Query
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-all-current-cm-open-conditional-orders">Query
      *     All Current CM Open Conditional Orders (USER_DATA) Documentation</a>
      */
     public ApiResponse<QueryAllCurrentCmOpenConditionalOrdersResponse>
@@ -5415,8 +5422,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-All-Current-CM-Open-Orders">Query
-     *     All Current CM Open Orders(USER_DATA) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-all-current-cm-open-orders">Query
+     *     All Current CM Open Orders (USER_DATA) Documentation</a>
      */
     private okhttp3.Call queryAllCurrentCmOpenOrdersCall(
             String symbol, String pair, Long recvWindow) throws ApiException {
@@ -5465,15 +5472,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -5487,7 +5490,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -5528,9 +5531,9 @@ public class TradeApi {
     }
 
     /**
-     * Query All Current CM Open Orders(USER_DATA) Get all open orders on a symbol. * If the symbol
-     * is not sent, orders for all symbols will be returned in an array. Weight: 1 for a single
-     * symbol; 40 when the symbol parameter is omitted Careful when accessing this with no symbol.
+     * Query All Current CM Open Orders (USER_DATA) Get all open orders on a symbol. * If the symbol
+     * is not sent, orders for all symbols will be returned in an array. Weight: - 1 for a single
+     * &#x60;symbol&#x60; - 40 when &#x60;symbol&#x60; is omitted Security Type: USER_DATA
      *
      * @param symbol (optional)
      * @param pair (optional)
@@ -5546,8 +5549,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-All-Current-CM-Open-Orders">Query
-     *     All Current CM Open Orders(USER_DATA) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-all-current-cm-open-orders">Query
+     *     All Current CM Open Orders (USER_DATA) Documentation</a>
      */
     public ApiResponse<QueryAllCurrentCmOpenOrdersResponse> queryAllCurrentCmOpenOrders(
             String symbol, String pair, Long recvWindow) throws ApiException {
@@ -5559,9 +5562,11 @@ public class TradeApi {
     }
 
     /**
-     * Build call for queryAllCurrentUmOpenConditionalOrders
+     * Build call for queryAllCurrentUmOpenAlgoOrders
      *
+     * @param algoType (optional)
      * @param symbol (optional)
+     * @param algoId (optional)
      * @param recvWindow (optional)
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -5569,15 +5574,15 @@ public class TradeApi {
      *     <table border="1">
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> All Current UM Open Conditional Orders </td><td>  -  </td></tr>
+     * <tr><td> 200 </td><td> Query All Current UM Open Algo Orders </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-All-Current-UM-Open-Conditional-Orders">Query
-     *     All Current UM Open Conditional Orders(USER_DATA) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-all-current-um-open-algo-orders">Query
+     *     All Current UM Open Algo Orders (USER_DATA) Documentation</a>
      */
-    private okhttp3.Call queryAllCurrentUmOpenConditionalOrdersCall(String symbol, Long recvWindow)
-            throws ApiException {
+    private okhttp3.Call queryAllCurrentUmOpenAlgoOrdersCall(
+            String algoType, String symbol, Long algoId, Long recvWindow) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {};
@@ -5594,7 +5599,7 @@ public class TradeApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/papi/v1/um/conditional/openOrders";
+        String localVarPath = "/papi/v1/um/algo/openAlgoOrders";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -5602,8 +5607,16 @@ public class TradeApi {
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
+        if (algoType != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("algoType", algoType));
+        }
+
         if (symbol != null) {
             localVarQueryParams.addAll(localVarApiClient.parameterToPair("symbol", symbol));
+        }
+
+        if (algoId != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("algoId", algoId));
         }
 
         if (recvWindow != null) {
@@ -5619,15 +5632,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -5641,12 +5650,12 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call queryAllCurrentUmOpenConditionalOrdersValidateBeforeCall(
-            String symbol, Long recvWindow) throws ApiException {
+    private okhttp3.Call queryAllCurrentUmOpenAlgoOrdersValidateBeforeCall(
+            String algoType, String symbol, Long algoId, Long recvWindow) throws ApiException {
         try {
             Validator validator =
                     Validation.byDefaultProvider()
@@ -5656,18 +5665,20 @@ public class TradeApi {
                             .getValidator();
             ExecutableValidator executableValidator = validator.forExecutables();
 
-            Object[] parameterValues = {symbol, recvWindow};
+            Object[] parameterValues = {algoType, symbol, algoId, recvWindow};
             Method method =
                     this.getClass()
                             .getMethod(
-                                    "queryAllCurrentUmOpenConditionalOrders",
+                                    "queryAllCurrentUmOpenAlgoOrders",
                                     String.class,
+                                    String.class,
+                                    Long.class,
                                     Long.class);
             Set<ConstraintViolation<TradeApi>> violations =
                     executableValidator.validateParameters(this, method, parameterValues);
 
             if (violations.size() == 0) {
-                return queryAllCurrentUmOpenConditionalOrdersCall(symbol, recvWindow);
+                return queryAllCurrentUmOpenAlgoOrdersCall(algoType, symbol, algoId, recvWindow);
             } else {
                 throw new ConstraintViolationException((Set) violations);
             }
@@ -5681,34 +5692,36 @@ public class TradeApi {
     }
 
     /**
-     * Query All Current UM Open Conditional Orders(USER_DATA) Get all open conditional orders on a
-     * symbol. * If the symbol is not sent, orders for all symbols will be returned in an array.
-     * Weight: 1 for a single symbol; 40 when the symbol parameter is omitted Careful when accessing
-     * this with no symbol.
+     * Query All Current UM Open Algo Orders (USER_DATA) Get all UM open algo orders on a symbol. If
+     * the symbol is not sent, orders for all symbols will be returned. Weight(IP): 1 Security Type:
+     * USER_DATA Notes: - Weight: 1 for a single symbol; 40 when the symbol parameter is omitted.
      *
+     * @param algoType (optional)
      * @param symbol (optional)
+     * @param algoId (optional)
      * @param recvWindow (optional)
-     * @return ApiResponse&lt;QueryAllCurrentUmOpenConditionalOrdersResponse&gt;
+     * @return ApiResponse&lt;QueryAllCurrentUmOpenAlgoOrdersResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
      *     response body
      * @http.response.details
      *     <table border="1">
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> All Current UM Open Conditional Orders </td><td>  -  </td></tr>
+     * <tr><td> 200 </td><td> Query All Current UM Open Algo Orders </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-All-Current-UM-Open-Conditional-Orders">Query
-     *     All Current UM Open Conditional Orders(USER_DATA) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-all-current-um-open-algo-orders">Query
+     *     All Current UM Open Algo Orders (USER_DATA) Documentation</a>
      */
-    public ApiResponse<QueryAllCurrentUmOpenConditionalOrdersResponse>
-            queryAllCurrentUmOpenConditionalOrders(String symbol, Long recvWindow)
-                    throws ApiException {
+    public ApiResponse<QueryAllCurrentUmOpenAlgoOrdersResponse> queryAllCurrentUmOpenAlgoOrders(
+            String algoType, String symbol, Long algoId, @Max(60000L) Long recvWindow)
+            throws ApiException {
         okhttp3.Call localVarCall =
-                queryAllCurrentUmOpenConditionalOrdersValidateBeforeCall(symbol, recvWindow);
+                queryAllCurrentUmOpenAlgoOrdersValidateBeforeCall(
+                        algoType, symbol, algoId, recvWindow);
         java.lang.reflect.Type localVarReturnType =
-                new TypeToken<QueryAllCurrentUmOpenConditionalOrdersResponse>() {}.getType();
+                new TypeToken<QueryAllCurrentUmOpenAlgoOrdersResponse>() {}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
@@ -5727,8 +5740,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-All-Current-UM-Open-Orders">Query
-     *     All Current UM Open Orders(USER_DATA) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-all-current-um-open-orders">Query
+     *     All Current UM Open Orders (USER_DATA) Documentation</a>
      */
     private okhttp3.Call queryAllCurrentUmOpenOrdersCall(String symbol, Long recvWindow)
             throws ApiException {
@@ -5773,15 +5786,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -5795,7 +5804,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -5832,9 +5841,9 @@ public class TradeApi {
     }
 
     /**
-     * Query All Current UM Open Orders(USER_DATA) Get all open orders on a symbol. * If the symbol
-     * is not sent, orders for all symbols will be returned in an array. Weight: 1 for a single
-     * symbol; 40 when the symbol parameter is omitted
+     * Query All Current UM Open Orders (USER_DATA) Get all open orders on a symbol. Weight: - 1 for
+     * a single &#x60;symbol&#x60; - 40 when &#x60;symbol&#x60; is omitted Security Type: USER_DATA
+     * Notes: - If the symbol is not sent, orders for all symbols will be returned in an array.
      *
      * @param symbol (optional)
      * @param recvWindow (optional)
@@ -5849,8 +5858,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-All-Current-UM-Open-Orders">Query
-     *     All Current UM Open Orders(USER_DATA) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-all-current-um-open-orders">Query
+     *     All Current UM Open Orders (USER_DATA) Documentation</a>
      */
     public ApiResponse<QueryAllCurrentUmOpenOrdersResponse> queryAllCurrentUmOpenOrders(
             String symbol, Long recvWindow) throws ApiException {
@@ -5864,12 +5873,12 @@ public class TradeApi {
     /**
      * Build call for queryAllMarginAccountOrders
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @param orderId (optional)
      * @param startTime Timestamp in ms to get funding from INCLUSIVE. (optional)
      * @param endTime Timestamp in ms to get funding until INCLUSIVE. (optional)
-     * @param limit Default 100; max 1000 (optional)
-     * @param recvWindow (optional)
+     * @param limit Number of results returned. (optional)
+     * @param recvWindow Value cannot be greater than 60000 (optional)
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
@@ -5880,7 +5889,7 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-All-Margin-Account-Orders">Query
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-all-margin-account-orders">Query
      *     All Margin Account Orders (USER_DATA) Documentation</a>
      */
     private okhttp3.Call queryAllMarginAccountOrdersCall(
@@ -5943,15 +5952,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -5965,7 +5970,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -6011,14 +6016,17 @@ public class TradeApi {
     }
 
     /**
-     * Query All Margin Account Orders (USER_DATA) Query All Margin Account Orders Weight: 100
+     * Query All Margin Account Orders (USER_DATA) Query All Margin Account Orders Weight(IP): 100
+     * Security Type: USER_DATA Notes: - If &#x60;orderId&#x60; is set, returns orders with id
+     * &gt;&#x3D; &#x60;orderId&#x60;; otherwise returns recent order history. - For some historical
+     * orders, &#x60;cummulativeQuoteQty &lt; 0&#x60; means the data is unavailable at this time.
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @param orderId (optional)
      * @param startTime Timestamp in ms to get funding from INCLUSIVE. (optional)
      * @param endTime Timestamp in ms to get funding until INCLUSIVE. (optional)
-     * @param limit Default 100; max 1000 (optional)
-     * @param recvWindow (optional)
+     * @param limit Number of results returned. (optional)
+     * @param recvWindow Value cannot be greater than 60000 (optional)
      * @return ApiResponse&lt;QueryAllMarginAccountOrdersResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
      *     response body
@@ -6030,7 +6038,7 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-All-Margin-Account-Orders">Query
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-all-margin-account-orders">Query
      *     All Margin Account Orders (USER_DATA) Documentation</a>
      */
     public ApiResponse<QueryAllMarginAccountOrdersResponse> queryAllMarginAccountOrders(
@@ -6038,7 +6046,7 @@ public class TradeApi {
             Long orderId,
             Long startTime,
             Long endTime,
-            Long limit,
+            @Max(500L) Long limit,
             Long recvWindow)
             throws ApiException {
         okhttp3.Call localVarCall =
@@ -6050,215 +6058,13 @@ public class TradeApi {
     }
 
     /**
-     * Build call for queryAllUmConditionalOrders
-     *
-     * @param symbol (optional)
-     * @param strategyId (optional)
-     * @param startTime Timestamp in ms to get funding from INCLUSIVE. (optional)
-     * @param endTime Timestamp in ms to get funding until INCLUSIVE. (optional)
-     * @param limit Default 100; max 1000 (optional)
-     * @param recvWindow (optional)
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     *     <table border="1">
-     * <caption>Response Details</caption>
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> All UM Conditional Orders </td><td>  -  </td></tr>
-     * </table>
-     *
-     * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-All-UM-Conditional-Orders">Query
-     *     All UM Conditional Orders(USER_DATA) Documentation</a>
-     */
-    private okhttp3.Call queryAllUmConditionalOrdersCall(
-            String symbol,
-            Long strategyId,
-            Long startTime,
-            Long endTime,
-            Long limit,
-            Long recvWindow)
-            throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {};
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null) {
-            basePath = localCustomBaseUrl;
-        } else if (localBasePaths.length > 0) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
-        }
-
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/papi/v1/um/conditional/allOrders";
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        if (symbol != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("symbol", symbol));
-        }
-
-        if (strategyId != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("strategyId", strategyId));
-        }
-
-        if (startTime != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("startTime", startTime));
-        }
-
-        if (endTime != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("endTime", endTime));
-        }
-
-        if (limit != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("limit", limit));
-        }
-
-        if (recvWindow != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("recvWindow", recvWindow));
-        }
-
-        final String[] localVarAccepts = {"application/json"};
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
-        final String localVarContentType =
-                localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
-        }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
-        if (HAS_TIME_UNIT) {
-            localVarAuthNames.add("timeUnit");
-        }
-        return localVarApiClient.buildCall(
-                basePath,
-                localVarPath,
-                "GET",
-                localVarQueryParams,
-                localVarCollectionQueryParams,
-                localVarPostBody,
-                localVarHeaderParams,
-                localVarCookieParams,
-                localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call queryAllUmConditionalOrdersValidateBeforeCall(
-            String symbol,
-            Long strategyId,
-            Long startTime,
-            Long endTime,
-            Long limit,
-            Long recvWindow)
-            throws ApiException {
-        try {
-            Validator validator =
-                    Validation.byDefaultProvider()
-                            .configure()
-                            .messageInterpolator(new ParameterMessageInterpolator())
-                            .buildValidatorFactory()
-                            .getValidator();
-            ExecutableValidator executableValidator = validator.forExecutables();
-
-            Object[] parameterValues = {symbol, strategyId, startTime, endTime, limit, recvWindow};
-            Method method =
-                    this.getClass()
-                            .getMethod(
-                                    "queryAllUmConditionalOrders",
-                                    String.class,
-                                    Long.class,
-                                    Long.class,
-                                    Long.class,
-                                    Long.class,
-                                    Long.class);
-            Set<ConstraintViolation<TradeApi>> violations =
-                    executableValidator.validateParameters(this, method, parameterValues);
-
-            if (violations.size() == 0) {
-                return queryAllUmConditionalOrdersCall(
-                        symbol, strategyId, startTime, endTime, limit, recvWindow);
-            } else {
-                throw new ConstraintViolationException((Set) violations);
-            }
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-            throw new ApiException(e.getMessage());
-        } catch (SecurityException e) {
-            e.printStackTrace();
-            throw new ApiException(e.getMessage());
-        }
-    }
-
-    /**
-     * Query All UM Conditional Orders(USER_DATA) Query All UM Conditional Orders * These orders
-     * will not be found: * order strategyStatus is &#x60;CANCELED&#x60; or &#x60;EXPIRED&#x60;,
-     * **AND** * order has NO filled trade, **AND** * created time + 7 days &lt; current time * The
-     * query time period must be less than 7 days( default as the recent 7 days). Weight: 1 for a
-     * single symbol; 40 when the symbol parameter is omitted
-     *
-     * @param symbol (optional)
-     * @param strategyId (optional)
-     * @param startTime Timestamp in ms to get funding from INCLUSIVE. (optional)
-     * @param endTime Timestamp in ms to get funding until INCLUSIVE. (optional)
-     * @param limit Default 100; max 1000 (optional)
-     * @param recvWindow (optional)
-     * @return ApiResponse&lt;QueryAllUmConditionalOrdersResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
-     *     response body
-     * @http.response.details
-     *     <table border="1">
-     * <caption>Response Details</caption>
-     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> All UM Conditional Orders </td><td>  -  </td></tr>
-     * </table>
-     *
-     * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-All-UM-Conditional-Orders">Query
-     *     All UM Conditional Orders(USER_DATA) Documentation</a>
-     */
-    public ApiResponse<QueryAllUmConditionalOrdersResponse> queryAllUmConditionalOrders(
-            String symbol,
-            Long strategyId,
-            Long startTime,
-            Long endTime,
-            Long limit,
-            Long recvWindow)
-            throws ApiException {
-        okhttp3.Call localVarCall =
-                queryAllUmConditionalOrdersValidateBeforeCall(
-                        symbol, strategyId, startTime, endTime, limit, recvWindow);
-        java.lang.reflect.Type localVarReturnType =
-                new TypeToken<QueryAllUmConditionalOrdersResponse>() {}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
      * Build call for queryAllUmOrders
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @param orderId (optional)
      * @param startTime Timestamp in ms to get funding from INCLUSIVE. (optional)
      * @param endTime Timestamp in ms to get funding until INCLUSIVE. (optional)
-     * @param limit Default 100; max 1000 (optional)
+     * @param limit Number of results returned. (optional)
      * @param recvWindow (optional)
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -6270,8 +6076,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-All-UM-Orders">Query
-     *     All UM Orders(USER_DATA) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-all-um-orders">Query
+     *     All UM Orders (USER_DATA) Documentation</a>
      */
     private okhttp3.Call queryAllUmOrdersCall(
             String symbol, Long orderId, Long startTime, Long endTime, Long limit, Long recvWindow)
@@ -6333,15 +6139,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -6355,7 +6157,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -6400,18 +6202,16 @@ public class TradeApi {
     }
 
     /**
-     * Query All UM Orders(USER_DATA) Get all account UM orders; active, canceled, or filled. *
-     * These orders will not be found: * order status is &#x60;CANCELED&#x60; or
-     * &#x60;EXPIRED&#x60;, **AND** * order has NO filled trade, **AND** * created time + 3 days
-     * &lt; current time * If &#x60;orderId&#x60; is set, it will get orders &gt;&#x3D; that
-     * orderId. Otherwise most recent orders are returned. * The query time period must be less then
-     * 7 days( default as the recent 7 days). Weight: 5
+     * Query All UM Orders (USER_DATA) Get all account UM orders; active, canceled, or filled.
+     * Weight(IP): 5 Security Type: USER_DATA Notes: - If &#x60;orderId&#x60; is set, it will get
+     * orders &gt;&#x3D; that orderId. Otherwise most recent orders are returned. - The query time
+     * period must be less then 7 days( default as the recent 7 days).
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @param orderId (optional)
      * @param startTime Timestamp in ms to get funding from INCLUSIVE. (optional)
      * @param endTime Timestamp in ms to get funding until INCLUSIVE. (optional)
-     * @param limit Default 100; max 1000 (optional)
+     * @param limit Number of results returned. (optional)
      * @param recvWindow (optional)
      * @return ApiResponse&lt;QueryAllUmOrdersResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
@@ -6424,15 +6224,15 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-All-UM-Orders">Query
-     *     All UM Orders(USER_DATA) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-all-um-orders">Query
+     *     All UM Orders (USER_DATA) Documentation</a>
      */
     public ApiResponse<QueryAllUmOrdersResponse> queryAllUmOrders(
             @NotNull String symbol,
             Long orderId,
             Long startTime,
             Long endTime,
-            Long limit,
+            @Max(1000L) Long limit,
             Long recvWindow)
             throws ApiException {
         okhttp3.Call localVarCall =
@@ -6446,7 +6246,7 @@ public class TradeApi {
     /**
      * Build call for queryCmConditionalOrderHistory
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @param strategyId (optional)
      * @param newClientStrategyId (optional)
      * @param recvWindow (optional)
@@ -6460,8 +6260,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-CM-Conditional-Order-History">Query
-     *     CM Conditional Order History(USER_DATA) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-cm-conditional-order-history">Query
+     *     CM Conditional Order History (USER_DATA) Documentation</a>
      */
     private okhttp3.Call queryCmConditionalOrderHistoryCall(
             String symbol, Long strategyId, String newClientStrategyId, Long recvWindow)
@@ -6516,15 +6316,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -6538,7 +6334,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -6582,13 +6378,14 @@ public class TradeApi {
     }
 
     /**
-     * Query CM Conditional Order History(USER_DATA) Query CM Conditional Order History * Either
-     * &#x60;strategyId&#x60; or &#x60;newClientStrategyId&#x60; must be sent. * &#x60;NEW&#x60;
-     * orders will not be found. * These orders will not be found: * order status is
-     * &#x60;CANCELED&#x60; or &#x60;EXPIRED&#x60;, **AND** * order has NO filled trade, **AND** *
-     * created time + 7 days &lt; current time Weight: 1
+     * Query CM Conditional Order History (USER_DATA) Query CM Conditional Order History Weight(IP):
+     * 1 Security Type: USER_DATA Notes: - Either &#x60;strategyId&#x60; or
+     * &#x60;newClientStrategyId&#x60; must be sent. - &#x60;NEW&#x60; orders will not be found. -
+     * These orders will not be found: - order status is &#x60;CANCELED&#x60; or
+     * &#x60;EXPIRED&#x60;, **AND** - order has NO filled trade, **AND** - created time + 7 days
+     * &lt; current time
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @param strategyId (optional)
      * @param newClientStrategyId (optional)
      * @param recvWindow (optional)
@@ -6603,8 +6400,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-CM-Conditional-Order-History">Query
-     *     CM Conditional Order History(USER_DATA) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-cm-conditional-order-history">Query
+     *     CM Conditional Order History (USER_DATA) Documentation</a>
      */
     public ApiResponse<QueryCmConditionalOrderHistoryResponse> queryCmConditionalOrderHistory(
             @NotNull String symbol, Long strategyId, String newClientStrategyId, Long recvWindow)
@@ -6620,12 +6417,12 @@ public class TradeApi {
     /**
      * Build call for queryCmModifyOrderHistory
      *
-     * @param symbol (required)
-     * @param orderId (optional)
-     * @param origClientOrderId (optional)
+     * @param symbol Symbol (required)
+     * @param orderId Order ID (optional)
+     * @param origClientOrderId Client order ID (optional)
      * @param startTime Timestamp in ms to get funding from INCLUSIVE. (optional)
      * @param endTime Timestamp in ms to get funding until INCLUSIVE. (optional)
-     * @param limit Default 100; max 1000 (optional)
+     * @param limit Number of results returned. (optional)
      * @param recvWindow (optional)
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -6637,8 +6434,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-CM-Modify-Order-History">Query
-     *     CM Modify Order History(TRADE) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-cm-modify-order-history">Query
+     *     CM Modify Order History (TRADE) Documentation</a>
      */
     private okhttp3.Call queryCmModifyOrderHistoryCall(
             String symbol,
@@ -6711,15 +6508,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -6733,7 +6526,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -6788,16 +6581,16 @@ public class TradeApi {
     }
 
     /**
-     * Query CM Modify Order History(TRADE) Get order modification history * Either
-     * &#x60;orderId&#x60; or &#x60;origClientOrderId&#x60; must be sent, and the
-     * &#x60;orderId&#x60; will prevail if both are sent. Weight: 1
+     * Query CM Modify Order History (TRADE) Get order modification history Weight(IP): 1 Security
+     * Type: TRADE Notes: - Either &#x60;orderId&#x60; or &#x60;origClientOrderId&#x60; must be
+     * sent, and the &#x60;orderId&#x60; will prevail if both are sent.
      *
-     * @param symbol (required)
-     * @param orderId (optional)
-     * @param origClientOrderId (optional)
+     * @param symbol Symbol (required)
+     * @param orderId Order ID (optional)
+     * @param origClientOrderId Client order ID (optional)
      * @param startTime Timestamp in ms to get funding from INCLUSIVE. (optional)
      * @param endTime Timestamp in ms to get funding until INCLUSIVE. (optional)
-     * @param limit Default 100; max 1000 (optional)
+     * @param limit Number of results returned. (optional)
      * @param recvWindow (optional)
      * @return ApiResponse&lt;QueryCmModifyOrderHistoryResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
@@ -6810,8 +6603,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-CM-Modify-Order-History">Query
-     *     CM Modify Order History(TRADE) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-cm-modify-order-history">Query
+     *     CM Modify Order History (TRADE) Documentation</a>
      */
     public ApiResponse<QueryCmModifyOrderHistoryResponse> queryCmModifyOrderHistory(
             @NotNull String symbol,
@@ -6819,7 +6612,7 @@ public class TradeApi {
             String origClientOrderId,
             Long startTime,
             Long endTime,
-            Long limit,
+            @Max(1000L) Long limit,
             Long recvWindow)
             throws ApiException {
         okhttp3.Call localVarCall =
@@ -6833,7 +6626,7 @@ public class TradeApi {
     /**
      * Build call for queryCmOrder
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @param orderId (optional)
      * @param origClientOrderId (optional)
      * @param recvWindow (optional)
@@ -6847,8 +6640,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-CM-Order">Query
-     *     CM Order(USER_DATA) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-cm-order">Query
+     *     CM Order (USER_DATA) Documentation</a>
      */
     private okhttp3.Call queryCmOrderCall(
             String symbol, Long orderId, String origClientOrderId, Long recvWindow)
@@ -6903,15 +6696,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -6925,7 +6714,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -6968,12 +6757,13 @@ public class TradeApi {
     }
 
     /**
-     * Query CM Order(USER_DATA) Check an CM order&#39;s status. * Either &#x60;orderId&#x60; or
-     * &#x60;origClientOrderId&#x60; must be sent. * These orders will not be found: * order status
-     * is &#x60;CANCELED&#x60; or &#x60;EXPIRED&#x60;, **AND** * order has NO filled trade, **AND**
-     * * created time + 3 days &lt; current time Weight: 1
+     * Query CM Order (USER_DATA) Check an CM order&#39;s status. Weight(IP): 1 Security Type:
+     * USER_DATA Notes: - Either &#x60;orderId&#x60; or &#x60;origClientOrderId&#x60; must be sent.
+     * - These orders will not be found: - order status is &#x60;CANCELED&#x60; or
+     * &#x60;EXPIRED&#x60;, **AND** - order has NO filled trade, **AND** - created time + 3 days
+     * &lt; current time
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @param orderId (optional)
      * @param origClientOrderId (optional)
      * @param recvWindow (optional)
@@ -6988,8 +6778,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-CM-Order">Query
-     *     CM Order(USER_DATA) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-cm-order">Query
+     *     CM Order (USER_DATA) Documentation</a>
      */
     public ApiResponse<QueryCmOrderResponse> queryCmOrder(
             @NotNull String symbol, Long orderId, String origClientOrderId, Long recvWindow)
@@ -7004,7 +6794,7 @@ public class TradeApi {
     /**
      * Build call for queryCurrentCmOpenConditionalOrder
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @param strategyId (optional)
      * @param newClientStrategyId (optional)
      * @param recvWindow (optional)
@@ -7018,8 +6808,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-Current-CM-Open-Conditional-Order">Query
-     *     Current CM Open Conditional Order(USER_DATA) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-current-cm-open-conditional-order">Query
+     *     Current CM Open Conditional Order (USER_DATA) Documentation</a>
      */
     private okhttp3.Call queryCurrentCmOpenConditionalOrderCall(
             String symbol, Long strategyId, String newClientStrategyId, Long recvWindow)
@@ -7074,15 +6864,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -7096,7 +6882,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -7140,12 +6926,12 @@ public class TradeApi {
     }
 
     /**
-     * Query Current CM Open Conditional Order(USER_DATA) Query Current CM Open Conditional Order *
-     * Either &#x60;strategyId&#x60; or &#x60;newClientStrategyId&#x60; must be sent. * If the
-     * queried order has been triggered, cancelled or expired, the error message \&quot;Order does
-     * not exist\&quot; will be returned. Weight: 1
+     * Query Current CM Open Conditional Order (USER_DATA) Query Current CM Open Conditional Order
+     * Weight(IP): 1 Security Type: USER_DATA Notes: - Either &#x60;strategyId&#x60; or
+     * &#x60;newClientStrategyId&#x60; must be sent. - If the queried order has been triggered,
+     * cancelled or expired, the error message \&quot;Order does not exist\&quot; will be returned.
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @param strategyId (optional)
      * @param newClientStrategyId (optional)
      * @param recvWindow (optional)
@@ -7160,8 +6946,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-Current-CM-Open-Conditional-Order">Query
-     *     Current CM Open Conditional Order(USER_DATA) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-current-cm-open-conditional-order">Query
+     *     Current CM Open Conditional Order (USER_DATA) Documentation</a>
      */
     public ApiResponse<QueryCurrentCmOpenConditionalOrderResponse>
             queryCurrentCmOpenConditionalOrder(
@@ -7181,9 +6967,9 @@ public class TradeApi {
     /**
      * Build call for queryCurrentCmOpenOrder
      *
-     * @param symbol (required)
-     * @param orderId (optional)
-     * @param origClientOrderId (optional)
+     * @param symbol Trading pair. (required)
+     * @param orderId Order ID. (optional)
+     * @param origClientOrderId User-defined order ID. (optional)
      * @param recvWindow (optional)
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -7195,7 +6981,7 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-Current-CM-Open-Order">Query
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-current-cm-open-order">Query
      *     Current CM Open Order (USER_DATA) Documentation</a>
      */
     private okhttp3.Call queryCurrentCmOpenOrderCall(
@@ -7251,15 +7037,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -7273,7 +7055,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -7316,14 +7098,14 @@ public class TradeApi {
     }
 
     /**
-     * Query Current CM Open Order (USER_DATA) Query current CM open order * Either
-     * &#x60;orderId&#x60; or &#x60;origClientOrderId&#x60; must be sent. * If the queried order has
-     * been filled or cancelled, the error message \&quot;Order does not exist\&quot; will be
-     * returned. Weight: 1
+     * Query Current CM Open Order (USER_DATA) Query current CM open order Weight(IP): 1 Security
+     * Type: USER_DATA Notes: - Either &#x60;orderId&#x60; or &#x60;origClientOrderId&#x60; must be
+     * sent. - If the queried order has been filled or cancelled, the error message \&quot;Order
+     * does not exist\&quot; will be returned.
      *
-     * @param symbol (required)
-     * @param orderId (optional)
-     * @param origClientOrderId (optional)
+     * @param symbol Trading pair. (required)
+     * @param orderId Order ID. (optional)
+     * @param origClientOrderId User-defined order ID. (optional)
      * @param recvWindow (optional)
      * @return ApiResponse&lt;QueryCurrentCmOpenOrderResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
@@ -7336,7 +7118,7 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-Current-CM-Open-Order">Query
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-current-cm-open-order">Query
      *     Current CM Open Order (USER_DATA) Documentation</a>
      */
     public ApiResponse<QueryCurrentCmOpenOrderResponse> queryCurrentCmOpenOrder(
@@ -7353,8 +7135,8 @@ public class TradeApi {
     /**
      * Build call for queryCurrentMarginOpenOrder
      *
-     * @param symbol (required)
-     * @param recvWindow (optional)
+     * @param symbol Symbol (required)
+     * @param recvWindow Value cannot be greater than 60000 (optional)
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
@@ -7365,7 +7147,7 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-Current-Margin-Open-Order">Query
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-current-margin-open-order">Query
      *     Current Margin Open Order (USER_DATA) Documentation</a>
      */
     private okhttp3.Call queryCurrentMarginOpenOrderCall(String symbol, Long recvWindow)
@@ -7411,15 +7193,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -7433,7 +7211,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -7470,10 +7248,13 @@ public class TradeApi {
     }
 
     /**
-     * Query Current Margin Open Order (USER_DATA) Query Current Margin Open Order Weight: 5
+     * Query Current Margin Open Order (USER_DATA) Query Current Margin Open Order Weight(IP): 5
+     * Security Type: USER_DATA Notes: - If &#x60;symbol&#x60; is not sent, order records for all
+     * symbols are returned. - When returning all symbols, the request count charged to the rate
+     * limiter equals the number of symbols currently trading on the exchange.
      *
-     * @param symbol (required)
-     * @param recvWindow (optional)
+     * @param symbol Symbol (required)
+     * @param recvWindow Value cannot be greater than 60000 (optional)
      * @return ApiResponse&lt;QueryCurrentMarginOpenOrderResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
      *     response body
@@ -7485,7 +7266,7 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-Current-Margin-Open-Order">Query
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-current-margin-open-order">Query
      *     Current Margin Open Order (USER_DATA) Documentation</a>
      */
     public ApiResponse<QueryCurrentMarginOpenOrderResponse> queryCurrentMarginOpenOrder(
@@ -7498,11 +7279,10 @@ public class TradeApi {
     }
 
     /**
-     * Build call for queryCurrentUmOpenConditionalOrder
+     * Build call for queryCurrentUmOpenAlgoOrder
      *
-     * @param symbol (required)
-     * @param strategyId (optional)
-     * @param newClientStrategyId (optional)
+     * @param algoId Algo order ID (optional)
+     * @param clientAlgoId Client algo order ID (optional)
      * @param recvWindow (optional)
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -7510,16 +7290,15 @@ public class TradeApi {
      *     <table border="1">
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> Current UM Open Conditional Order </td><td>  -  </td></tr>
+     * <tr><td> 200 </td><td> Query UM Algo Order </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-Current-UM-Open-Conditional-Order">Query
-     *     Current UM Open Conditional Order(USER_DATA) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-current-um-open-algo-order">Query
+     *     Current UM Open Algo Order (USER_DATA) Documentation</a>
      */
-    private okhttp3.Call queryCurrentUmOpenConditionalOrderCall(
-            String symbol, Long strategyId, String newClientStrategyId, Long recvWindow)
-            throws ApiException {
+    private okhttp3.Call queryCurrentUmOpenAlgoOrderCall(
+            Long algoId, String clientAlgoId, Long recvWindow) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {};
@@ -7536,7 +7315,7 @@ public class TradeApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/papi/v1/um/conditional/openOrder";
+        String localVarPath = "/papi/v1/um/algo/algoOrder";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -7544,17 +7323,13 @@ public class TradeApi {
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-        if (symbol != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("symbol", symbol));
+        if (algoId != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("algoId", algoId));
         }
 
-        if (strategyId != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("strategyId", strategyId));
-        }
-
-        if (newClientStrategyId != null) {
+        if (clientAlgoId != null) {
             localVarQueryParams.addAll(
-                    localVarApiClient.parameterToPair("newClientStrategyId", newClientStrategyId));
+                    localVarApiClient.parameterToPair("clientAlgoId", clientAlgoId));
         }
 
         if (recvWindow != null) {
@@ -7570,15 +7345,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -7592,13 +7363,12 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call queryCurrentUmOpenConditionalOrderValidateBeforeCall(
-            String symbol, Long strategyId, String newClientStrategyId, Long recvWindow)
-            throws ApiException {
+    private okhttp3.Call queryCurrentUmOpenAlgoOrderValidateBeforeCall(
+            Long algoId, String clientAlgoId, Long recvWindow) throws ApiException {
         try {
             Validator validator =
                     Validation.byDefaultProvider()
@@ -7608,12 +7378,11 @@ public class TradeApi {
                             .getValidator();
             ExecutableValidator executableValidator = validator.forExecutables();
 
-            Object[] parameterValues = {symbol, strategyId, newClientStrategyId, recvWindow};
+            Object[] parameterValues = {algoId, clientAlgoId, recvWindow};
             Method method =
                     this.getClass()
                             .getMethod(
-                                    "queryCurrentUmOpenConditionalOrder",
-                                    String.class,
+                                    "queryCurrentUmOpenAlgoOrder",
                                     Long.class,
                                     String.class,
                                     Long.class);
@@ -7621,8 +7390,7 @@ public class TradeApi {
                     executableValidator.validateParameters(this, method, parameterValues);
 
             if (violations.size() == 0) {
-                return queryCurrentUmOpenConditionalOrderCall(
-                        symbol, strategyId, newClientStrategyId, recvWindow);
+                return queryCurrentUmOpenAlgoOrderCall(algoId, clientAlgoId, recvWindow);
             } else {
                 throw new ConstraintViolationException((Set) violations);
             }
@@ -7636,48 +7404,42 @@ public class TradeApi {
     }
 
     /**
-     * Query Current UM Open Conditional Order(USER_DATA) Query Current UM Open Conditional Order *
-     * Either &#x60;strategyId&#x60; or &#x60;newClientStrategyId&#x60; must be sent. * If the
-     * queried order has been &#x60;CANCELED&#x60;, &#x60;TRIGGERED&#x60;或&#x60;EXPIRED&#x60;, the
-     * error message \&quot;Order does not exist\&quot; will be returned. Weight: 1
+     * Query Current UM Open Algo Order (USER_DATA) Check an UM algo order&#39;s status. Orders will
+     * not be found if: status is CANCELED/EXPIRED with no fills and created 3+ days ago; or created
+     * 90+ days ago. Weight(IP): 1 Security Type: USER_DATA Notes: - Either &#x60;algoId&#x60; or
+     * &#x60;clientAlgoId&#x60; must be sent. &#x60;algoId&#x60; is self-increment for each specific
+     * &#x60;symbol&#x60;.
      *
-     * @param symbol (required)
-     * @param strategyId (optional)
-     * @param newClientStrategyId (optional)
+     * @param algoId Algo order ID (optional)
+     * @param clientAlgoId Client algo order ID (optional)
      * @param recvWindow (optional)
-     * @return ApiResponse&lt;QueryCurrentUmOpenConditionalOrderResponse&gt;
+     * @return ApiResponse&lt;QueryCurrentUmOpenAlgoOrderResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
      *     response body
      * @http.response.details
      *     <table border="1">
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> Current UM Open Conditional Order </td><td>  -  </td></tr>
+     * <tr><td> 200 </td><td> Query UM Algo Order </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-Current-UM-Open-Conditional-Order">Query
-     *     Current UM Open Conditional Order(USER_DATA) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-current-um-open-algo-order">Query
+     *     Current UM Open Algo Order (USER_DATA) Documentation</a>
      */
-    public ApiResponse<QueryCurrentUmOpenConditionalOrderResponse>
-            queryCurrentUmOpenConditionalOrder(
-                    @NotNull String symbol,
-                    Long strategyId,
-                    String newClientStrategyId,
-                    Long recvWindow)
-                    throws ApiException {
+    public ApiResponse<QueryCurrentUmOpenAlgoOrderResponse> queryCurrentUmOpenAlgoOrder(
+            Long algoId, String clientAlgoId, @Max(60000L) Long recvWindow) throws ApiException {
         okhttp3.Call localVarCall =
-                queryCurrentUmOpenConditionalOrderValidateBeforeCall(
-                        symbol, strategyId, newClientStrategyId, recvWindow);
+                queryCurrentUmOpenAlgoOrderValidateBeforeCall(algoId, clientAlgoId, recvWindow);
         java.lang.reflect.Type localVarReturnType =
-                new TypeToken<QueryCurrentUmOpenConditionalOrderResponse>() {}.getType();
+                new TypeToken<QueryCurrentUmOpenAlgoOrderResponse>() {}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Build call for queryCurrentUmOpenOrder
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @param orderId (optional)
      * @param origClientOrderId (optional)
      * @param recvWindow (optional)
@@ -7691,8 +7453,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-Current-UM-Open-Order">Query
-     *     Current UM Open Order(USER_DATA) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-current-um-open-order">Query
+     *     Current UM Open Order (USER_DATA) Documentation</a>
      */
     private okhttp3.Call queryCurrentUmOpenOrderCall(
             String symbol, Long orderId, String origClientOrderId, Long recvWindow)
@@ -7747,15 +7509,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -7769,7 +7527,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -7812,12 +7570,12 @@ public class TradeApi {
     }
 
     /**
-     * Query Current UM Open Order(USER_DATA) Query current UM open order * Either
-     * &#x60;orderId&#x60; or &#x60;origClientOrderId&#x60; must be sent. * If the queried order has
-     * been filled or cancelled, the error message \&quot;Order does not exist\&quot; will be
-     * returned. Weight: 1
+     * Query Current UM Open Order (USER_DATA) Query current UM open order Weight(IP): 1 Security
+     * Type: USER_DATA Notes: - Either &#x60;orderId&#x60; or &#x60;origClientOrderId&#x60; must be
+     * sent. - If the queried order has been filled or cancelled, the error message \&quot;Order
+     * does not exist\&quot; will be returned.
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @param orderId (optional)
      * @param origClientOrderId (optional)
      * @param recvWindow (optional)
@@ -7832,8 +7590,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-Current-UM-Open-Order">Query
-     *     Current UM Open Order(USER_DATA) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-current-um-open-order">Query
+     *     Current UM Open Order (USER_DATA) Documentation</a>
      */
     public ApiResponse<QueryCurrentUmOpenOrderResponse> queryCurrentUmOpenOrder(
             @NotNull String symbol, Long orderId, String origClientOrderId, Long recvWindow)
@@ -7849,10 +7607,10 @@ public class TradeApi {
     /**
      * Build call for queryMarginAccountOrder
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @param orderId (optional)
      * @param origClientOrderId (optional)
-     * @param recvWindow (optional)
+     * @param recvWindow Value cannot be greater than 60000 (optional)
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
@@ -7863,7 +7621,7 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-Margin-Account-Order">Query
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-margin-account-order">Query
      *     Margin Account Order (USER_DATA) Documentation</a>
      */
     private okhttp3.Call queryMarginAccountOrderCall(
@@ -7919,15 +7677,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -7941,7 +7695,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -7984,12 +7738,15 @@ public class TradeApi {
     }
 
     /**
-     * Query Margin Account Order (USER_DATA) Query Margin Account Order Weight: 10
+     * Query Margin Account Order (USER_DATA) Query Margin Account Order Weight(IP): 10 Security
+     * Type: USER_DATA Notes: - Either &#x60;orderId&#x60; or &#x60;origClientOrderId&#x60; must be
+     * sent. - For some historical orders, &#x60;cummulativeQuoteQty &lt; 0&#x60; means the data is
+     * unavailable at this time.
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @param orderId (optional)
      * @param origClientOrderId (optional)
-     * @param recvWindow (optional)
+     * @param recvWindow Value cannot be greater than 60000 (optional)
      * @return ApiResponse&lt;QueryMarginAccountOrderResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
      *     response body
@@ -8001,7 +7758,7 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-Margin-Account-Order">Query
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-margin-account-order">Query
      *     Margin Account Order (USER_DATA) Documentation</a>
      */
     public ApiResponse<QueryMarginAccountOrderResponse> queryMarginAccountOrder(
@@ -8018,11 +7775,11 @@ public class TradeApi {
     /**
      * Build call for queryMarginAccountsAllOco
      *
-     * @param fromId Trade id to fetch from. Default gets most recent trades. (optional)
+     * @param fromId Trade ID to fetch from. (optional)
      * @param startTime Timestamp in ms to get funding from INCLUSIVE. (optional)
      * @param endTime Timestamp in ms to get funding until INCLUSIVE. (optional)
-     * @param limit Default 100; max 1000 (optional)
-     * @param recvWindow (optional)
+     * @param limit Number of results returned. (optional)
+     * @param recvWindow Value cannot be greater than 60000 (optional)
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
@@ -8033,7 +7790,7 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-Margin-Account-all-OCO">Query
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-margin-accounts-all-oco">Query
      *     Margin Account&#39;s all OCO (USER_DATA) Documentation</a>
      */
     private okhttp3.Call queryMarginAccountsAllOcoCall(
@@ -8092,15 +7849,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -8114,7 +7867,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -8159,13 +7912,13 @@ public class TradeApi {
 
     /**
      * Query Margin Account&#39;s all OCO (USER_DATA) Query all OCO for a specific margin account
-     * based on provided optional parameters Weight: 100
+     * based on provided optional parameters Weight(IP): 100 Security Type: USER_DATA
      *
-     * @param fromId Trade id to fetch from. Default gets most recent trades. (optional)
+     * @param fromId Trade ID to fetch from. (optional)
      * @param startTime Timestamp in ms to get funding from INCLUSIVE. (optional)
      * @param endTime Timestamp in ms to get funding until INCLUSIVE. (optional)
-     * @param limit Default 100; max 1000 (optional)
-     * @param recvWindow (optional)
+     * @param limit Number of results returned. (optional)
+     * @param recvWindow Value cannot be greater than 60000 (optional)
      * @return ApiResponse&lt;QueryMarginAccountsAllOcoResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
      *     response body
@@ -8177,11 +7930,11 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-Margin-Account-all-OCO">Query
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-margin-accounts-all-oco">Query
      *     Margin Account&#39;s all OCO (USER_DATA) Documentation</a>
      */
     public ApiResponse<QueryMarginAccountsAllOcoResponse> queryMarginAccountsAllOco(
-            Long fromId, Long startTime, Long endTime, Long limit, Long recvWindow)
+            Long fromId, Long startTime, Long endTime, @Max(1000L) Long limit, Long recvWindow)
             throws ApiException {
         okhttp3.Call localVarCall =
                 queryMarginAccountsAllOcoValidateBeforeCall(
@@ -8196,8 +7949,9 @@ public class TradeApi {
      *
      * @param orderListId Either &#x60;orderListId&#x60; or &#x60;listClientOrderId&#x60; must be
      *     provided (optional)
-     * @param origClientOrderId (optional)
-     * @param recvWindow (optional)
+     * @param origClientOrderId &#x60;orderListId&#x60; or &#x60;listClientOrderId&#x60; must be
+     *     provided. (optional)
+     * @param recvWindow Value cannot be greater than 60000 (optional)
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
@@ -8208,7 +7962,7 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-Margin-Account-OCO">Query
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-margin-accounts-oco">Query
      *     Margin Account&#39;s OCO (USER_DATA) Documentation</a>
      */
     private okhttp3.Call queryMarginAccountsOcoCall(
@@ -8260,15 +8014,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -8282,7 +8032,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -8321,12 +8071,13 @@ public class TradeApi {
 
     /**
      * Query Margin Account&#39;s OCO (USER_DATA) Retrieves a specific OCO based on provided
-     * optional parameters Weight: 5
+     * optional parameters Weight(IP): 5 Security Type: USER_DATA
      *
      * @param orderListId Either &#x60;orderListId&#x60; or &#x60;listClientOrderId&#x60; must be
      *     provided (optional)
-     * @param origClientOrderId (optional)
-     * @param recvWindow (optional)
+     * @param origClientOrderId &#x60;orderListId&#x60; or &#x60;listClientOrderId&#x60; must be
+     *     provided. (optional)
+     * @param recvWindow Value cannot be greater than 60000 (optional)
      * @return ApiResponse&lt;QueryMarginAccountsOcoResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
      *     response body
@@ -8338,7 +8089,7 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-Margin-Account-OCO">Query
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-margin-accounts-oco">Query
      *     Margin Account&#39;s OCO (USER_DATA) Documentation</a>
      */
     public ApiResponse<QueryMarginAccountsOcoResponse> queryMarginAccountsOco(
@@ -8354,7 +8105,7 @@ public class TradeApi {
     /**
      * Build call for queryMarginAccountsOpenOco
      *
-     * @param recvWindow (optional)
+     * @param recvWindow Value cannot be greater than 60000 (optional)
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
@@ -8365,7 +8116,7 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-Margin-Account-Open-OCO">Query
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-margin-accounts-open-oco">Query
      *     Margin Account&#39;s Open OCO (USER_DATA) Documentation</a>
      */
     private okhttp3.Call queryMarginAccountsOpenOcoCall(Long recvWindow) throws ApiException {
@@ -8406,15 +8157,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -8428,7 +8175,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -8463,9 +8210,10 @@ public class TradeApi {
     }
 
     /**
-     * Query Margin Account&#39;s Open OCO (USER_DATA) Query Margin Account&#39;s Open OCO Weight: 5
+     * Query Margin Account&#39;s Open OCO (USER_DATA) Query Margin Account&#39;s Open OCO
+     * Weight(IP): 5 Security Type: USER_DATA
      *
-     * @param recvWindow (optional)
+     * @param recvWindow Value cannot be greater than 60000 (optional)
      * @return ApiResponse&lt;QueryMarginAccountsOpenOcoResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
      *     response body
@@ -8477,7 +8225,7 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-Margin-Account-Open-OCO">Query
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-margin-accounts-open-oco">Query
      *     Margin Account&#39;s Open OCO (USER_DATA) Documentation</a>
      */
     public ApiResponse<QueryMarginAccountsOpenOcoResponse> queryMarginAccountsOpenOco(
@@ -8489,11 +8237,13 @@ public class TradeApi {
     }
 
     /**
-     * Build call for queryUmConditionalOrderHistory
+     * Build call for queryUmAlgoOrderHistory
      *
      * @param symbol (required)
-     * @param strategyId (optional)
-     * @param newClientStrategyId (optional)
+     * @param algoId Only return orders &gt;&#x3D; this algoId (optional)
+     * @param startTime (optional)
+     * @param endTime (optional)
+     * @param limit Default 500; max 1000 (optional)
      * @param recvWindow (optional)
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -8501,15 +8251,15 @@ public class TradeApi {
      *     <table border="1">
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> UM Conditional Order History </td><td>  -  </td></tr>
+     * <tr><td> 200 </td><td> Query UM Algo Order History </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-UM-Conditional-Order-History">Query
-     *     UM Conditional Order History(USER_DATA) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-um-algo-order-history">Query
+     *     UM Algo Order History (USER_DATA) Documentation</a>
      */
-    private okhttp3.Call queryUmConditionalOrderHistoryCall(
-            String symbol, Long strategyId, String newClientStrategyId, Long recvWindow)
+    private okhttp3.Call queryUmAlgoOrderHistoryCall(
+            String symbol, Long algoId, Long startTime, Long endTime, Long limit, Long recvWindow)
             throws ApiException {
         String basePath = null;
         // Operation Servers
@@ -8527,7 +8277,7 @@ public class TradeApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/papi/v1/um/conditional/orderHistory";
+        String localVarPath = "/papi/v1/um/algo/allAlgoOrders";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -8539,13 +8289,20 @@ public class TradeApi {
             localVarQueryParams.addAll(localVarApiClient.parameterToPair("symbol", symbol));
         }
 
-        if (strategyId != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("strategyId", strategyId));
+        if (algoId != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("algoId", algoId));
         }
 
-        if (newClientStrategyId != null) {
-            localVarQueryParams.addAll(
-                    localVarApiClient.parameterToPair("newClientStrategyId", newClientStrategyId));
+        if (startTime != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("startTime", startTime));
+        }
+
+        if (endTime != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("endTime", endTime));
+        }
+
+        if (limit != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("limit", limit));
         }
 
         if (recvWindow != null) {
@@ -8561,15 +8318,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -8583,12 +8336,12 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call queryUmConditionalOrderHistoryValidateBeforeCall(
-            String symbol, Long strategyId, String newClientStrategyId, Long recvWindow)
+    private okhttp3.Call queryUmAlgoOrderHistoryValidateBeforeCall(
+            String symbol, Long algoId, Long startTime, Long endTime, Long limit, Long recvWindow)
             throws ApiException {
         try {
             Validator validator =
@@ -8599,21 +8352,23 @@ public class TradeApi {
                             .getValidator();
             ExecutableValidator executableValidator = validator.forExecutables();
 
-            Object[] parameterValues = {symbol, strategyId, newClientStrategyId, recvWindow};
+            Object[] parameterValues = {symbol, algoId, startTime, endTime, limit, recvWindow};
             Method method =
                     this.getClass()
                             .getMethod(
-                                    "queryUmConditionalOrderHistory",
+                                    "queryUmAlgoOrderHistory",
                                     String.class,
                                     Long.class,
-                                    String.class,
+                                    Long.class,
+                                    Long.class,
+                                    Long.class,
                                     Long.class);
             Set<ConstraintViolation<TradeApi>> violations =
                     executableValidator.validateParameters(this, method, parameterValues);
 
             if (violations.size() == 0) {
-                return queryUmConditionalOrderHistoryCall(
-                        symbol, strategyId, newClientStrategyId, recvWindow);
+                return queryUmAlgoOrderHistoryCall(
+                        symbol, algoId, startTime, endTime, limit, recvWindow);
             } else {
                 throw new ConstraintViolationException((Set) violations);
             }
@@ -8627,50 +8382,56 @@ public class TradeApi {
     }
 
     /**
-     * Query UM Conditional Order History(USER_DATA) Query UM Conditional Order History * Either
-     * &#x60;strategyId&#x60; or &#x60;newClientStrategyId&#x60; must be sent. * &#x60;NEW&#x60;
-     * orders will not be found. * These orders will not be found: * order status is
-     * &#x60;CANCELED&#x60; or &#x60;EXPIRED&#x60;, **AND** * order has NO filled trade, **AND** *
-     * created time + 7 days &lt; current time Weight: 1
+     * Query UM Algo Order History (USER_DATA) Get all algo orders: ACTIVE, CANCELED, TRIGGERED or
+     * FINISHED. Weight(IP): 5 Security Type: USER_DATA Notes: - If &#x60;algoId&#x60; is set, it
+     * will get orders &gt;&#x3D; that &#x60;algoId&#x60;. Otherwise most recent orders are
+     * returned. - The query time period must be less than 7 days (default as the recent 7 days).
      *
      * @param symbol (required)
-     * @param strategyId (optional)
-     * @param newClientStrategyId (optional)
+     * @param algoId Only return orders &gt;&#x3D; this algoId (optional)
+     * @param startTime (optional)
+     * @param endTime (optional)
+     * @param limit Default 500; max 1000 (optional)
      * @param recvWindow (optional)
-     * @return ApiResponse&lt;QueryUmConditionalOrderHistoryResponse&gt;
+     * @return ApiResponse&lt;QueryUmAlgoOrderHistoryResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
      *     response body
      * @http.response.details
      *     <table border="1">
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-     * <tr><td> 200 </td><td> UM Conditional Order History </td><td>  -  </td></tr>
+     * <tr><td> 200 </td><td> Query UM Algo Order History </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-UM-Conditional-Order-History">Query
-     *     UM Conditional Order History(USER_DATA) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-um-algo-order-history">Query
+     *     UM Algo Order History (USER_DATA) Documentation</a>
      */
-    public ApiResponse<QueryUmConditionalOrderHistoryResponse> queryUmConditionalOrderHistory(
-            @NotNull String symbol, Long strategyId, String newClientStrategyId, Long recvWindow)
+    public ApiResponse<QueryUmAlgoOrderHistoryResponse> queryUmAlgoOrderHistory(
+            @NotNull String symbol,
+            Long algoId,
+            Long startTime,
+            Long endTime,
+            @Max(1000L) Long limit,
+            @Max(60000L) Long recvWindow)
             throws ApiException {
         okhttp3.Call localVarCall =
-                queryUmConditionalOrderHistoryValidateBeforeCall(
-                        symbol, strategyId, newClientStrategyId, recvWindow);
+                queryUmAlgoOrderHistoryValidateBeforeCall(
+                        symbol, algoId, startTime, endTime, limit, recvWindow);
         java.lang.reflect.Type localVarReturnType =
-                new TypeToken<QueryUmConditionalOrderHistoryResponse>() {}.getType();
+                new TypeToken<QueryUmAlgoOrderHistoryResponse>() {}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Build call for queryUmModifyOrderHistory
      *
-     * @param symbol (required)
-     * @param orderId (optional)
-     * @param origClientOrderId (optional)
+     * @param symbol Symbol (required)
+     * @param orderId Order ID (optional)
+     * @param origClientOrderId Client order ID (optional)
      * @param startTime Timestamp in ms to get funding from INCLUSIVE. (optional)
      * @param endTime Timestamp in ms to get funding until INCLUSIVE. (optional)
-     * @param limit Default 100; max 1000 (optional)
+     * @param limit Number of results returned. (optional)
      * @param recvWindow (optional)
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -8682,8 +8443,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-UM-Modify-Order-History">Query
-     *     UM Modify Order History(TRADE) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-um-modify-order-history">Query
+     *     UM Modify Order History (TRADE) Documentation</a>
      */
     private okhttp3.Call queryUmModifyOrderHistoryCall(
             String symbol,
@@ -8756,15 +8517,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -8778,7 +8535,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -8833,16 +8590,16 @@ public class TradeApi {
     }
 
     /**
-     * Query UM Modify Order History(TRADE) Get order modification history * Either
-     * &#x60;orderId&#x60; or &#x60;origClientOrderId&#x60; must be sent, and the
-     * &#x60;orderId&#x60; will prevail if both are sent. Weight: 1
+     * Query UM Modify Order History (TRADE) Get order modification history Weight(IP): 1 Security
+     * Type: TRADE Notes: - Either &#x60;orderId&#x60; or &#x60;origClientOrderId&#x60; must be
+     * sent, and the &#x60;orderId&#x60; will prevail if both are sent.
      *
-     * @param symbol (required)
-     * @param orderId (optional)
-     * @param origClientOrderId (optional)
+     * @param symbol Symbol (required)
+     * @param orderId Order ID (optional)
+     * @param origClientOrderId Client order ID (optional)
      * @param startTime Timestamp in ms to get funding from INCLUSIVE. (optional)
      * @param endTime Timestamp in ms to get funding until INCLUSIVE. (optional)
-     * @param limit Default 100; max 1000 (optional)
+     * @param limit Number of results returned. (optional)
      * @param recvWindow (optional)
      * @return ApiResponse&lt;QueryUmModifyOrderHistoryResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
@@ -8855,8 +8612,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-UM-Modify-Order-History">Query
-     *     UM Modify Order History(TRADE) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-um-modify-order-history">Query
+     *     UM Modify Order History (TRADE) Documentation</a>
      */
     public ApiResponse<QueryUmModifyOrderHistoryResponse> queryUmModifyOrderHistory(
             @NotNull String symbol,
@@ -8864,7 +8621,7 @@ public class TradeApi {
             String origClientOrderId,
             Long startTime,
             Long endTime,
-            Long limit,
+            @Max(1000L) Long limit,
             Long recvWindow)
             throws ApiException {
         okhttp3.Call localVarCall =
@@ -8878,7 +8635,7 @@ public class TradeApi {
     /**
      * Build call for queryUmOrder
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @param orderId (optional)
      * @param origClientOrderId (optional)
      * @param recvWindow (optional)
@@ -8892,7 +8649,7 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-UM-Order">Query
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-um-order">Query
      *     UM Order (USER_DATA) Documentation</a>
      */
     private okhttp3.Call queryUmOrderCall(
@@ -8948,15 +8705,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -8970,7 +8723,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -9013,12 +8766,13 @@ public class TradeApi {
     }
 
     /**
-     * Query UM Order (USER_DATA) Check an UM order&#39;s status. * These orders will not be found:
-     * * Either &#x60;orderId&#x60; or &#x60;origClientOrderId&#x60; must be sent. * order status is
-     * &#x60;CANCELED&#x60; or &#x60;EXPIRED&#x60;, **AND** * order has NO filled trade, **AND** *
-     * created time + 3 days &lt; current time Weight: 1
+     * Query UM Order (USER_DATA) Check an UM order&#39;s status. Weight(IP): 1 Security Type:
+     * USER_DATA Notes: - These orders will not be found: - Either &#x60;orderId&#x60; or
+     * &#x60;origClientOrderId&#x60; must be sent. - order status is &#x60;CANCELED&#x60; or
+     * &#x60;EXPIRED&#x60;, **AND** - order has NO filled trade, **AND** - created time + 3 days
+     * &lt; current time
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @param orderId (optional)
      * @param origClientOrderId (optional)
      * @param recvWindow (optional)
@@ -9033,7 +8787,7 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-UM-Order">Query
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-um-order">Query
      *     UM Order (USER_DATA) Documentation</a>
      */
     public ApiResponse<QueryUmOrderResponse> queryUmOrder(
@@ -9054,8 +8808,8 @@ public class TradeApi {
      *     orders. (optional)
      * @param startTime Timestamp in ms to get funding from INCLUSIVE. (optional)
      * @param endTime Timestamp in ms to get funding until INCLUSIVE. (optional)
-     * @param limit Default 100; max 1000 (optional)
-     * @param recvWindow (optional)
+     * @param limit Number of results returned. (optional)
+     * @param recvWindow The value cannot be greater than 60000 (optional)
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
@@ -9066,8 +8820,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-Users-CM-Force-Orders">Query
-     *     User&#39;s CM Force Orders(USER_DATA) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-users-cm-force-orders">Query
+     *     User&#39;s CM Force Orders (USER_DATA) Documentation</a>
      */
     private okhttp3.Call queryUsersCmForceOrdersCall(
             String symbol,
@@ -9135,15 +8889,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -9157,7 +8907,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -9210,18 +8960,19 @@ public class TradeApi {
     }
 
     /**
-     * Query User&#39;s CM Force Orders(USER_DATA) Query User&#39;s CM Force Orders * If
-     * \&quot;autoCloseType\&quot; is not sent, orders with both of the types will be returned * If
+     * Query User&#39;s CM Force Orders (USER_DATA) Query User&#39;s CM Force Orders Weight: - 20
+     * with &#x60;symbol&#x60; - 50 without &#x60;symbol&#x60; Security Type: USER_DATA Notes: - If
+     * \&quot;autoCloseType\&quot; is not sent, orders with both of the types will be returned - If
      * \&quot;startTime\&quot; is not sent, data within 7 days before \&quot;endTime\&quot; can be
-     * queried Weight: 20 with symbol, 50 without symbol
+     * queried
      *
      * @param symbol (optional)
      * @param autoCloseType &#x60;LIQUIDATION&#x60; for liquidation orders, &#x60;ADL&#x60; for ADL
      *     orders. (optional)
      * @param startTime Timestamp in ms to get funding from INCLUSIVE. (optional)
      * @param endTime Timestamp in ms to get funding until INCLUSIVE. (optional)
-     * @param limit Default 100; max 1000 (optional)
-     * @param recvWindow (optional)
+     * @param limit Number of results returned. (optional)
+     * @param recvWindow The value cannot be greater than 60000 (optional)
      * @return ApiResponse&lt;QueryUsersCmForceOrdersResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
      *     response body
@@ -9233,15 +8984,15 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-Users-CM-Force-Orders">Query
-     *     User&#39;s CM Force Orders(USER_DATA) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-users-cm-force-orders">Query
+     *     User&#39;s CM Force Orders (USER_DATA) Documentation</a>
      */
     public ApiResponse<QueryUsersCmForceOrdersResponse> queryUsersCmForceOrders(
             String symbol,
             AutoCloseType autoCloseType,
             Long startTime,
             Long endTime,
-            Long limit,
+            @Max(100L) Long limit,
             Long recvWindow)
             throws ApiException {
         okhttp3.Call localVarCall =
@@ -9257,9 +9008,9 @@ public class TradeApi {
      *
      * @param startTime Timestamp in ms to get funding from INCLUSIVE. (optional)
      * @param endTime Timestamp in ms to get funding until INCLUSIVE. (optional)
-     * @param current Currently querying page. Start from 1. Default:1 (optional)
-     * @param size Default:10 Max:100 (optional)
-     * @param recvWindow (optional)
+     * @param current Current page number. (optional)
+     * @param size Number of results returned. (optional)
+     * @param recvWindow The value cannot be greater than 60000 (optional)
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
@@ -9270,8 +9021,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-Users-Margin-Force-Orders">Query
-     *     User&#39;s Margin Force Orders(USER_DATA) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-users-margin-force-orders">Query
+     *     User&#39;s Margin Force Orders (USER_DATA) Documentation</a>
      */
     private okhttp3.Call queryUsersMarginForceOrdersCall(
             Long startTime, Long endTime, Long current, Long size, Long recvWindow)
@@ -9329,15 +9080,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -9351,7 +9098,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -9396,14 +9143,19 @@ public class TradeApi {
     }
 
     /**
-     * Query User&#39;s Margin Force Orders(USER_DATA) Query user&#39;s margin force orders Weight:
-     * 1
+     * Query User&#39;s Margin Force Orders (USER_DATA) Query user&#39;s margin force orders &gt;
+     * **Note:** Portfolio Margin accounts liquidated through the [Risk-Based Liquidation
+     * Adjustment](https://www.binance.com/en/support/faq/detail/662268636eb44b71af55c6c6a597d481)
+     * flow will not have any order or trade records returned by this endpoint. Query the capital
+     * flow endpoint instead: [Query Cross Isolated Margin Capital
+     * Flow](https://developers.binance.com/en/docs/catalog/core-trading-margin-trading/api/rest-api/account#query-cross-isolated-margin-capital-flow).
+     * Weight(IP): 1 Security Type: USER_DATA
      *
      * @param startTime Timestamp in ms to get funding from INCLUSIVE. (optional)
      * @param endTime Timestamp in ms to get funding until INCLUSIVE. (optional)
-     * @param current Currently querying page. Start from 1. Default:1 (optional)
-     * @param size Default:10 Max:100 (optional)
-     * @param recvWindow (optional)
+     * @param current Current page number. (optional)
+     * @param size Number of results returned. (optional)
+     * @param recvWindow The value cannot be greater than 60000 (optional)
      * @return ApiResponse&lt;QueryUsersMarginForceOrdersResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
      *     response body
@@ -9415,11 +9167,11 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-Users-Margin-Force-Orders">Query
-     *     User&#39;s Margin Force Orders(USER_DATA) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-users-margin-force-orders">Query
+     *     User&#39;s Margin Force Orders (USER_DATA) Documentation</a>
      */
     public ApiResponse<QueryUsersMarginForceOrdersResponse> queryUsersMarginForceOrders(
-            Long startTime, Long endTime, Long current, Long size, Long recvWindow)
+            Long startTime, Long endTime, Long current, @Max(100L) Long size, Long recvWindow)
             throws ApiException {
         okhttp3.Call localVarCall =
                 queryUsersMarginForceOrdersValidateBeforeCall(
@@ -9437,8 +9189,8 @@ public class TradeApi {
      *     orders. (optional)
      * @param startTime Timestamp in ms to get funding from INCLUSIVE. (optional)
      * @param endTime Timestamp in ms to get funding until INCLUSIVE. (optional)
-     * @param limit Default 100; max 1000 (optional)
-     * @param recvWindow (optional)
+     * @param limit Number of results returned. (optional)
+     * @param recvWindow The value cannot be greater than 60000 (optional)
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
@@ -9449,7 +9201,7 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-Users-UM-Force-Orders">Query
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-users-um-force-orders">Query
      *     User&#39;s UM Force Orders (USER_DATA) Documentation</a>
      */
     private okhttp3.Call queryUsersUmForceOrdersCall(
@@ -9518,15 +9270,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -9540,7 +9288,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -9593,18 +9341,19 @@ public class TradeApi {
     }
 
     /**
-     * Query User&#39;s UM Force Orders (USER_DATA) Query User&#39;s UM Force Orders * If
-     * &#x60;autoCloseType&#x60; is not sent, orders with both of the types will be returned * If
+     * Query User&#39;s UM Force Orders (USER_DATA) Query User&#39;s UM Force Orders Weight: - 20
+     * with &#x60;symbol&#x60; - 50 without &#x60;symbol&#x60; Security Type: USER_DATA Notes: - If
+     * &#x60;autoCloseType&#x60; is not sent, orders with both of the types will be returned - If
      * &#x60;startTime&#x60; is not sent, data within 7 days before &#x60;endTime&#x60; can be
-     * queried Weight: 20 with symbol, 50 without symbol
+     * queried
      *
      * @param symbol (optional)
      * @param autoCloseType &#x60;LIQUIDATION&#x60; for liquidation orders, &#x60;ADL&#x60; for ADL
      *     orders. (optional)
      * @param startTime Timestamp in ms to get funding from INCLUSIVE. (optional)
      * @param endTime Timestamp in ms to get funding until INCLUSIVE. (optional)
-     * @param limit Default 100; max 1000 (optional)
-     * @param recvWindow (optional)
+     * @param limit Number of results returned. (optional)
+     * @param recvWindow The value cannot be greater than 60000 (optional)
      * @return ApiResponse&lt;QueryUsersUmForceOrdersResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
      *     response body
@@ -9616,7 +9365,7 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-Users-UM-Force-Orders">Query
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#query-users-um-force-orders">Query
      *     User&#39;s UM Force Orders (USER_DATA) Documentation</a>
      */
     public ApiResponse<QueryUsersUmForceOrdersResponse> queryUsersUmForceOrders(
@@ -9624,7 +9373,7 @@ public class TradeApi {
             AutoCloseType autoCloseType,
             Long startTime,
             Long endTime,
-            Long limit,
+            @Max(100L) Long limit,
             Long recvWindow)
             throws ApiException {
         okhttp3.Call localVarCall =
@@ -9649,7 +9398,7 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Toggle-BNB-Burn-On-UM-Futures-Trade">Toggle
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#toggle-bnb-burn-on-um-futures-trade">Toggle
      *     BNB Burn On UM Futures Trade (TRADE) Documentation</a>
      */
     private okhttp3.Call toggleBnbBurnOnUmFuturesTradeCall(
@@ -9697,15 +9446,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -9719,7 +9464,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -9760,8 +9505,9 @@ public class TradeApi {
 
     /**
      * Toggle BNB Burn On UM Futures Trade (TRADE) Change user&#39;s BNB Fee Discount for UM Futures
-     * (Fee Discount On or Fee Discount Off ) on ***EVERY symbol*** * The BNB would not be collected
-     * from UM-PM account to the Portfolio Margin account. Weight: 1
+     * (Fee Discount On or Fee Discount Off ) on ***EVERY symbol*** Weight(IP): 1 Security Type:
+     * TRADE Notes: - The BNB would not be collected from UM-PM account to the Portfolio Margin
+     * account.
      *
      * @param toggleBnbBurnOnUmFuturesTradeRequest (required)
      * @return ApiResponse&lt;ToggleBnbBurnOnUmFuturesTradeResponse&gt;
@@ -9775,7 +9521,7 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Toggle-BNB-Burn-On-UM-Futures-Trade">Toggle
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#toggle-bnb-burn-on-um-futures-trade">Toggle
      *     BNB Burn On UM Futures Trade (TRADE) Documentation</a>
      */
     public ApiResponse<ToggleBnbBurnOnUmFuturesTradeResponse> toggleBnbBurnOnUmFuturesTrade(
@@ -9793,11 +9539,11 @@ public class TradeApi {
     /**
      * Build call for umAccountTradeList
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @param startTime Timestamp in ms to get funding from INCLUSIVE. (optional)
      * @param endTime Timestamp in ms to get funding until INCLUSIVE. (optional)
-     * @param fromId Trade id to fetch from. Default gets most recent trades. (optional)
-     * @param limit Default 100; max 1000 (optional)
+     * @param fromId Trade ID to fetch from. (optional)
+     * @param limit Number of results returned. (optional)
      * @param recvWindow (optional)
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -9809,8 +9555,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/UM-Account-Trade-List">UM
-     *     Account Trade List(USER_DATA) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#um-account-trade-list">UM
+     *     Account Trade List (USER_DATA) Documentation</a>
      */
     private okhttp3.Call umAccountTradeListCall(
             String symbol, Long startTime, Long endTime, Long fromId, Long limit, Long recvWindow)
@@ -9872,15 +9618,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -9894,7 +9636,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -9940,17 +9682,18 @@ public class TradeApi {
     }
 
     /**
-     * UM Account Trade List(USER_DATA) Get trades for a specific account and UM symbol. * If
-     * &#x60;startTime&#x60; and &#x60;endTime&#x60; are both not sent, then the last &#39;24
-     * hours&#39; data will be returned. * The time between &#x60;startTime&#x60; and
-     * &#x60;endTime&#x60; cannot be longer than 24 hours. * The parameter &#x60;fromId&#x60; cannot
-     * be sent with &#x60;startTime&#x60; or &#x60;endTime&#x60;. Weight: 5
+     * UM Account Trade List (USER_DATA) Get trades for a specific account and UM symbol.
+     * Weight(IP): 5 Security Type: USER_DATA Notes: - If &#x60;startTime&#x60; and
+     * &#x60;endTime&#x60; are both not sent, then the last &#39;7 days&#39; data will be returned.
+     * - The time between &#x60;startTime&#x60; and &#x60;endTime&#x60; cannot be longer than 7
+     * days. - The parameter &#x60;fromId&#x60; cannot be sent with &#x60;startTime&#x60; or
+     * &#x60;endTime&#x60;.
      *
-     * @param symbol (required)
+     * @param symbol Symbol (required)
      * @param startTime Timestamp in ms to get funding from INCLUSIVE. (optional)
      * @param endTime Timestamp in ms to get funding until INCLUSIVE. (optional)
-     * @param fromId Trade id to fetch from. Default gets most recent trades. (optional)
-     * @param limit Default 100; max 1000 (optional)
+     * @param fromId Trade ID to fetch from. (optional)
+     * @param limit Number of results returned. (optional)
      * @param recvWindow (optional)
      * @return ApiResponse&lt;UmAccountTradeListResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
@@ -9963,15 +9706,15 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/UM-Account-Trade-List">UM
-     *     Account Trade List(USER_DATA) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#um-account-trade-list">UM
+     *     Account Trade List (USER_DATA) Documentation</a>
      */
     public ApiResponse<UmAccountTradeListResponse> umAccountTradeList(
             @NotNull String symbol,
             Long startTime,
             Long endTime,
             Long fromId,
-            Long limit,
+            @Max(1000L) Long limit,
             Long recvWindow)
             throws ApiException {
         okhttp3.Call localVarCall =
@@ -9997,8 +9740,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/UM-Position-ADL-Quantile-Estimation">UM
-     *     Position ADL Quantile Estimation(USER_DATA) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#um-position-adl-quantile-estimation">UM
+     *     Position ADL Quantile Estimation (USER_DATA) Documentation</a>
      */
     private okhttp3.Call umPositionAdlQuantileEstimationCall(String symbol, Long recvWindow)
             throws ApiException {
@@ -10043,15 +9786,11 @@ public class TradeApi {
         final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
-        List<String> localVarAuthNames = new ArrayList<>();
-        localVarAuthNames.addAll(
-                Arrays.asList(
-                        new String[] {
-                            "binanceSignature",
-                        }));
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceSignature");
         if (HAS_TIME_UNIT) {
             localVarAuthNames.add("timeUnit");
         }
@@ -10065,7 +9804,7 @@ public class TradeApi {
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
-                localVarAuthNames.toArray(new String[0]));
+                localVarAuthNames);
     }
 
     @SuppressWarnings("rawtypes")
@@ -10102,7 +9841,7 @@ public class TradeApi {
     }
 
     /**
-     * UM Position ADL Quantile Estimation(USER_DATA) Query UM Position ADL Quantile Estimation *
+     * UM Position ADL Quantile Estimation (USER_DATA) Query UM Position ADL Quantile Estimation *
      * Values update every 30s. * Values 0, 1, 2, 3, 4 shows the queue position and possibility of
      * ADL from low to high. * For positions of the symbol are in One-way Mode or isolated margined
      * in Hedge Mode, \&quot;LONG\&quot;, \&quot;SHORT\&quot;, and \&quot;BOTH\&quot; will be
@@ -10110,7 +9849,8 @@ public class TradeApi {
      * positions of the symbol are crossed margined in Hedge Mode: * \&quot;HEDGE\&quot; as a sign
      * will be returned instead of \&quot;BOTH\&quot;; * A same value caculated on unrealized pnls
      * on long and short sides&#39; positions will be shown for \&quot;LONG\&quot; and
-     * \&quot;SHORT\&quot; when there are positions in both of long and short sides. Weight: 5
+     * \&quot;SHORT\&quot; when there are positions in both of long and short sides. Weight(IP): 5
+     * Security Type: USER_DATA
      *
      * @param symbol (optional)
      * @param recvWindow (optional)
@@ -10125,8 +9865,8 @@ public class TradeApi {
      * </table>
      *
      * @see <a
-     *     href="https://developers.binance.com/docs/derivatives/portfolio-margin/trade/UM-Position-ADL-Quantile-Estimation">UM
-     *     Position ADL Quantile Estimation(USER_DATA) Documentation</a>
+     *     href="https://developers.binance.com/en/docs/catalog/advanced-trading-derivatives-trading-portfolio-margin/api/rest-api/trade#um-position-adl-quantile-estimation">UM
+     *     Position ADL Quantile Estimation (USER_DATA) Documentation</a>
      */
     public ApiResponse<UmPositionAdlQuantileEstimationResponse> umPositionAdlQuantileEstimation(
             String symbol, Long recvWindow) throws ApiException {

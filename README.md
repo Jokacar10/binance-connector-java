@@ -17,7 +17,7 @@ Before using the connectors, ensure you have:
 
 ## Available Connectors
 - [binance-algo](clients/algo) - Algo Trading connector
-- **Deprecated**: ~~[binance-auto-invest](clients/auto-invest) - Auto Invest connector~~
+- [binance-alpha](clients/alpha) - Alpha connector
 - [binance-c2c](clients/c2c) - C2C connector
 - [binance-convert](clients/convert) - Convert connector
 - [binance-copy-trading](clients/copy-trading) - Copy Trading connector
@@ -38,8 +38,10 @@ Before using the connectors, ensure you have:
 - [binance-simple-earn](clients/simple-earn) - Simple Earn connector
 - [binance-spot](clients/spot) - Spot Trading connector
 - [binance-staking](clients/staking) - Staking connector
+- [binance-stocks](clients/stocks) - Stocks connector
 - [binance-sub-account](clients/sub-account) - Sub Account connector
 - [binance-vip-loan](clients/vip-loan) - VIP Loan connector
+- [binance-w3w-prediction](clients/w3w-prediction) - W3W Prediction
 - [binance-wallet](clients/wallet) - Wallet connector
 
 ## Documentation
@@ -54,7 +56,7 @@ Each connector is published as a separate maven dependency. For example:
 <dependency>
   <groupId>io.github.binance</groupId>
   <artifactId>binance-spot</artifactId>
-  <version>2.0.0</version>
+  <version>11.0.1</version>
 </dependency>
 ```
 
@@ -209,6 +211,8 @@ When creating WebSocket API clients (such as SpotWebSocketApi), you can follow:
 ## Examples
 **Algo**: [Rest API](clients/algo/example_rest.md)
 
+**Alpha**: [Rest API](clients/alpha/example_rest.md)
+
 **C2c**: [Rest API](clients/c2c/example_rest.md)
 
 **Convert**: [Rest API](clients/convert/example_rest.md)
@@ -249,9 +253,13 @@ When creating WebSocket API clients (such as SpotWebSocketApi), you can follow:
 
 **Staking**: [Rest API](clients/staking/example_rest.md)
 
+**Stocks**: [Rest API](clients/stocks/example_rest.md) - [WebSocket Streams](clients/stocks/example_websocket_stream.md)
+
 **Sub Account**: [Rest API](clients/sub-account/example_rest.md)
 
 **Vip Loan**: [Rest API](clients/vip-loan/example_rest.md)
+
+**W3W Prediction**: [Rest API](clients/w3w-prediction/example_rest.md)
 
 **Wallet**: [Rest API](clients/wallet/example_rest.md)
 
