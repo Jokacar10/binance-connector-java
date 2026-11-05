@@ -1,0 +1,13 @@
+/home/runner/work/binance-connector-java/binance-connector-java/clients/spot/src/test/java/com/binance/connector/client/spot/rest/api/AccountApiTest.java
+/home/runner/work/binance-connector-java/binance-connector-java/clients/spot/src/test/java/com/binance/connector/client/spot/rest/api/Ed25519ApiTest.java
+/home/runner/work/binance-connector-java/binance-connector-java/clients/spot/src/test/java/com/binance/connector/client/spot/rest/api/GeneralApiTest.java
+/home/runner/work/binance-connector-java/binance-connector-java/clients/spot/src/test/java/com/binance/connector/client/spot/rest/api/MarketApiTest.java
+/home/runner/work/binance-connector-java/binance-connector-java/clients/spot/src/test/java/com/binance/connector/client/spot/rest/api/RSAApiTest.java
+/home/runner/work/binance-connector-java/binance-connector-java/clients/spot/src/test/java/com/binance/connector/client/spot/rest/api/TradeApiTest.java
+/home/runner/work/binance-connector-java/binance-connector-java/clients/spot/src/test/java/com/binance/connector/client/spot/websocket/api/api/AccountApiTest.java
+/home/runner/work/binance-connector-java/binance-connector-java/clients/spot/src/test/java/com/binance/connector/client/spot/websocket/api/api/AuthApiTest.java
+/home/runner/work/binance-connector-java/binance-connector-java/clients/spot/src/test/java/com/binance/connector/client/spot/websocket/api/api/GeneralApiTest.java
+/home/runner/work/binance-connector-java/binance-connector-java/clients/spot/src/test/java/com/binance/connector/client/spot/websocket/api/api/MarketApiTest.java
+/home/runner/work/binance-connector-java/binance-connector-java/clients/spot/src/test/java/com/binance/connector/client/spot/websocket/api/api/TradeApiTest.java
+/home/runner/work/binance-connector-java/binance-connector-java/clients/spot/src/test/java/com/binance/connector/client/spot/websocket/api/api/UserDataStreamApiTest.java
+/home/runner/work/binance-connector-java/binance-connector-java/clients/spot/src/test/java/com/binance/connector/client/spot/websocket/stream/api/WebSocketStreamsApiTest.java

@@ -1,0 +1,13 @@
+com/binance/connector/client/spot/websocket/stream/api/WebSocketStreamsApiTest.class
+com/binance/connector/client/spot/rest/api/Ed25519ApiTest.class
+com/binance/connector/client/spot/websocket/api/api/UserDataStreamApiTest.class
+com/binance/connector/client/spot/rest/api/GeneralApiTest.class
+com/binance/connector/client/spot/rest/api/TradeApiTest.class
+com/binance/connector/client/spot/websocket/api/api/AccountApiTest.class
+com/binance/connector/client/spot/websocket/api/api/MarketApiTest.class
+com/binance/connector/client/spot/websocket/api/api/GeneralApiTest.class
+com/binance/connector/client/spot/rest/api/RSAApiTest.class
+com/binance/connector/client/spot/websocket/api/api/AuthApiTest.class
+com/binance/connector/client/spot/rest/api/MarketApiTest.class
+com/binance/connector/client/spot/websocket/api/api/TradeApiTest.class
+com/binance/connector/client/spot/rest/api/AccountApiTest.class
