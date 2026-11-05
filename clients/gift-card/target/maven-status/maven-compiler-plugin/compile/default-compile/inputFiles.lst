@@ -1,0 +1,17 @@
+/home/runner/work/binance-connector-java/binance-connector-java/clients/gift-card/src/main/java/com/binance/connector/client/gift_card/rest/GiftCardRestApiUtil.java
+/home/runner/work/binance-connector-java/binance-connector-java/clients/gift-card/src/main/java/com/binance/connector/client/gift_card/rest/JSON.java
+/home/runner/work/binance-connector-java/binance-connector-java/clients/gift-card/src/main/java/com/binance/connector/client/gift_card/rest/api/GiftCardRestApi.java
+/home/runner/work/binance-connector-java/binance-connector-java/clients/gift-card/src/main/java/com/binance/connector/client/gift_card/rest/api/MarketDataApi.java
+/home/runner/work/binance-connector-java/binance-connector-java/clients/gift-card/src/main/java/com/binance/connector/client/gift_card/rest/model/CreateADualTokenGiftCardRequest.java
+/home/runner/work/binance-connector-java/binance-connector-java/clients/gift-card/src/main/java/com/binance/connector/client/gift_card/rest/model/CreateADualTokenGiftCardResponse.java
+/home/runner/work/binance-connector-java/binance-connector-java/clients/gift-card/src/main/java/com/binance/connector/client/gift_card/rest/model/CreateADualTokenGiftCardResponseData.java
+/home/runner/work/binance-connector-java/binance-connector-java/clients/gift-card/src/main/java/com/binance/connector/client/gift_card/rest/model/CreateASingleTokenGiftCardRequest.java
+/home/runner/work/binance-connector-java/binance-connector-java/clients/gift-card/src/main/java/com/binance/connector/client/gift_card/rest/model/CreateASingleTokenGiftCardResponse.java
+/home/runner/work/binance-connector-java/binance-connector-java/clients/gift-card/src/main/java/com/binance/connector/client/gift_card/rest/model/FetchRsaPublicKeyResponse.java
+/home/runner/work/binance-connector-java/binance-connector-java/clients/gift-card/src/main/java/com/binance/connector/client/gift_card/rest/model/FetchTokenLimitResponse.java
+/home/runner/work/binance-connector-java/binance-connector-java/clients/gift-card/src/main/java/com/binance/connector/client/gift_card/rest/model/FetchTokenLimitResponseDataInner.java
+/home/runner/work/binance-connector-java/binance-connector-java/clients/gift-card/src/main/java/com/binance/connector/client/gift_card/rest/model/RedeemABinanceGiftCardRequest.java
+/home/runner/work/binance-connector-java/binance-connector-java/clients/gift-card/src/main/java/com/binance/connector/client/gift_card/rest/model/RedeemABinanceGiftCardResponse.java
+/home/runner/work/binance-connector-java/binance-connector-java/clients/gift-card/src/main/java/com/binance/connector/client/gift_card/rest/model/RedeemABinanceGiftCardResponseData.java
+/home/runner/work/binance-connector-java/binance-connector-java/clients/gift-card/src/main/java/com/binance/connector/client/gift_card/rest/model/VerifyBinanceGiftCardByGiftCardNumberResponse.java
+/home/runner/work/binance-connector-java/binance-connector-java/clients/gift-card/src/main/java/com/binance/connector/client/gift_card/rest/model/VerifyBinanceGiftCardByGiftCardNumberResponseData.java
